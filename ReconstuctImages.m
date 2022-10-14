@@ -1,4 +1,4 @@
-function [final] = reconFunc(real,Sn_pixels,OVS,inputs,rval)
+function [final] = ReconstructImages(real,Sn_pixels,OVS,inputs,rval)
 
 % real = clean{i};
 real = single(real(1:Sn_pixels,1:Sn_pixels));
