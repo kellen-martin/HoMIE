@@ -55,7 +55,7 @@ ROI_x_pix = round(inputs.n_pixels/2 + ROI_x/inputs.pixel_p);
 ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 
 % Generate simulated (oversampled) hologram:
-rval = templateMaker(inputs); %return value
+rval = CalculateTemplate(inputs); %return value
 
 tic
 
