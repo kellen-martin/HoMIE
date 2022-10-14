@@ -16,8 +16,8 @@ close all
 %% Image Reconstruction 
 % Generate Data:
 folder = 'Images';
-[avgImg,map,images] = generateAverageImage(folder);
-clean = cleanFrames(images,avgImg);
+[avgImg,map,images] = AverageImage(folder);
+clean = CleanImages(images,avgImg);
 
 % Load Data:
 % images = importdata('images.mat');
@@ -57,23 +57,14 @@ ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 % Generate simulated (oversampled) hologram:
 rval = templateMaker(inputs); %return value
 
-
 tic
 
 for i = 1:5
-    [final{i}] = reconFunc(clean{i},Sn_pixels,OVS,inputs,rval);
+    [final{i}] = ReconstructImages(clean{i},Sn_pixels,OVS,inputs,rval);
     clean{i} = 0;
 end
-% final = importdata('final.mat');
-
-% parfor i = 1:2
-%     [final{i}] = PARreconFunc(clean{i},rval);
-% end
 
 toc
-
-% images = importdata('images.mat');
-% avgImg = importdata('avgImg.mat');
 
 GenerateGraph(1,1,5,images,avgImg,clean,final,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 

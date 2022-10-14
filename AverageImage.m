@@ -1,4 +1,4 @@
-function [avgImg,map,images] = generateAverageImage(folder)
+function [avgImg,map,images] = AverageImage(folder)
 
 path_directory=folder; % 'Folder name'
 original_files=dir([path_directory '/*.png']); 
