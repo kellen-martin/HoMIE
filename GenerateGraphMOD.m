@@ -30,9 +30,8 @@ imagesc(ROI_x*1000, ROI_y*1000, sqrt(abs(images{moment})));
 cm=colormap('gray');colormap(cm(end:-1:1,:));
 axis square;
 title('Original Frame');
-plot([xmin xmax xmax xmin xmin],[ymin ymin ymax ymax ymin],'-o','LineWidth',10)
-plot(ROI_x(1),ROI_y(1),'r*')
-plot(ROI_x(2),ROI_y(2),'r*')
+plot(xmin,ymin,'r*')
+plot(ymax,ymax,'g*')
 hold off
 
 subplot(1,3,2)
@@ -43,9 +42,9 @@ axis([xmin*bs xmax*bs ymin*bs ymax*bs])
 imagesc(ROI_x*1000, ROI_y*1000, sqrt(abs(images{moment})));
 cm=colormap('gray');colormap(cm(end:-1:1,:));
 title('Zoomed Original Frame');
-plot([xmin xmax xmax xmin xmin],[ymin ymin ymax ymax ymin],'-o','LineWidth',4)
-plot(ROI_x(1),ROI_y(1),'r*')
-plot(ROI_x(2),ROI_y(2),'r*')
+plot([xmin xmax xmax xmin xmin],[ymin ymin ymax ymax ymin],'-b','LineWidth',2)
+plot(xmin,ymin,'r*')
+plot(ymax,ymax,'g*')
 hold off
 
 
