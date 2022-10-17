@@ -1,9 +1,9 @@
 function GenerateGraphMOD(moment,start,last,z,images,avgImg,clean,reconstructed,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 % Generates 3 figures, 
 % Figure 1: has 3 subfigures that show at a given moment...
-%         (1) the raw image from sensor
-%         (2) the average image of whole image set
-%         (3) the cleaned image
+%         (1) raw image from sensor
+%         (2) zoomed raw image from sensor
+%         (3) average image of whole image set
 % Figure 2: can be ignored
 % Figure 3: is an animation from specified start frame to last frame
 
@@ -17,24 +17,39 @@ function GenerateGraphMOD(moment,start,last,z,images,avgImg,clean,reconstructed,
 % reconstructed = array of reconstructed frames
 % roi = region of interest
 
+xmin = ROI_x(1);
+ymin = ROI_y(1);
+xmax = ROI_x(2);
+ymax = ROI_y(2);
+
 figure(1)
-subplot(1,2,1)
+
+subplot(1,3,1)
 hold on
 imagesc(ROI_x*1000, ROI_y*1000, sqrt(abs(images{moment})));
 cm=colormap('gray');colormap(cm(end:-1:1,:));
 axis square;
 title('Original Frame');
-% rectangle('position',[ROI_x(1) ROI_y(1) ROI_x(2) ROI_y(2)],'EdgeColor','r')
-xmin = ROI_x(1);
-ymin = ROI_y(1);
-xmax = ROI_x(2);
-ymax = ROI_y(2);
 plot([xmin xmax xmax xmin xmin],[ymin ymin ymax ymax ymin],'-o','LineWidth',10)
-% rectangle('position',[xmin ymin xmax ymax],'EdgeColor','b')
 plot(ROI_x(1),ROI_y(1),'r*')
 plot(ROI_x(2),ROI_y(2),'r*')
 hold off
-subplot(1,2,2)
+
+subplot(1,3,2)
+hold on
+axis square;
+bs = 3;
+axis([xmin*bs xmax*bs ymin*bs ymax*bs])
+imagesc(ROI_x*1000, ROI_y*1000, sqrt(abs(images{moment})));
+cm=colormap('gray');colormap(cm(end:-1:1,:));
+title('Zoomed Original Frame');
+plot([xmin xmax xmax xmin xmin],[ymin ymin ymax ymax ymin],'-o','LineWidth',4)
+plot(ROI_x(1),ROI_y(1),'r*')
+plot(ROI_x(2),ROI_y(2),'r*')
+hold off
+
+
+subplot(1,3,3)
 imagesc(ROI_x*1000, ROI_y*1000, sqrt(abs(avgImg)));
 cm=colormap('gray');colormap(cm(end:-1:1,:));
 axis square;
