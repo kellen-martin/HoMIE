@@ -19,10 +19,21 @@ function GenerateGraphMOD(moment,start,last,z,images,avgImg,clean,reconstructed,
 
 figure(1)
 subplot(1,2,1)
+hold on
 imagesc(ROI_x*1000, ROI_y*1000, sqrt(abs(images{moment})));
 cm=colormap('gray');colormap(cm(end:-1:1,:));
 axis square;
 title('Original Frame');
+% rectangle('position',[ROI_x(1) ROI_y(1) ROI_x(2) ROI_y(2)],'EdgeColor','r')
+xmin = ROI_x(1);
+ymin = ROI_y(1);
+xmax = ROI_x(2);
+ymax = ROI_y(2);
+plot([xmin xmax xmax xmin xmin],[ymin ymin ymax ymax ymin],'-o','LineWidth',10)
+% rectangle('position',[xmin ymin xmax ymax],'EdgeColor','b')
+plot(ROI_x(1),ROI_y(1),'r*')
+plot(ROI_x(2),ROI_y(2),'r*')
+hold off
 subplot(1,2,2)
 imagesc(ROI_x*1000, ROI_y*1000, sqrt(abs(avgImg)));
 cm=colormap('gray');colormap(cm(end:-1:1,:));
