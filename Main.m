@@ -71,18 +71,19 @@ end
 % Load Data:
 % template = importdata('template.mat');
 
-
-
+% Cuts down processing time
 for c = num_of_frames+1:length(clean)
     clean{c} = 0;
 end
+
+% Calculates the final reconstructed images
 tic
 for j = 1:num_of_frames
     for i = 1:10 %
-        [final{i,j}] = ReconstuctImages(clean{j},Sn_pixels,OVS,inputs,template(i));
+        [reconstructed{i,j}] = ReconstuctImages(clean{j},Sn_pixels,OVS,inputs,template(i));
     end
     clean{j} = 0;
 end
 toc
 
-GenerateGraphMOD(1,1,5,3,images,avgImg,clean,final,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+GenerateGraphMOD(1,1,5,3,images,avgImg,clean,reconstructed,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)

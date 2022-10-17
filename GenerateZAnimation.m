@@ -15,15 +15,13 @@ xmax = ROI_x(2);
 ymax = ROI_y(2);
 
 for z=1:num_z_slices
-    fig = figure(1);
+    fig = figure(3);
     imagesc(ROI_x*1000, ROI_y*1000, sqrt(abs(reconstructed{z,moment}(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)))));
     cm=colormap('gray');colormap(cm(end:-1:1,:));
     axis square;
     A(z) = getframe;
 end
 
-figure(1)
-title('Z animation');
+figure(3)
+title('Z Animation');
 movie(A,n,fps)
-
-nothing = 1;
