@@ -14,6 +14,7 @@ close all
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Image Reconstruction 
+
 % Generate Data:
 folder = 'Images';
 [avgImg,map,images] = AverageImage(folder);
@@ -37,7 +38,11 @@ Sn_pixels          = 3000; % must be smaller than small SENSOR_NX/Y
 SENSOR_NX          = 4024;  
 SENSOR_NY          = 3036;
 inputs.wavelength  = 405e-9;      % Blue light
-zresolution        = 2e-6;        % resolution of microscope
+
+% computationally intensive
+z_resolution       = 2e-6;        % resolution of microscope
+num_z_slices       = 20;          % this will depend on the height of the sample volume
+num_of_frames      = 5;
 
 % inputs for template maker
 inputs.pixel_p     = 1.85e-6/OVS; % pixel pitch, with oversampling
@@ -56,34 +61,28 @@ ROI_y = [-0.5,0.5]*1e-3;
 ROI_x_pix = round(inputs.n_pixels/2 + ROI_x/inputs.pixel_p);
 ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 
-% Generate simulated (oversampled) hologram:
+% Generate z-slice templates:
 inputs.ref_dist(1) = inputs.ref_dist;
-for j = 1:5
-    inputs.ref_dist = inputs.ref_dist + zresolution * (j-1);
+for j = 1:num_z_slices
+    inputs.ref_dist = inputs.ref_dist + z_resolution * (j-1);
     template(j) = CalculateTemplate(inputs); %return value
 end
 
-tic
-% for j = 1:5
-%     for i = 1:5
-%         [final{i,j}] = ReconstuctImages(clean{i},Sn_pixels,OVS,inputs,template(j));
-%     end
-% %     clean{i} = 0;
-% end
-for i = 1:5
-    for j = 1:5
-        [final{i,j}] = ReconstuctImages(clean{i},Sn_pixels,OVS,inputs,template(j));
-    end
-    clean{i} = 0;
+% Load Data:
+% template = importdata('template.mat');
+
+
+
+for c = num_of_frames+1:length(clean)
+    clean{c} = 0;
 end
-
-% for i = 1:5
-%     [final{i,j}] = ReconstuctImages(clean{i},Sn_pixels,OVS,inputs,template(j));
-%     clean{i} = 0;
-% end
-    
+tic
+for j = 1:num_of_frames
+    for i = 1:10 %
+        [final{i,j}] = ReconstuctImages(clean{j},Sn_pixels,OVS,inputs,template(i));
+    end
+    clean{j} = 0;
+end
 toc
-
-% GenerateGraph(1,1,5,images,avgImg,clean,final,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 GenerateGraphMOD(1,1,5,3,images,avgImg,clean,final,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
