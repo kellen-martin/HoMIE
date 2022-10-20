@@ -5,6 +5,11 @@ function [clean] = CleanImages(images,avgImg)
 
 sizeOf = length(images);
 
+tic
+
 for k=1:sizeOf
     clean{k} = (avgImg - images{k});
 end
+
+time = toc;
+fprintf('\nTime spent cleaning images: %.2f\n', time)

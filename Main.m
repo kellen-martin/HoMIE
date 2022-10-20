@@ -17,7 +17,7 @@ close all
 
 % Generate Data:
 folder = 'Images';
-[avgImg,map,images] = AverageImage(folder);
+[avgImg,~,images] = AverageImage(folder);
 clean = CleanImages(images,avgImg);
 
 % Load Data:
