@@ -1,21 +1,36 @@
 function GenerateDetailedSubplot(moment,z_slice,images,avgImg,clean,reconstructed,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-% Generates 3 figures, 
-% Figure 1: has 3 subfigures that show at a given moment...
-%         (1) raw image from sensor
-%         (2) zoomed raw image from sensor
-%         (3) average image of whole image set
-% Figure 2: can be ignored
-% Figure 3: is an animation from specified start frame to last frame
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Generates useful plot for inspection, useful for debugging
+% (R-DIHM-FUNC-)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inputs:
+%   moment - specified frame
+%   z_slice - specified z-slice 
+%   images - a matrix of greyscale images from sensor
+%   avgImg - single matrix that is the average frame of all the images
+%   clean - a matrix of greyscale cleaned images
+%   reconstructed - a matrix of greyscale reconstructed images
+%   ROI - 'region of interest'
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Outputs: 
+% Generates 1 figure with 8 subplots
+%   (1) raw image from sensor
+%   (2) average image from stack
+%   (3) cleaned image
+%   (4) reconstructed image at specified z-slice and time instant
+%   (5) zoomed (1)
+%   (6) zoomed (2)
+%   (7) zoomed (3)
+%   (8) zoomed (4)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author:
+%   Nick 
+% 
+% Last Edited: 10/21/22
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Variables:
-% moment = which frame you'd like diplayed in Figure 1
-% start = starting frame for animation in figure 3
-% last = ending frame for animation in figure 3
-% images = array of raw images from sensor
-% avgImg = average image of all raw frames
-% clean = array of clean frames
-% reconstructed = array of reconstructed frames
-% roi = region of interest
 
 xmin = ROI_x(1);
 ymin = ROI_y(1);
@@ -24,10 +39,6 @@ ymax = ROI_y(2);
 
 bs = 3;
 
-% if clean == 0
-%     clean = avgImg .*0;
-% end
-    
 figure(1)
 
 %row 1

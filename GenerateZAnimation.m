@@ -1,13 +1,27 @@
 function GenerateZAnimation(moment,n,fps,num_z_slices,reconstructed,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-% Generates 1 figure 
-
-% Variables:
-% moment = which frame you'd like diplayed in Figure 1
-% n =  plays the movie n number of times
-% fps = specifies the number of frames per second
-% num_z_slices = number of z slices
-% reconstructed = array of reconstructed frames
-% roi = region of interest
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Generates an animation at a specified frame moment by stepping through
+% different z-slices
+% (R-DIHM-FUNC-)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inputs:-
+%   z_slice - specified z-slice 
+%   n -  plays the movie n number of times
+%   fps - specifies the number of frames per second
+%   num_of_frames - number of frames
+%   reconstructed - a matrix of greyscale reconstructed images
+%   ROI - 'region of interest'
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Outputs: 
+% Generates 1 figure
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author:
+%   Nick 
+% 
+% Last Edited: 10/21/22
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 xmin = ROI_x(1);
 ymin = ROI_y(1);

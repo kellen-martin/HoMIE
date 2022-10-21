@@ -1,11 +1,30 @@
-function [final] = ReconstructImages(real,Sn_pixels,OVS,inputs,rval)
-
-% real = clean{i};
-real = single(real(1:Sn_pixels,1:Sn_pixels));
-real = single(imresize(real,OVS));
+function [final] = ReconstructImages(clean,Sn_pixels,OVS,inputs,rval)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Performs math and outputs the reconstructed images
+% (R-DIHM-FUNC-)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inputs:-
+%   clean - array of all clean frames
+%   Sn_pixels - must be smaller than small SENSOR_NX/Y (~3000)
+%   OVS - oversampling factor (~2 or 3)
+%   inputs - contains n_pixels
+%   rval - struct containing variables for z-template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Outputs: 
+%   final - a matrix of greyscale reconstructed images
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author:
+%   Nick 
+% 
+% Last Edited: 10/21/22
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clean = single(clean(1:Sn_pixels,1:Sn_pixels));
+clean = single(imresize(clean,OVS));
 
 down_sz = inputs.n_pixels/OVS; %this is what sensor sees
-I2_down = imresize(real - abs(rval.ref_wave).^2, [down_sz, down_sz], 'box'); %find intensity then remove its effect
+I2_down = imresize(clean - abs(rval.ref_wave).^2, [down_sz, down_sz], 'box'); %find intensity then remove its effect
 
 I2_down_fft = fft2(I2_down); %of data
 I2_up_fft   = single(zeros(inputs.n_pixels, inputs.n_pixels)); %insert zeros
