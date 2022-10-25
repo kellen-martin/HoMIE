@@ -1,21 +1,24 @@
 function avgImg = AverageImage(images,first,last)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Calculates the average image of a folder of images
+% Calculates the average image from a matrix of images
 % (R-DIHM-FUNC-)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Inputs:-
-%   folder - name of folder containing images (png)
+% Inputs:
+%   images - matrix of images
+% Optional Inputs:
+%   first - specified starting point
+%   last - specified ending point
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Outputs: 
-%   avgImg - single matrix that is the average frame of all the images
-%   map - colormap, not really used for much
-%   images - a matrix of greyscale images from sensor
+% Default:
+%   avgImg - average frame matrix of entire set of images
+% W/ Optional Inputs:
+%   avgImg - average frame matrix of entire set of images
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author:
-%   Nick 
-% 
-% Last Edited: 10/21/22
+%   Nick Aichholz
+% Last Edited: 10/25/22
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
