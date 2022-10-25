@@ -1,4 +1,4 @@
-function PlotFrameSpecial(image,name,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+function PlotFrame(image,name,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 tic
 if nargin == 2
     figure

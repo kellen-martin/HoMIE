@@ -32,43 +32,43 @@ folder = 'Images';
 [~,images] = ImportImages(folder);
 
 avgImg = AverageImage(images,1,length(images));
-PlotFrameSpecial(avgImg,'average')
+PlotFrame(avgImg,'average')
 
 diffFrame = DifferenceFrame(images{1},images{2});
-PlotFrameSpecial(diffFrame,'diffFrame')
+PlotFrame(diffFrame,'diffFrame')
 
 diffFrameC = DifferenceFrame(images{1},images{2},1);
-PlotFrameSpecial(diffFrameC,'diffFrameClean')
+PlotFrame(diffFrameC,'diffFrameClean')
 
 diffStack = DifferenceStack(images);
-PlotFrameSpecial(diffStack,'diffStack')
+PlotFrame(diffStack,'diffStack')
 
 diffStackC = DifferenceStack(images,1);
-PlotFrameSpecial(diffStackC,'diffStackClean')
+PlotFrame(diffStackC,'diffStackClean')
 
 % reconavgImg = ReconstructImages(avgImg,Sn_pixels,OVS,inputs,CalculateTemplate(inputs));
-% PlotFrameSpecial(reconavgImg,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% PlotFrame(reconavgImg,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 reconavgImg = Reconstructor(avgImg,1,inputs);
-PlotFrameSpecial(reconavgImg,'avgImg',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+PlotFrame(reconavgImg,'avgImg',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 reconavgImgC = Reconstructor(avgImg,1,inputs,avgImg);
-PlotFrameSpecial(reconavgImg,'avgImgClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+PlotFrame(reconavgImg,'avgImgClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 recondiffFrame = Reconstructor(diffFrame,1,inputs);
-PlotFrameSpecial(recondiffFrame,'recondiffFrame',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+PlotFrame(recondiffFrame,'recondiffFrame',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 recondiffFrameC = Reconstructor(diffFrame,1,inputs,AverageImage(images,1,2));
-PlotFrameSpecial(recondiffFrameC,'recondiffFrameClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+PlotFrame(recondiffFrameC,'recondiffFrameClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 recondiffFrameC2 = Reconstructor(diffFrameC,1,inputs);
-PlotFrameSpecial(recondiffFrameC2,'recondiffFrameClean2',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+PlotFrame(recondiffFrameC2,'recondiffFrameClean2',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 recondiffStack = Reconstructor(diffStack,1,inputs);
-PlotFrameSpecial(recondiffStack,'recondiffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+PlotFrame(recondiffStack,'recondiffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 recondiffStackC = Reconstructor(diffStack,1,inputs,avgImg);
-PlotFrameSpecial(recondiffStackC,'recondiffStackClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+PlotFrame(recondiffStackC,'recondiffStackClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 recondiffStackC2 = Reconstructor(diffStackC,1,inputs);
-PlotFrameSpecial(recondiffStackC2,'recondiffStackClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+PlotFrame(recondiffStackC2,'recondiffStackClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
