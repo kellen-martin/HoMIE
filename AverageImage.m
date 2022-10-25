@@ -2,7 +2,8 @@ function avgImg = AverageImage(images,first,last)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Calculates the average image from a matrix of images
-% (R-DIHM-FUNC-)
+% Optional ability to specify which frames to average over
+% (R-DIHM-FUNC-1.1)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs:
 %   images - matrix of images
@@ -12,9 +13,9 @@ function avgImg = AverageImage(images,first,last)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Outputs: 
 % Default:
-%   avgImg - average frame matrix of entire set of images
+%   avgImg - average image of entire set of images
 % W/ Optional Inputs:
-%   avgImg - average frame matrix of entire set of images
+%   avgImg - average image overspecified duration
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author:
 %   Nick Aichholz

@@ -1,7 +1,35 @@
-function [reconstructed] = Reconstructor(image,Zslice,inputs,cleaner)
+function [reconstructed] = Reconstructor(image,zslice,inputs,cleaner)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Reconstruct an image at a specified instant and zslice
+% Optional ability to clean before reconstruction
+% (R-DIHM-FUNC-1.2)
+% Partial (R-DIHM-FUNC-1.3)
+% Partial (R-DIHM-FUNC-1.4)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inputs:
+%   image - specified image
+%   zslice - specified Zslice
+%   inputs - structure containing information from main
+% Optional Inputs:
+%   cleaner - specified image used for cleaning
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Outputs: 
+% Default:
+%   reconstructed - reconstructed frame at a specified instant and zslice
+% W/ Optional Inputs:
+%   reconstructed - reconstructed frame at a specified instant and zslice
+%       that has been cleaned
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Author:
+%   Nick Aichholz
+% Last Edited: 10/25/22
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 tic
 
-inputs.ref_dist = inputs.ref_dist + inputs.z_resolution * (Zslice-1);
+inputs.ref_dist = inputs.ref_dist + inputs.z_resolution * (zslice-1);
 rval = CalculateTemplate(inputs);
 
 if nargin == 3   % if the number of inputs equals 2
