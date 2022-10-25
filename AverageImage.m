@@ -24,11 +24,22 @@ tic
 sizeOf = length(images);
 z = single(zeros(size(images{1})));
 
-for k=first:last
-    z = z + images{k};
+if nargin == 1
+    for k=1:sizeOf
+        z = z + images{k};
+    end
+    
+    avgImg = z ./ sizeOf;
 end
 
-avgImg = z ./ sizeOf;
+if nargin == 3
+    
+    for k=first:last
+        z = z + images{k};
+    end
+
+    avgImg = z ./ sizeOf;
+end
 
 time = toc;
 fprintf('\nAverageImage %.2f\n', time)

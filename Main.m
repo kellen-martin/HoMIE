@@ -31,44 +31,48 @@ ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 folder = 'Images';
 [~,images] = ImportImages(folder);
 
-avgImg = AverageImage(images,1,length(images));
-PlotFrame(avgImg,'average')
+avgImg1 = AverageImage(images,1,length(images));
+PlotFrame(avgImg1,'average')
 
-diffFrame = DifferenceFrame(images{1},images{2});
-PlotFrame(diffFrame,'diffFrame')
+avgImg2 = AverageImage(images);
+PlotFrame(avgImg2,'average')
 
-diffFrameC = DifferenceFrame(images{1},images{2},1);
-PlotFrame(diffFrameC,'diffFrameClean')
 
-diffStack = DifferenceStack(images);
-PlotFrame(diffStack,'diffStack')
-
-diffStackC = DifferenceStack(images,1);
-PlotFrame(diffStackC,'diffStackClean')
-
-% reconavgImg = ReconstructImages(avgImg,Sn_pixels,OVS,inputs,CalculateTemplate(inputs));
-% PlotFrame(reconavgImg,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-reconavgImg = Reconstructor(avgImg,1,inputs);
-PlotFrame(reconavgImg,'avgImg',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-reconavgImgC = Reconstructor(avgImg,1,inputs,avgImg);
-PlotFrame(reconavgImg,'avgImgClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-recondiffFrame = Reconstructor(diffFrame,1,inputs);
-PlotFrame(recondiffFrame,'recondiffFrame',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-recondiffFrameC = Reconstructor(diffFrame,1,inputs,AverageImage(images,1,2));
-PlotFrame(recondiffFrameC,'recondiffFrameClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-recondiffFrameC2 = Reconstructor(diffFrameC,1,inputs);
-PlotFrame(recondiffFrameC2,'recondiffFrameClean2',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-recondiffStack = Reconstructor(diffStack,1,inputs);
-PlotFrame(recondiffStack,'recondiffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-recondiffStackC = Reconstructor(diffStack,1,inputs,avgImg);
-PlotFrame(recondiffStackC,'recondiffStackClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-recondiffStackC2 = Reconstructor(diffStackC,1,inputs);
-PlotFrame(recondiffStackC2,'recondiffStackClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% diffFrame = DifferenceFrame(images{1},images{2});
+% PlotFrame(diffFrame,'diffFrame')
+% 
+% diffFrameC = DifferenceFrame(images{1},images{2},1);
+% PlotFrame(diffFrameC,'diffFrameClean')
+% 
+% diffStack = DifferenceStack(images);
+% PlotFrame(diffStack,'diffStack')
+% 
+% diffStackC = DifferenceStack(images,1);
+% PlotFrame(diffStackC,'diffStackClean')
+% 
+% % reconavgImg = ReconstructImages(avgImg,Sn_pixels,OVS,inputs,CalculateTemplate(inputs));
+% % PlotFrame(reconavgImg,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% 
+% reconavgImg = Reconstructor(avgImg,1,inputs);
+% PlotFrame(reconavgImg,'avgImg',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% 
+% reconavgImgC = Reconstructor(avgImg,1,inputs,avgImg);
+% PlotFrame(reconavgImg,'avgImgClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% 
+% recondiffFrame = Reconstructor(diffFrame,1,inputs);
+% PlotFrame(recondiffFrame,'recondiffFrame',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% 
+% recondiffFrameC = Reconstructor(diffFrame,1,inputs,AverageImage(images,1,2));
+% PlotFrame(recondiffFrameC,'recondiffFrameClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% 
+% recondiffFrameC2 = Reconstructor(diffFrameC,1,inputs);
+% PlotFrame(recondiffFrameC2,'recondiffFrameClean2',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% 
+% recondiffStack = Reconstructor(diffStack,1,inputs);
+% PlotFrame(recondiffStack,'recondiffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% 
+% recondiffStackC = Reconstructor(diffStack,1,inputs,avgImg);
+% PlotFrame(recondiffStackC,'recondiffStackClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% 
+% recondiffStackC2 = Reconstructor(diffStackC,1,inputs);
+% PlotFrame(recondiffStackC2,'recondiffStackClean',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
