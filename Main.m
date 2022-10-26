@@ -35,22 +35,30 @@ PlotFrame(avgImg,'Raw Average')
 recAvgImg = Reconstructor(avgImg,1,inputs);
 PlotFrame(recAvgImg,'Recon Average',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
-%% Difference Frame
-diffFrame = DifferenceFrame(images{1},images{2});
-PlotFrame(diffFrame,'Raw diffFrame')
+for i=1:50
+    reconFrame{i} = Reconstructor(images{i},i,inputs,avgImg);
+end
 
-recDiffFrame = Reconstructor(diffFrame,1,inputs);
-PlotFrame(recDiffFrame,'Rec diffFrame',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-recDiffFrame2 = Reconstructor(diffFrame,1,inputs,avgImg);
-PlotFrame(recDiffFrame2,'Rec Clean diffFrame',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-%% Difference Stack
-diffStack = DifferenceStack(images);
-PlotFrame(diffStack,'Raw diffStack')
-
-recDiffStack = Reconstructor(diffFrame,1,inputs);
-PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-recDiffStack2 = Reconstructor(diffFrame,1,inputs,avgImg);
-PlotFrame(recDiffStack2,'Rec Clean diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+figure
+hold on
+for i=1:50
+    PlotFrame(reconFrame{i},'name',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+    A(i) = getframe;
+end
+hold off
+figure(3)
+title('Z Animation');
+movie(A,n,fps)
+% %% Difference Frame
+% diffFrame = DifferenceFrame(images{1},images{2});
+% PlotFrame(diffFrame,'Raw diffFrame')
+% 
+% recDiffFrame = Reconstructor(diffFrame,1,inputs);
+% PlotFrame(recDiffFrame,'Rec diffFrame',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% 
+% %% Difference Stack
+% diffStack = DifferenceStack(images);
+% PlotFrame(diffStack,'Raw diffStack')
+% 
+% recDiffStack = Reconstructor(diffFrame,1,inputs);
+% PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
