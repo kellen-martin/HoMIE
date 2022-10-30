@@ -2,10 +2,13 @@ clc
 clear all
 close all
 
+% variables
+Zheight            = 2e-3;        % height of sample volume
+
 %inputs
 inputs.z_resolution= 2e-6;
 inputs.Sn_pixels   = 3000;        % must be smaller than small SENSOR_NX/Y
-% inputs.Sn_pixels   = 700;        % must be smaller than small SENSOR_NX/Y
+% inputs.Sn_pixels   = 700;       % must be smaller than small SENSOR_NX/Y
 inputs.OVS         = 2;
 
 % inputs
