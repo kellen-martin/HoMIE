@@ -5,6 +5,7 @@ close all
 %inputs
 inputs.z_resolution= 2e-6;
 inputs.Sn_pixels   = 3000;        % must be smaller than small SENSOR_NX/Y
+% inputs.Sn_pixels   = 700;        % must be smaller than small SENSOR_NX/Y
 inputs.OVS         = 2;
 
 % inputs
@@ -25,40 +26,23 @@ ROI_x_pix = round(inputs.n_pixels/2 + ROI_x/inputs.pixel_p);
 ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 
 % Generate Data:
-folder = 'Images';
-[~,images] = ImportImages(folder);
+folder = 'generatedData4';
+[~,images] = ImportImages(folder,inputs);
 
 %% Average
 avgImg = AverageImage(images);
-PlotFrame(avgImg,'Raw Average')
+% PlotFrame(avgImg,'Raw Average')
 
-recAvgImg = Reconstructor(avgImg,1,inputs);
-PlotFrame(recAvgImg,'Recon Average',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+%%Difference Stack
+diffStack = DifferenceStack(images);
+PlotFrame(diffStack,'Raw diffStack')
 
-for i=1:50
-    reconFrame{i} = Reconstructor(images{i},i,inputs,avgImg);
+recDiffStack = Reconstructor(diffStack,1,inputs);
+PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+
+%varies frame, keeps z-slice constant
+for i=1:10
+    reconFrame{i} = Reconstructor(images{i},1,inputs,avgImg);
 end
-
-figure
-hold on
-for i=1:50
-    PlotFrame(reconFrame{i},'name',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-    A(i) = getframe;
-end
-hold off
-figure(3)
-title('Z Animation');
-movie(A,n,fps)
-% %% Difference Frame
-% diffFrame = DifferenceFrame(images{1},images{2});
-% PlotFrame(diffFrame,'Raw diffFrame')
-% 
-% recDiffFrame = Reconstructor(diffFrame,1,inputs);
-% PlotFrame(recDiffFrame,'Rec diffFrame',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-% 
-% %% Difference Stack
-% diffStack = DifferenceStack(images);
-% PlotFrame(diffStack,'Raw diffStack')
-% 
-% recDiffStack = Reconstructor(diffFrame,1,inputs);
-% PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+animationRec = AnimationZ(reconFrame,10,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+movie(animationRec,2,2)

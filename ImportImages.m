@@ -1,4 +1,4 @@
-function [map,images] = ImportImages(folder)
+function [map,images] = ImportImages(folder,inputs)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Imports images from a specified folder
@@ -17,6 +17,7 @@ function [map,images] = ImportImages(folder)
 % Last Edited: 10/21/22
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+tic
 
 original_files = dir([folder '/*.png']); 
 sizeOf = length(original_files);
@@ -25,13 +26,20 @@ filename=[folder '/' original_files(1).name];
 
 images{1} = single(imread(filename));
 
-tic
-
-for k=1:sizeOf
-  filename=[folder '/' original_files(k).name];
-  images{k} = single(imread(filename));
+if nargin == 1
+    for k=1:sizeOf
+      filename=[folder '/' original_files(k).name];
+      images{k} = single(imread(filename));
+    end
 end
-
+if nargin == 2
+    for k=1:sizeOf
+      filename=[folder '/' original_files(k).name];
+      images{k} = single(imread(filename));
+      images{k} = single(images{k}(1:inputs.Sn_pixels,1:inputs.Sn_pixels));
+    end
+end
+    
 [~,map] = imread(filename);
 
 time = toc;

@@ -1,4 +1,4 @@
-function diffStack = DifferenceStack(images,cleaner)
+function diffStack = DifferenceStack(images)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Calculates the difference stack
@@ -29,26 +29,11 @@ function diffStack = DifferenceStack(images,cleaner)
 
 tic
 
-if nargin == 1
-    temp = 0;
-    i = 1;
-    while i < length(images)/2
-        temp = temp+(images{i+1}-images{i});
-        i = i+2;
-    end
-
-    diffStack = temp;
-end
-if nargin == 2
-    y = cleaner;
-    temp = 0;
-    i = 1;
-    while i < length(images)/2
-        temp = temp+(images{i+1}-images{i});
-        i = i+2;
-    end
-    diffStack = temp - cleaner;
+temp = 0;
+i = 1;
+while i < length(images)
+    temp = temp+(images{i+1}-images{i});
+    i = i+2;
 end
 
-time = toc;
-fprintf('\nDifferenceStack %.2f\n', time)
+diffStack = temp;
