@@ -1,23 +1,39 @@
-function d_stack = DifferenceStack(images)
+function diffStack = DifferenceStack(images)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Calculates the difference stack by subtracting raw hologram frames and
-% summing them back together:
-% D_stack = (h2 - h1) + (h4 - h3) + ... + (h_{n+1} - h_n)
-% (R-DIHM-FUNC-1.4)
+% Calculates the difference stack
+%   Algorithm:
+%   frameA, frameB, frameC, frameD...
+%   (frameB - frameA) + (frameD - frameC) + ...
+% Optional ability to clean
+% Partial (R-DIHM-FUNC-1.3)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inputs:
-%   images - a matrix of greyscale images from sensor
-% 
+%   images - matrix of images
+% Optional Inputs:
+%   cleaner - specified image used for cleaning
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Outputs: 
-%   d_stack = raw difference stack to be reconstructed
+% Default:
+%   diffStack - the difference stack found using the algorithm  defined
+%       above
+% W/ Optional Inputs:
+%   diffFrame - the difference between frame A and B and the cleaner frame
+%       is also subtracted
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author:
-%   Kellen
-% 
-% Last Edited: 10/24/22
+%   Nick Aichholz
+% Last Edited: 10/25/22
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+tic
+
+temp = 0;
+i = 1;
+while i < length(images)
+    temp = temp+(images{i+1}-images{i});
+    i = i+2;
 end
+
+diffStack = temp;

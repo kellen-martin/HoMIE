@@ -1,44 +1,51 @@
-function [avgImg,map,images] = AverageImage(folder)
+function avgImg = AverageImage(images,first,last)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Calculates the average image of a folder of images
-% (R-DIHM-FUNC-)
+% Calculates the average image from a matrix of images
+% Optional ability to specify which frames to average over
+% (R-DIHM-FUNC-1.1)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Inputs:-
-%   folder - name of folder containing images (png)
+% Inputs:
+%   images - matrix of images
+% Optional Inputs:
+%   first - specified starting point
+%   last - specified ending point
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Outputs: 
-%   avgImg - single matrix that is the average frame of all the images
-%   map - colormap, not really used for much
-%   images - a matrix of greyscale images from sensor
+% Default:
+%   avgImg - average image of entire set of images
+% W/ Optional Inputs:
+%   avgImg - average image overspecified duration
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author:
-%   Nick 
-% 
-% Last Edited: 10/21/22
+%   Nick Aichholz
+% Last Edited: 10/25/22
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-original_files = dir([folder '/*.png']); 
-sizeOf = length(original_files);
-
-filename=[folder '/' original_files(1).name];
-
-images{1} = single(imread(filename));
-  
-z = single(zeros(size(images{1})));
 
 tic
 
-for k=1:sizeOf
-  filename=[folder '/' original_files(k).name];
-  images{k} = single(imread(filename));
-%   z = imadd(z,images{k});
-    z = z + images{k};
+sizeOf = length(images);
+z = single(zeros(size(images{1})));
+
+if nargin == 1
+    for k=1:sizeOf
+        z = z + images{k};
+    end
+    
+    avgImg = z ./ sizeOf;
+end
+
+if nargin == 3
+    
+    for k=first:last
+        z = z + images{k};
+    end
+
+    avgImg = z ./ sizeOf;
 end
 
 time = toc;
-fprintf('\nTime spent averaging images: %.2f\n', time)
+fprintf('\nAverageImage %.2f\n', time)
 
-[~,map] = imread(filename);
-avgImg = z ./ sizeOf;
+
