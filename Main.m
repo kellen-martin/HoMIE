@@ -29,11 +29,11 @@ ROI_x_pix = round(inputs.n_pixels/2 + ROI_x/inputs.pixel_p);
 ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 
 % Generate Data:
-folder = 'generatedData4';
+folder = 'generatedData3';
 [~,images] = ImportImages(folder,inputs);
 
 %% Average
-avgImg = AverageImage(images);
+% avgImg = AverageImage(images);
 % PlotFrame(avgImg,'Raw Average')
 
 %%Difference Stack
