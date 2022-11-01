@@ -33,6 +33,7 @@ tStart = cputime;
 % Generate Data:
 folder = 'Images';
 [~,images] = ImportImages(folder,inputs);
+save('MainTemp','-append')
 
 %% Average
 % avgImg = AverageImage(images);
@@ -57,3 +58,4 @@ end
 % end
 % animationRec = AnimationZ(reconFrame,10,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 % movie(animationRec,2,2)
+
