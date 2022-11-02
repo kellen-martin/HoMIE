@@ -33,7 +33,7 @@ folder = 'generatedData3';
 [~,images] = ImportImages(folder,inputs);
 
 %% Average
-% avgImg = AverageImage(images);
+avgImg = AverageImage(images);
 % PlotFrame(avgImg,'Raw Average')
 
 %%Difference Stack
@@ -45,7 +45,8 @@ PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 %varies frame, keeps z-slice constant
 for i=1:10
-    reconFrame{i} = Reconstructor(images{i},1,inputs,avgImg);
+%     reconFrame{i} = Reconstructor(images{i},1,inputs,avgImg);
+    reconFrame{i} = Reconstructor_Kanka1(images{i},1,inputs,avgImg);
 end
 animationRec = AnimationZ(reconFrame,10,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 movie(animationRec,2,2)
