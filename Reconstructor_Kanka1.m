@@ -28,7 +28,7 @@ function [reconstructed] = Reconstructor_Kanka1(image,zslice,inputs,cleaner)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 tic
 
-nTiles = 4; % Total tiles will be (nTiles * nTiles)
+nTiles = inputs.nTiles; % Total tiles will be (nTiles * nTiles)
 
 inputs.ref_dist = inputs.ref_dist + inputs.z_resolution * (zslice-1);
 
@@ -71,10 +71,11 @@ end
 
 TileSum = single(zeros(inputs.n_pixels));
 tileSize = floor(HoloTileSize);
+ref_pixel_p = inputs.pixel_p/nTiles;
 
-for i = 1:nTiles
+for i = 1:nTiles % Tiles in the y-direction
 
-    for j = 1:nTiles
+    for j = 1:nTiles % Tiles in the x-direction
 
         %%%%%%%%%%%%%%%%%%%% Each tile processed here %%%%%%%%%%%%%%%%%%%%%
 
@@ -90,16 +91,25 @@ for i = 1:nTiles
 
         % Selecting tile and allocating reference wave patch
         tile_down_fft = fft2(I2_down(HoloTileStart(i):HoloTileEnd(i), HoloTileStart(j):HoloTileEnd(j)));
-        patch = single(zeros(inputs.n_pixels));
+        patch = single(zeros(RefTileSize));
 
         % CALCULATE REFERENCE PATCH HERE ----------------------------------
         
-
-            
-                %           < CODE NOT DONE YET >
-
+            pixel_x   = ref_pixel_p*([RefTileStart(j)-1:RefTileEnd(j)-1] - floor(RefTileSize/2));
+            pixel_y   = ref_pixel_p*([RefTileStart(i)-1:RefTileEnd(i)-1] - floor(RefTileSize/2));
+            ref_pos_z = inputs.ref_dist;
+        
+        
+            for ix = 1:RefTileSize
                 
-
+                x = pixel_x(ix);
+                
+                ref_dist     = sqrt((x - inputs.ref_pos_x).^2 + (pixel_y - inputs.ref_pos_y).^2 + ref_pos_z.^2);
+                ref_n_waves  = ref_dist/inputs.wavelength;
+                patch(ix, :) = single(inputs.ref_amp*exp(1i*2*pi*ref_n_waves));
+                
+            end
+            
         % -----------------------------------------------------------------
 
         tile_up_fft   = single(zeros(inputs.n_pixels));
@@ -119,6 +129,29 @@ for i = 1:nTiles
 
 end
 
+% CALCULATE TEMPLATE WAVE HERE --------------------------------------------
+    % Can't calculate with the reference wave due to different pixel
+    % positions
+    
+    template_pos_x = 0;
+    template_pos_y = 0;
+    template_pos_z = inputs.samp_dist;
+    pixel_x = inputs.pixel_p*([0:inputs.n_pixels-1] - floor(inputs.n_pixels/2));
+    pixel_y = inputs.pixel_p*([0:inputs.n_pixels-1] - floor(inputs.n_pixels/2));
+    
+    template_phase = 2*pi*sqrt((template_pos_x - inputs.ref_pos_x)^2 + (template_pos_y - inputs.ref_pos_y)^2 + (template_pos_z - inputs.ref_dist)^2)/inputs.wavelength;
+    
+    for ix = 1:inputs.n_pixels
+        
+        x = pixel_x(ix);
+        
+        template_dist        = sqrt((x - template_pos_x).^2 + (pixel_y - template_pos_y).^2 + template_pos_z.^2); % distance from template-reference-object to each pixel
+        template_n_waves     = template_dist/inputs.wavelength;        
+        template_wave(ix, :) = single(inputs.obj_amp*exp(1i*(2*pi*template_n_waves + template_phase)));
+        
+    end
+
+% -------------------------------------------------------------------------
 
 
 % Begin clearing unused large variables to save memory:
@@ -146,4 +179,4 @@ clear despread_fft;
 clear template_fft;             
 
 time = toc;
-fprintf('\nReconstructor %.2f\n', time)
+fprintf('\nReconstructor_Kanka1 %.2f\n', time)
