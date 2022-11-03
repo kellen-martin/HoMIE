@@ -2,16 +2,16 @@ clc
 clear all
 close all
 
-times = [90.299573322000000
-93.405222202000000
-90.209684298000000
-90.647701456000000
-93.096925409000000];
-
-avg = mean(times);
-
-flop = avg * 50 * (100^2)/5.838070000000000e-04;
-
+N = 6000;
 processor = 3e9;
+timeMax = 128000;
 
-time = flop / processor
+
+FLOPs_ReconstructorMod = 108000039;
+FLOPs_FFT = (14*N*log2(N) + 2*N)*N;
+FLOPs_IFFT = FLOPs_FFT;
+
+FLOPs_Total = FLOPs_ReconstructorMod + FLOPs_FFT + FLOPs_IFFT;
+
+time = FLOPs_Total / processor;
+processorMin = FLOPs_Total / timeMax;

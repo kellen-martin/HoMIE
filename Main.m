@@ -29,23 +29,24 @@ ROI_x_pix = round(inputs.n_pixels/2 + ROI_x/inputs.pixel_p);
 ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 
 tic
-tStart = cputime;
+
 % Generate Data:
-folder = 'Images';
+folder = 'generatedData3';
 [~,images] = ImportImages(folder,inputs);
 
 %% Average
 % avgImg = AverageImage(images);
 % PlotFrame(avgImg,'Raw Average')
-
-% %%Difference Stack
-diffStack = DifferenceStack(images);
-% % PlotFrame(diffStack,'Raw diffStack')
 % 
-for i = 1:1
+% % %%Difference Stack
+diffStack = DifferenceStack(images);
+% PlotFrame(diffStack,'Raw diffStack')
+% 
+parfor i = 1:1
     recDiffStack{i} = ReconstructorMod(diffStack,CalculateTemplate(inputs),inputs);
-    %PlotFrame(recDiffStack{i},'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+    PlotFrame(recDiffStack{i},'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 end
+toc
 % 
 % timerend = toc
 % tEnd = cputime - tStart;
