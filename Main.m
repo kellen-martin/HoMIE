@@ -42,7 +42,7 @@ folder = 'generatedData3';
 diffStack = DifferenceStack(images);
 % PlotFrame(diffStack,'Raw diffStack')
 % 
-parfor i = 1:1
+for i = 1:1
     recDiffStack{i} = ReconstructorMod(diffStack,CalculateTemplate(inputs),inputs);
     PlotFrame(recDiffStack{i},'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 end
