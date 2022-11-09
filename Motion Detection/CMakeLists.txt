@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.8)
+project( HoMIE )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( openCV_test openCV_test.cpp )
+target_link_libraries( openCV_test ${OpenCV_LIBS} )
