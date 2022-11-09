@@ -47,11 +47,13 @@ if nargin == 4   % cleaner argument used
     image = image - cleaner;
 end
 
+rval = CalculateTemplate(inputs);
+
 down_sz = inputs.n_pixels/inputs.OVS; %this is what sensor sees
-%     I2_down = imresize(image - abs(rval.ref_wave).^2, [down_sz, down_sz], 'box'); %find intensity then remove its effect
+I2_down = imresize(image - abs(rval.ref_wave).^2, [down_sz, down_sz], 'box'); %find intensity then remove its effect
 % ^^^^ I believe this step is taken care of with the average frame
        % stuff
-I2_down = image;
+% I2_down = image;
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Split into Tiles here %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % current size is 3000 by 3000 here (down_sz)
@@ -95,8 +97,8 @@ for i = 1:nTiles % Tiles in the y-direction
 
         % CALCULATE REFERENCE PATCH HERE ----------------------------------
         
-            pixel_x   = ref_pixel_p*([RefTileStart(j)-1:RefTileEnd(j)-1] - floor(RefTileSize/2));
-            pixel_y   = ref_pixel_p*([RefTileStart(i)-1:RefTileEnd(i)-1] - floor(RefTileSize/2));
+            pixel_x   = ref_pixel_p*([RefTileStart(j)-1:RefTileEnd(j)-1] - floor(inputs.n_pixels*nTiles/2));
+            pixel_y   = ref_pixel_p*([RefTileStart(i)-1:RefTileEnd(i)-1] - floor(inputs.n_pixels*nTiles/2));
             ref_pos_z = inputs.ref_dist;
         
         

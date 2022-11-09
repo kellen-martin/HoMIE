@@ -21,7 +21,7 @@ inputs.ref_amp     = 1;           % amplitude of reference wave at sensor
 inputs.ref_pos_x   = 0;           % x position of laser
 inputs.ref_pos_y   = 0;           % y position of laser
 inputs.obj_amp     = 0.01;        % scattered light amplitude at sensor
-inputs.nTiles      = 4;           % number of tiles to use in Kanka optimization
+inputs.nTiles      = 2;           % number of tiles to use in Kanka optimization
 
 % Define zoom region of interest:
 ROI_x = [-0.5,0.5]*1e-3; %mm
@@ -45,5 +45,5 @@ recDiffStack = Reconstructor(diffStack,1,inputs);
 PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 recDiffStack_Kanka = Reconstructor_Kanka1(diffStack,1,inputs);
-PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+PlotFrame(recDiffStack_Kanka,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
