@@ -1,6 +1,6 @@
-% clc
-% clear all
-% close all
+clc
+clear all
+close all
 
 % variables
 Zheight            = 2e-3;        % height of sample volume
@@ -21,6 +21,7 @@ inputs.ref_amp     = 1;           % amplitude of reference wave at sensor
 inputs.ref_pos_x   = 0;           % x position of laser
 inputs.ref_pos_y   = 0;           % y position of laser
 inputs.obj_amp     = 0.01;        % scattered light amplitude at sensor
+inputs.nTiles      = 2;           % number of tiles to use in Kanka optimization
 
 % Define zoom region of interest:
 ROI_x = [-0.5,0.5]*1e-3; %mm
@@ -28,38 +29,21 @@ ROI_y = [-0.5,0.5]*1e-3;
 ROI_x_pix = round(inputs.n_pixels/2 + ROI_x/inputs.pixel_p);
 ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 
-tic
-
 % Generate Data:
-folder = 'GeneratedData3b';
+folder = 'generatedData3';
 [~,images] = ImportImages(folder,inputs);
 
 %% Average
 avgImg = AverageImage(images);
-PlotFrame(images{1},'Raw Frame 1')
-% 
-% PlotFrame(ReconstructorMod(images{1}-avgImg,CalculateTemplate(inputs),inputs),'Reconstructed Frame 1',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% PlotFrame(avgImg,'Raw Average')
 
-% % %%Difference Stack
+%%Difference Stack
 diffStack = DifferenceStack(images);
-PlotFrame(diffStack,'Raw diffStack');
+PlotFrame(diffStack,'Raw diffStack')
 
-recon = ReconstructorMod(diffStack,CalculateTemplate(inputs),inputs);
-PlotFrame(recon,'Recon',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-% 
-% for i = 1:1
-%     recDiffStack{i} = ReconstructorMod(diffStack,CalculateTemplate(inputs),inputs);
-%     PlotFrame(recDiffStack{i},'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-% end
-% toc
-% 
-% timerend = toc
-% tEnd = cputime - tStart;
-%PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+recDiffStack = Reconstructor(diffStack,1,inputs);
+PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
-%varies frame, keeps z-slice constant
-% for i=1:10
-%     reconFrame{i} = Reconstructor(images{i},1,inputs,avgImg);
-% end
-% animationRec = AnimationZ(reconFrame,10,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+recDiffStack_Kanka = Reconstructor_Kanka1(diffStack,1,inputs);
+PlotFrame(recDiffStack_Kanka,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
