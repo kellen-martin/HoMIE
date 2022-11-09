@@ -62,4 +62,4 @@ PlotFrame(recon,'Recon',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 %     reconFrame{i} = Reconstructor(images{i},1,inputs,avgImg);
 % end
 % animationRec = AnimationZ(reconFrame,10,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-% movie(animationRec,2,2)
+

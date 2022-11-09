@@ -17,7 +17,7 @@ function [map,images] = ImportImages(folder,inputs)
 % Last Edited: 10/21/22
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-tic
+%tic
 
 original_files = dir([folder '/*.png']); 
 sizeOf = length(original_files);
@@ -42,8 +42,8 @@ end
     
 [~,map] = imread(filename);
 
-time = toc;
-fprintf('\nImportImages %.2f\n', time)
+%time = toc;
+%fprintf('\nImportImages %.2f\n', time)
 
 
 % avgImg = z ./ sizeOf;
