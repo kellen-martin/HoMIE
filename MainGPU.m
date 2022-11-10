@@ -41,16 +41,20 @@ folder = 'GeneratedData3b';
 % PlotFrame(ReconstructorMod(images{1}-avgImg,CalculateTemplate(inputs),inputs),'Reconstructed Frame 1',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 
 % % %%Difference Stack 41.711691
-diffStack = (DifferenceStack(images));
+diffStack = gpuArray(DifferenceStack(images));
+% inputs = structfun(@gpuArray, inputs, 'UniformOutput', false);
+
 % PlotFrame(diffStack,'Raw diffStack');
 
 % recon = ReconstructorMod(diffStack,CalculateTemplate(inputs),inputs);
 % PlotFrame(recon,'Recon',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 
 tic
-for i = 1:10
+for i = 1:1
     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
-    recDiffStack{i} = ReconstructorMod(diffStack,CalculateTemplate(inputs),inputs);
+    template = (real(CalculateTemplate(inputs)));
+    recDiffStack{i} = arrayfun(@ReconstructorMod,diffStack,inputs);
+%     recDiffStack{i} = ReconstructorMod(diffStack,CalculateTemplate(inputs),inputs);
 end
 toc
 % toc
