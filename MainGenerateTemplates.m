@@ -34,42 +34,21 @@ tic
 folder = 'GeneratedData3b';
 [~,images] = ImportImages(folder,inputs);
 
-%% Average
-g = gpuDevice(1);
-
-diffStack = DifferenceStack(images);
-diffStack = gpuArray(diffStack);
-
-tic
-template = load('templateFile.mat');
-toc
+%% Make Templates
+% tic
+% for i = 1:1
+%     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+%     template = CalculateTemplate(inputs);
+%     temp = [template.template_wave template.ref_wave];
+%     save("Templates/Template"+i+".mat",temp)
+% end
+% toc
 
 tic
 for i = 1:1
-%     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
-%     template = CalculateTemplate(inputs);
-%     template{i} = structfun(@gpuArray,template,'UniformOutput',false);
-% % %     template = structfun(@abs,template,'UniformOutput',false);
-% % %     template = structfun(@sqrt,template,'UniformOutput',false);
-% %     inputs.ref_wave = abs(template.ref_wave);
-% %     inputs.template_wave = abs(template.template_wave);
-% %     ref_wave = template.ref_wave;
-% %     template_wave = template.template_wave;
-% %     recDiffStack{i} = ReconstructorGPU(diffStack,ref_wave,template_wave);
-    recDiffStack{i} = ReconstructorGPUMOD(diffStack,template{i},inputs);
+    m = matfile("Templates/template"+i+".mat",'Writable',true);
+    inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+    template = CalculateTemplate(inputs);
+    save("Templates/template"+i+".mat",'template')
 end
 toc
-
-% clear all
-% toc
-% 
-% timerend = toc
-% tEnd = cputime - tStart;
-%PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-%varies frame, keeps z-slice constant
-% for i=1:10
-%     reconFrame{i} = Reconstructor(images{i},1,inputs,avgImg);
-% end
-% animationRec = AnimationZ(reconFrame,10,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-

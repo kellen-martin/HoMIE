@@ -48,11 +48,13 @@ diffStack = (DifferenceStack(images));
 % PlotFrame(recon,'Recon',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 
 tic
-for i = 1:10
+for i = 1:1
     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
-    recDiffStack{i} = ReconstructorMod(diffStack,CalculateTemplate(inputs),inputs);
+    template = CalculateTemplate(inputs);
+    recDiffStack{i} = ReconstructorMod(diffStack,template,inputs);
 end
 toc
+clear all
 % toc
 % 
 % timerend = toc
