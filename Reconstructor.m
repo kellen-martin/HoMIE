@@ -1,11 +1,11 @@
-function [reconstructed] = ReconstructorMod(image,zslice,inputs)
-
-rval = zslice;
+function [reconstructed] = Reconstructor(image,zslice,inputs)
+    rval = zslice;
 
     image = single(image(1:inputs.Sn_pixels,1:inputs.Sn_pixels));
     image = single(imresize(image,inputs.OVS));
     down_sz = inputs.n_pixels/inputs.OVS; %this is what sensor sees
-    I2_down = imresize(image - abs(rval.ref_wave).^2, [down_sz, down_sz], 'box'); %find intensity then remove its effect
+    I2_down = imresize(image - abs(rval.ref_wave).^2, [down_sz, down_sz], 'cubic'); %find intensity then remove its effect
+    %cubic was originally grid
 
     I2_down_fft = fft2(I2_down); %of data
     I2_up_fft   = single(zeros(inputs.n_pixels, inputs.n_pixels)); %insert zeros
@@ -37,5 +37,3 @@ rval = zslice;
     reconstructed = correlated;
     clear despread_fft;
     clear template_fft;             
-save('ReconstructorModTemp','-append')
-
