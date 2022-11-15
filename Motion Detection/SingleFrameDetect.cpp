@@ -49,7 +49,6 @@ findContours(canny, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
 Mat img_cont = img.clone();
 drawContours(img_cont, contours, -1, Scalar(0,255,0), 1);
 
-
 // Count objects
 cout << "Number of Particles: " << contours.size() << endl;
 
@@ -62,12 +61,11 @@ for(int i = 0; i < contours.size(); i++){
     cout << "center " << (i + 1) << ": " << mass_centers[i].x << " " << mass_centers[i].y << endl;
 }
 
-
 // Save Images with markers 
 imwrite("/home/kells/HoMIE/Motion Detection/cont.png", img_cont);
 }
 
-// test of SingleFrameDetect 
+///////////// test of SingleFrameDetect ////////////////////////////////////////////////////////////
 int main(){
 string img_path = "unnamed.png";
 SingleFrameDetect(img_path);
