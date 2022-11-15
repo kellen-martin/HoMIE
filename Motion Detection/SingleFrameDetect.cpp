@@ -31,59 +31,40 @@ void SingleFrameDetect(string img_path) {
 // read image
 Mat img = imread(img_path);
 
-////////////// Blob Detection  /////////////////////////////////
-// Setup blob detector with default parameters
-SimpleBlobDetector::Params params;
-
-params.filterByArea = true;
-params.minArea = 1; 
-
-Ptr<SimpleBlobDetector> detector = SimpleBlobDetector::create(params); 
-
-// Detect
-vector<KeyPoint> keypoints; 
-detector->detect(img, keypoints);
-
-// image with markers 
-Mat blobs;
-drawKeypoints(img, keypoints, blobs, Scalar(0,0,225), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-
-////////////// Edge Detection /////////////////////////////////
 // Blur image (better edge detection)
 Mat img_blur;
 GaussianBlur(img, img_blur, Size(3,3), 0, 0, BORDER_DEFAULT);
 
-// Sobel Edge Detection
-Mat sobel;
-Sobel(img_blur, sobel, CV_64F, 1, 1, 5);
-
 // Canny Edge Detection
 Mat canny;
 Canny(img_blur, canny, 100, 200, 3, false);
-
-///////////// Contour Detection ////////////////////////////////
-// Currently uses the canny edge detection, another option is to binarize the image
 
 // Set up vectors
 vector<vector<Point>> contours;
 vector<Vec4i> hierarchy;
 
 // Find Contours
-findContours(canny, contours, hierarchy, RETR_TREE, CHAIN_APPROX_NONE);
+findContours(canny, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
 
 // draw contours
 Mat img_cont = img.clone();
-drawContours(img_cont, contours, -1, Scalar(0,255,0), 2);
+drawContours(img_cont, contours, -1, Scalar(0,255,0), 1);
 
-// Mark Objects
 
 // Count objects
+cout << "Number of Particles: " << contours.size() << endl;
+
+// Output object locations
+vector<Point2d> mass_centers(contours.size());
+
+for(int i = 0; i < contours.size(); i++){
+    const Moments mu = moments(contours[i], false);
+    mass_centers[i] = Point2d(mu.m10 / mu.m00, mu.m01 / mu.m00);
+    cout << "center " << (i + 1) << ": " << mass_centers[i].x << " " << mass_centers[i].y << endl;
+}
+
 
 // Save Images with markers 
-imwrite("/home/kells/HoMIE/Motion Detection/blob.png", blobs);
-imwrite("/home/kells/HoMIE/Motion Detection/blur.png", img_blur);
-imwrite("/home/kells/HoMIE/Motion Detection/sobel_edges.png", sobel);
-imwrite("/home/kells/HoMIE/Motion Detection/canny_edges.png", canny);
 imwrite("/home/kells/HoMIE/Motion Detection/cont.png", img_cont);
 }
 
