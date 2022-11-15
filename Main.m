@@ -48,7 +48,17 @@ PlotFrame(diffStack,'Raw diffStack');
 % imageWriterMod(normalize(diffStack),'diffStack',ROI_y_pix./2,ROI_x_pix./2)
 
 recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
-PlotFrame(recon,'Recon',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+PlotFrame(recon,'Recon OG',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+
+recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs);
+PlotFrame(recon,'Recon Combo Method 1',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+
+recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs,2);
+PlotFrame(recon,'Recon Combo Method 2',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+
+recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs,2);
+PlotFrame(recon,'Recon Ryan',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+
 % imageWriterMod(recon,'diffStackRecon',ROI_y_pix,ROI_x_pix)
 % tic
 % for i = 1:1

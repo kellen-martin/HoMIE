@@ -38,14 +38,14 @@ RefTileSize = inputs.n_pixels;
 image = single(image(1:inputs.Sn_pixels,1:inputs.Sn_pixels));
 image = single(imresize(image,inputs.OVS));
     
-if nargin == 3   % No cleaning argument
-end
-if nargin == 4   % cleaner argument used
-    cleaner = single(cleaner(1:inputs.Sn_pixels,1:inputs.Sn_pixels));
-    cleaner = single(imresize(cleaner,inputs.OVS));
-
-    image = image - cleaner;
-end
+% if nargin == 3   % No cleaning argument
+% end
+% if nargin == 4   % cleaner argument used
+%     cleaner = single(cleaner(1:inputs.Sn_pixels,1:inputs.Sn_pixels));
+%     cleaner = single(imresize(cleaner,inputs.OVS));
+% 
+%     image = image - cleaner;
+% end
 
 rval = CalculateTemplate(inputs);
 

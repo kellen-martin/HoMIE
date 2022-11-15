@@ -41,8 +41,8 @@ avgImg = AverageImage(images);
 diffStack = DifferenceStack(images);
 PlotFrame(diffStack,'Raw diffStack')
 
-recDiffStack = Reconstructor(diffStack,1,inputs);
-PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% recDiffStack = Reconstructor(diffStack,1,inputs);
+% PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 recDiffStack_Kanka = Reconstructor_Kanka1(diffStack,1,inputs);
 PlotFrame(recDiffStack_Kanka,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
