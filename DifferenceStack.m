@@ -36,4 +36,4 @@ while i < length(images)
     i = i+2;
 end
 
-diffStack = temp;
+diffStack = temp./length(images);

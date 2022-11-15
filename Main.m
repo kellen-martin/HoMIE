@@ -42,19 +42,22 @@ folder = 'GeneratedData3b';
 
 % % %%Difference Stack 41.711691
 diffStack = (DifferenceStack(images));
-% PlotFrame(diffStack,'Raw diffStack');
+% diffStack = diffStack ./ max(abs(diffStack));
+% diffStack = diffStack ./ max(abs(diffStack));
+PlotFrame(diffStack,'Raw diffStack');
+% imageWriterMod(normalize(diffStack),'diffStack',ROI_y_pix./2,ROI_x_pix./2)
 
-% recon = ReconstructorMod(diffStack,CalculateTemplate(inputs),inputs);
-% PlotFrame(recon,'Recon',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-
-tic
-for i = 1:1
-    inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
-    template = CalculateTemplate(inputs);
-    recDiffStack{i} = ReconstructorMod(diffStack,template,inputs);
-end
-toc
-clear all
+recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
+PlotFrame(recon,'Recon',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% imageWriterMod(recon,'diffStackRecon',ROI_y_pix,ROI_x_pix)
+% tic
+% for i = 1:1
+%     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+%     template = CalculateTemplate(inputs);
+%     recDiffStack{i} = ReconstructorMod(diffStack,template,inputs);
+% end
+% toc
+% clear all
 % toc
 % 
 % timerend = toc

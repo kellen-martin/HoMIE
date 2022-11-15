@@ -5,6 +5,7 @@ if nargin == 2
     imagesc(sqrt(abs(image)));
     cm=colormap('gray');colormap(cm(end:-1:1,:));
     axis square;
+    axis 'off';
     title(name);
 end
 if nargin == 6
