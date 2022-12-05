@@ -97,20 +97,24 @@ for i = 1:nTiles % Tiles in the y-direction
 
         % CALCULATE REFERENCE PATCH HERE ----------------------------------
         
-            pixel_x   = ref_pixel_p*([RefTileStart(j)-1:RefTileEnd(j)-1] - floor(inputs.n_pixels*nTiles/2));
-            pixel_y   = ref_pixel_p*([RefTileStart(i)-1:RefTileEnd(i)-1] - floor(inputs.n_pixels*nTiles/2));
+            pixel_x_ref   = ref_pixel_p*([RefTileStart(i)-1:RefTileEnd(i)-1] - floor(RefTileSize*nTiles/2));
+            pixel_y_ref   = ref_pixel_p*([RefTileStart(j)-1:RefTileEnd(j)-1] - floor(RefTileSize*nTiles/2));
             ref_pos_z = inputs.ref_dist;
         
         
             for ix = 1:RefTileSize
                 
-                x = pixel_x(ix);
+                x = pixel_x_ref(ix);
                 
-                ref_dist     = sqrt((x - inputs.ref_pos_x).^2 + (pixel_y - inputs.ref_pos_y).^2 + ref_pos_z.^2);
+                ref_dist     = sqrt((x - inputs.ref_pos_x).^2 + (pixel_y_ref - inputs.ref_pos_y).^2 + ref_pos_z.^2);
                 ref_n_waves  = ref_dist/inputs.wavelength;
                 patch(ix, :) = single(inputs.ref_amp*exp(1i*2*pi*ref_n_waves));
                 
             end
+            
+            
+            [X,Y] = meshgrid(single(linspace(2*(j-1)/nTiles - 1,2*j/nTiles - 1,inputs.n_pixels)), single(linspace(2*(i-1)/nTiles - 1,2*i/nTiles - 1,inputs.n_pixels)));
+            apodizer_patch = single(sqrt(X.^2 + Y.^2) < 1);
             
         % -----------------------------------------------------------------
 
@@ -123,6 +127,7 @@ for i = 1:nTiles % Tiles in the y-direction
 
         tile_up = ifft2(tile_up_fft); % Upsampled tile
 
+%         TileSum = TileSum + fft2(tile_up.*patch.*apodizer_patch);
         TileSum = TileSum + tile_up.*patch;
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -159,9 +164,11 @@ end
 % Begin clearing unused large variables to save memory:
 clear tile_up;
 clear tile_up_fft;
-clear patch;
+% clear patch;
 clear tile_down_fft;
 
+
+            
 [X,Y] = meshgrid(single(linspace(-1,1,inputs.n_pixels)), single(linspace(-1,1,inputs.n_pixels)));
 apodizer = single(sqrt(X.^2 + Y.^2) < 1);
 
@@ -170,15 +177,16 @@ clear Y;
 
 % Correlate against template, use apodizer
 despread_fft = fft2(TileSum.*apodizer);
+% despread_fft = TileSum;
 template_fft = fft2(template_wave.*apodizer);
 clear apodizer;
-clear despread;
+% clear despread;
 
 % fftshift rearranged image into a state we can understand
 correlated = fftshift(ifft2(despread_fft.*conj(template_fft))); % frequency-domain convolution (correlation)
 reconstructed = correlated;
-clear despread_fft;
-clear template_fft;             
+% clear despread_fft;
+% clear template_fft;             
 
 time = toc;
 fprintf('\nReconstructor_Kanka1 %.2f\n', time)

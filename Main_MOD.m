@@ -1,6 +1,6 @@
 clc
 clear all
-close all
+% close all
 
 % variables
 Zheight            = 2e-3;        % height of sample volume
@@ -45,5 +45,6 @@ recDiffStack = Reconstructor(diffStack,1,inputs);
 PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
 
 recDiffStack_Kanka = Reconstructor_Kanka1(diffStack,1,inputs);
-PlotFrame(recDiffStack_Kanka,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+% PlotFrame(recDiffStack_Kanka,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
+PlotFrame(recDiffStack_Kanka,'Rec diffStack',ROI_x,ROI_y,[1 3000*inputs.OVS],[1 3000*inputs.OVS])
 
