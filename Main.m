@@ -30,12 +30,15 @@ ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 tic
 
 % Generate Data:
-folder = 'GeneratedData3b';
+folder = 'Images';
 [~,images] = ImportImages(folder,inputs);
 
 %% Average
-% avgImg = AverageImage(images);
+avgImg = AverageImage(images);
 % PlotFrame(avgImg,'Avg Image')
+
+%% Single Frame Reconstruction
+% recon = Reconstructor(images{1}-avgImg,CalculateTemplate(inputs),inputs);
 
 %% Difference Stack Reconstruction - Original
 diffStack = (DifferenceStack(images));
@@ -47,8 +50,8 @@ PlotFrame(recon,'Recon OG',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 % Writer(recon(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'recon')
 
 %%  Difference Stack Reconstruction - Kanka Method 1
-reconKanka = ReconstructorKanka1(diffStack,CalculateTemplate(inputs),inputs,2);
-PlotFrame(reconKanka,'Recon Kanka',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% reconKanka = ReconstructorKanka1(diffStack,CalculateTemplate(inputs),inputs,2);
+% PlotFrame(reconKanka,'Recon Kanka',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 
 %% Difference Stack Reconstruction - Original - GPU Method
 % g = gpuDevice(1);
