@@ -44,6 +44,12 @@ folder = 'GeneratedData3b';
 % end
 % toc
 
+% % % "companion.m" old code
+% for i=1:20
+%     inputs.ref_dist = inputs.ref_dist + inputs.z_resolution * (i-1);
+%     zTemplate{i} = CalculateTemplate(inputs);
+% end
+
 tic
 for i = 1:1
     m = matfile("Templates/template"+i+".mat",'Writable',true);

@@ -8,7 +8,6 @@ Zheight            = 2e-3;        % height of sample volume
 %inputs
 inputs.z_resolution= 2e-6;
 inputs.Sn_pixels   = 3000;        % must be smaller than small SENSOR_NX/Y
-% inputs.Sn_pixels   = 700;       % must be smaller than small SENSOR_NX/Y
 inputs.OVS         = 2;
 
 % inputs
@@ -36,47 +35,45 @@ folder = 'GeneratedData3b';
 
 %% Average
 % avgImg = AverageImage(images);
-% PlotFrame(images{1},'Raw Frame 1')
-% 
-% PlotFrame(ReconstructorMod(images{1}-avgImg,CalculateTemplate(inputs),inputs),'Reconstructed Frame 1',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% PlotFrame(avgImg,'Avg Image')
 
-% % %%Difference Stack 41.711691
+%% Difference Stack Reconstruction
 diffStack = (DifferenceStack(images));
-% diffStack = diffStack ./ max(abs(diffStack));
-% diffStack = diffStack ./ max(abs(diffStack));
-PlotFrame(diffStack,'Raw diffStack');
-% imageWriterMod(normalize(diffStack),'diffStack',ROI_y_pix./2,ROI_x_pix./2)
+% PlotFrame(diffStack,'Raw diffStack');
+% Writer(diffStack,'raw')
 
 recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
-PlotFrame(recon,'Recon OG',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% PlotFrame(recon,'Recon OG',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% Writer(recon(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'recon')
 
-recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs);
-PlotFrame(recon,'Recon Combo Method 1',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+%% Difference Stack Reconstruction - GPU Method
+% g = gpuDevice(1);
+% 
+% diffStack = DifferenceStack(images);
+% diffStack = gpuArray(diffStack);
+% recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
 
-recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs,2);
-PlotFrame(recon,'Recon Combo Method 2',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 
-recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs,2);
-PlotFrame(recon,'Recon Ryan',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+%% Reconstruction Combo Tests
+% recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs);
+% PlotFrame(recon,'Recon Combo Method 1',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% 
+% recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs,2);
+% PlotFrame(recon,'Recon Combo Method 2',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% 
+% recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs,2);
+% PlotFrame(recon,'Recon Ryan',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 
-% imageWriterMod(recon,'diffStackRecon',ROI_y_pix,ROI_x_pix)
-% tic
-% for i = 1:1
+
+%% Z-slice Animation Demonstration
+%varies z-slice, keeps time constant
+% numFrames = 4;
+% for i=1:numFrames
 %     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
 %     template = CalculateTemplate(inputs);
-%     recDiffStack{i} = ReconstructorMod(diffStack,template,inputs);
+%     reconFrame{i} = Reconstructor(images{i},template,inputs);
 % end
-% toc
-% clear all
-% toc
-% 
-% timerend = toc
-% tEnd = cputime - tStart;
-%PlotFrame(recDiffStack,'Rec diffStack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix)
-
-%varies frame, keeps z-slice constant
-% for i=1:10
-%     reconFrame{i} = Reconstructor(images{i},1,inputs,avgImg);
-% end
-% animationRec = AnimationZ(reconFrame,10,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% animationRec = AnimationZ(reconFrame,numFrames,ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% figure;
+% movie(animationRec,2,2)
 
