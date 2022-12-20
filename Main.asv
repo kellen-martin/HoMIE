@@ -8,7 +8,6 @@ Zheight            = 2e-3;        % height of sample volume
 %inputs
 inputs.z_resolution= 2e-6;
 inputs.Sn_pixels   = 3000;        % must be smaller than small SENSOR_NX/Y
-% inputs.Sn_pixels   = 700;       % must be smaller than small SENSOR_NX/Y
 inputs.OVS         = 2;
 
 % inputs
@@ -31,42 +30,38 @@ ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 tic
 
 % Generate Data:
-folder = 'GeneratedData3b';
+folder = 'Images';
 [~,images] = ImportImages(folder,inputs);
 
 %% Average
-% avgImg = AverageImage(images);
+avgImg = AverageImage(images);
 % PlotFrame(avgImg,'Avg Image')
 
+%% Single Frame Reconstruction
+% recon = Reconstructor(images{1}-avgImg,CalculateTemplate(inputs),inputs);
+
+%% Difference Stack Reconstruction - Original
 diffStack = (DifferenceStack(images));
 % PlotFrame(diffStack,'Raw diffStack');
 % Writer(diffStack,'raw')
 
-%% GPU Method
-g = gpuDevice(1);
-
-tic
-diffStack = DifferenceStack(images);
-diffStack = gpuArray(diffStack);
 recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
-toc
-
-recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
-% PlotFrame(recon,'Recon OG',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+PlotFrame(recon,'Recon OG',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 % Writer(recon(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'recon')
 
-% recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs);
-% PlotFrame(recon,'Recon Combo Method 1',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+%%  Difference Stack Reconstruction - Kanka Method 1
+% reconKanka = ReconstructorKanka1(diffStack,CalculateTemplate(inputs),inputs,2);
+% PlotFrame(reconKanka,'Recon Kanka',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+
+%% Difference Stack Reconstruction - Original - GPU Method
+% g = gpuDevice(1);
 % 
-% recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs,2);
-% PlotFrame(recon,'Recon Combo Method 2',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-% 
-% recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs,2);
-% PlotFrame(recon,'Recon Ryan',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% diffStack = DifferenceStack(images);
+% diffStack = gpuArray(diffStack);
+% recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
 
-
-
-%%varies z-slice, keeps time constant
+%% Z-slice Animation Demonstration
+%varies z-slice, keeps time constant
 % numFrames = 4;
 % for i=1:numFrames
 %     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
@@ -77,3 +72,38 @@ recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
 % figure;
 % movie(animationRec,2,2)
 
+%% Stress Test
+numFrames = 4;
+tic
+for i=1:numFrames
+    inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+    template = CalculateTemplate(inputs);
+    reconFrameOG{i} = Reconstructor(images{i},template,inputs);
+end
+toc
+inputs.ref_dist    = 12.0e-3;
+
+tic
+for i=1:numFrames
+    inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+    template = CalculateTemplate(inputs);
+    reconFrameKanka2{i} = Reconstructor(images{i},template,inputs,2);
+end
+toc
+inputs.ref_dist    = 12.0e-3;
+
+tic
+for i=1:numFrames
+    inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+    template = CalculateTemplate(inputs);
+    reconFrameKanka3{i} = Reconstructor(images{i},template,inputs,3);
+end
+toc
+
+tic
+for i=1:numFrames
+    inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+    template = CalculateTemplate(inputs);
+    reconFrameKanka2GPU{i} = Reconstructor(images{i},template,inputs,2);
+end
+toc

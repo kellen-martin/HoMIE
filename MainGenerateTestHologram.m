@@ -1,5 +1,5 @@
 clear;
-
+% test_DHM_2D
 % The simulated camera is the AV Alvium 1800 U-1240m C-Mount.
 %
 % Note that the script uses "single" precision by casting varaibles to
