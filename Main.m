@@ -37,16 +37,20 @@ folder = 'GeneratedData3b';
 % avgImg = AverageImage(images);
 % PlotFrame(avgImg,'Avg Image')
 
-%% Difference Stack Reconstruction
+%% Difference Stack Reconstruction - Original
 diffStack = (DifferenceStack(images));
 % PlotFrame(diffStack,'Raw diffStack');
 % Writer(diffStack,'raw')
 
 recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
-% PlotFrame(recon,'Recon OG',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+PlotFrame(recon,'Recon OG',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 % Writer(recon(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'recon')
 
-%% Difference Stack Reconstruction - GPU Method
+%%  Difference Stack Reconstruction - Kanka Method 1
+reconKanka = ReconstructorKanka1(diffStack,CalculateTemplate(inputs),inputs,2);
+PlotFrame(reconKanka,'Recon Kanka',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+
+%% Difference Stack Reconstruction - Original - GPU Method
 % g = gpuDevice(1);
 % 
 % diffStack = DifferenceStack(images);
