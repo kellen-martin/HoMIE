@@ -57,18 +57,6 @@ PlotFrame(reconKanka,'Recon Kanka',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 % diffStack = gpuArray(diffStack);
 % recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
 
-
-%% Reconstruction Combo Tests
-% recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs);
-% PlotFrame(recon,'Recon Combo Method 1',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-% 
-% recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs,2);
-% PlotFrame(recon,'Recon Combo Method 2',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-% 
-% recon = ReconstructorCombo(diffStack,CalculateTemplate(inputs),inputs,2);
-% PlotFrame(recon,'Recon Ryan',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-
-
 %% Z-slice Animation Demonstration
 %varies z-slice, keeps time constant
 % numFrames = 4;
