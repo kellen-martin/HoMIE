@@ -1,6 +1,6 @@
 function [reconstructed] = Reconstructor(image,zslice,inputs)
     rval = zslice;
-
+%     templateTL = 
     image = single(image(1:inputs.Sn_pixels,1:inputs.Sn_pixels));
     image = single(imresize(image,inputs.OVS));
     down_sz = inputs.n_pixels/inputs.OVS; %this is what sensor sees
