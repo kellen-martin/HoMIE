@@ -30,19 +30,19 @@ ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 tic
 
 % Generate Data:
-folder = 'ImagesLess';
+folder = 'generatedData3';
 [~,images] = ImportImages(folder,inputs);
 
 %% Average
-% avgImg = AverageImage(images);
-% PlotFrame(avgImg,'Avg Image')
+avgImg = AverageImage(images);
+PlotFrame(avgImg,'Avg Image')
 
 %% Single Frame Reconstruction
 % recon = Reconstructor(images{1}-avgImg,CalculateTemplate(inputs),inputs);
 
 %% Difference Stack Reconstruction - Original
-% diffStack = (DifferenceStack(images));
-% PlotFrame(diffStack,'Raw diffStack');
+diffStack = (DifferenceStack(images));
+PlotFrame(diffStack,'Raw diffStack');
 % Writer(diffStack,'raw')
 
 % recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
@@ -73,51 +73,51 @@ folder = 'ImagesLess';
 % movie(animationRec,2,2)
 
 %% Stress Test
-numFrames = 4;
-tic
-for i=1:numFrames
-    inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
-    template = CalculateTemplate(inputs);
-    reconFrameOG{i} = Reconstructor(images{i},template,inputs);
-end
-toc
-inputs.ref_dist    = 12.0e-3;
-
-tic
-for i=1:numFrames
-    inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
-    template = CalculateTemplate(inputs);
-    reconFrameKanka2{i} = ReconstructorKanka1(images{i},template,inputs,2);
-end
-toc
-inputs.ref_dist    = 12.0e-3;
-
-tic
-for i=1:numFrames
-    inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
-    template = CalculateTemplate(inputs);
-    reconFrameKanka3{i} = ReconstructorKanka1(images{i},template,inputs,3);
-end
-toc
-inputs.ref_dist    = 12.0e-3;
-
-g = gpuDevice(1);
-tic
-for i=1:numFrames
-    inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
-    template = CalculateTemplate(inputs);
-    frame = gpuArray(images{i});
-    reconFrameKanka2GPU{i} = ReconstructorKanka1(frame,template,inputs,2);
-end
-toc
-inputs.ref_dist    = 12.0e-3;
-
-g = gpuDevice(1);
-tic
-for i=1:numFrames
-    inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
-    template = CalculateTemplate(inputs);
-    frame = gpuArray(images{i});
-    reconFrameKanka3GPU{i} = ReconstructorKanka1(frame,template,inputs,3);
-end
-toc
+% numFrames = 4;
+% tic
+% for i=1:numFrames
+%     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+%     template = CalculateTemplate(inputs);
+%     reconFrameOG{i} = Reconstructor(images{i},template,inputs);
+% end
+% toc
+% inputs.ref_dist    = 12.0e-3;
+% 
+% tic
+% for i=1:numFrames
+%     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+%     template = CalculateTemplate(inputs);
+%     reconFrameKanka2{i} = ReconstructorKanka1(images{i},template,inputs,2);
+% end
+% toc
+% inputs.ref_dist    = 12.0e-3;
+% 
+% tic
+% for i=1:numFrames
+%     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+%     template = CalculateTemplate(inputs);
+%     reconFrameKanka3{i} = ReconstructorKanka1(images{i},template,inputs,3);
+% end
+% toc
+% inputs.ref_dist    = 12.0e-3;
+% 
+% g = gpuDevice(1);
+% tic
+% for i=1:numFrames
+%     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+%     template = CalculateTemplate(inputs);
+%     frame = gpuArray(images{i});
+%     reconFrameKanka2GPU{i} = ReconstructorKanka1(frame,template,inputs,2);
+% end
+% toc
+% inputs.ref_dist    = 12.0e-3;
+% 
+% g = gpuDevice(1);
+% tic
+% for i=1:numFrames
+%     inputs.ref_dist = inputs.ref_dist + (i-1)*inputs.z_resolution;
+%     template = CalculateTemplate(inputs);
+%     frame = gpuArray(images{i});
+%     reconFrameKanka3GPU{i} = ReconstructorKanka1(frame,template,inputs,3);
+% end
+% toc

@@ -3,7 +3,8 @@ tic
 if nargin == 2
     figure
     imagesc(sqrt(abs(image)));
-    cm=colormap('gray');colormap(cm(end:-1:1,:));
+    cm=colormap('gray');
+    %colormap(cm(end:-1:1,:));
     axis square;
     axis 'off';
     title(name);
