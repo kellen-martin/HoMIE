@@ -22,7 +22,7 @@ template_phase = 2*pi*sqrt((template_pos_x - ref_pos_x)^2 + (template_pos_y - re
 ref_wave       = single(zeros(n_pixels, n_pixels));
 template_wave  = single(zeros(n_pixels, n_pixels));
 for ix = 1:n_pixels
-    % (we're only vectorizing over the y axis to save memory)
+    % (were only vectorizing over the y axis to save memory)
     x = pixel_x(ix);
 
     ref_dist         = sqrt((x - ref_pos_x).^2 + (pixel_y - ref_pos_y).^2 + ref_pos_z.^2); % distance from referece to each pixel
