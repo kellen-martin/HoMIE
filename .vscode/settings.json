@@ -1,0 +1,7 @@
+{
+    "git.ignoreLimitWarning": true,
+    "cmake.sourceDirectory": "${workspaceFolder}/Motion Detection",
+    "files.associations": {
+        "iostream": "cpp"
+    }
+}

@@ -1,0 +1,4 @@
+/home/kells/HoMIE/Motion Detection/CMakeFiles/rebuild_cache.dir
+/home/kells/HoMIE/Motion Detection/CMakeFiles/edit_cache.dir
+/home/kells/HoMIE/Motion Detection/CMakeFiles/SingleFrameDetect.dir
+/home/kells/HoMIE/Motion Detection/CMakeFiles/openCV_test.dir

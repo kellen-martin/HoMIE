@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named SingleFrameDetect
+
+# Build rule for target.
+SingleFrameDetect: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 SingleFrameDetect
+.PHONY : SingleFrameDetect
+
+# fast build rule for target.
+SingleFrameDetect/fast:
+	$(MAKE) -f CMakeFiles/SingleFrameDetect.dir/build.make CMakeFiles/SingleFrameDetect.dir/build
+.PHONY : SingleFrameDetect/fast
+
+#=============================================================================
 # Target rules for targets named openCV_test
 
 # Build rule for target.
@@ -122,6 +135,33 @@ openCV_test: cmake_check_build_system
 openCV_test/fast:
 	$(MAKE) -f CMakeFiles/openCV_test.dir/build.make CMakeFiles/openCV_test.dir/build
 .PHONY : openCV_test/fast
+
+SingleFrameDetect.o: SingleFrameDetect.cpp.o
+
+.PHONY : SingleFrameDetect.o
+
+# target to build an object file
+SingleFrameDetect.cpp.o:
+	$(MAKE) -f CMakeFiles/SingleFrameDetect.dir/build.make CMakeFiles/SingleFrameDetect.dir/SingleFrameDetect.cpp.o
+.PHONY : SingleFrameDetect.cpp.o
+
+SingleFrameDetect.i: SingleFrameDetect.cpp.i
+
+.PHONY : SingleFrameDetect.i
+
+# target to preprocess a source file
+SingleFrameDetect.cpp.i:
+	$(MAKE) -f CMakeFiles/SingleFrameDetect.dir/build.make CMakeFiles/SingleFrameDetect.dir/SingleFrameDetect.cpp.i
+.PHONY : SingleFrameDetect.cpp.i
+
+SingleFrameDetect.s: SingleFrameDetect.cpp.s
+
+.PHONY : SingleFrameDetect.s
+
+# target to generate assembly for a file
+SingleFrameDetect.cpp.s:
+	$(MAKE) -f CMakeFiles/SingleFrameDetect.dir/build.make CMakeFiles/SingleFrameDetect.dir/SingleFrameDetect.cpp.s
+.PHONY : SingleFrameDetect.cpp.s
 
 openCV_test.o: openCV_test.cpp.o
 
@@ -158,7 +198,11 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... SingleFrameDetect"
 	@echo "... openCV_test"
+	@echo "... SingleFrameDetect.o"
+	@echo "... SingleFrameDetect.i"
+	@echo "... SingleFrameDetect.s"
 	@echo "... openCV_test.o"
 	@echo "... openCV_test.i"
 	@echo "... openCV_test.s"
