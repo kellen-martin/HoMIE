@@ -52,6 +52,7 @@ PlotFrame(diffStack,'Raw diffStack');
 %%  Difference Stack Reconstruction - Kanka Method 1
 % reconKanka = ReconstructorKanka1(diffStack,CalculateTemplate(inputs),inputs,2);
 % PlotFrame(reconKanka,'Recon Kanka',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% Writer(reconKanka(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'reconKanka')
 
 %% Difference Stack Reconstruction - Original - GPU Method
 % g = gpuDevice(1);

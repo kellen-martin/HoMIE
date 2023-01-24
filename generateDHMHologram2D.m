@@ -1,4 +1,4 @@
-function rval = generateDHMHologram2D(inputs)
+generateDHMHologram2Dfunction rval = generateDHMHologram2D(inputs)
 % Simulates simple inline lensless digital holographic microscope.
 % 
 %                                 |
