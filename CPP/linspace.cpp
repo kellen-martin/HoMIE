@@ -1,14 +1,22 @@
 #include "header.hpp"
 
-Mat linspace(float start, float end, int n)
+using namespace std;
+using namespace cv;
+
+
+void linspace(float start, float end, int n, Mat* dest)
 {
+    if(verbose) cout << "- linspace  -   -   -   -   -   -   -   -   -   -   -" << endl;
     float div = (end - start)/(n - 1);
-    Mat mat = Mat::zeros(1, n, CV_32F);
+    *dest = Mat::zeros(1, n, CV_32F);
 
     for(int i = 0; i < n; i++)
     {
-        mat.at<float>(1,i) = start + i*div;
+        dest->at<float>(0,i) = start + i*div;
     }
+    
+    if(verbose) cout << "-   -   -   -   -   -   -   -   -   -   -   -   -   -" << endl;
 
-    return mat;
+    return;
+
 }

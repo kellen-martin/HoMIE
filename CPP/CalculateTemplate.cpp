@@ -1,9 +1,22 @@
 #include "header.hpp"
+#include "dtypes.cpp"
+
+using namespace std;
+using namespace cv;
 
 // 'input' variable contents are passed as globals, change 'temp_dist' to alter z-depth
 
+// struct rval
+// {
+//     // return value for calculating template and reference waves
+//     Mat template_wave;
+//     Mat ref_wave;
+// };
+
 rval CalculateTemplate()
 {
+    if(verbose) cout << "----------------- Calculate Template ----------------" << endl;
+
     float template_pos_x = 0;
     float template_pos_y = 0;
     float template_pos_z = temp_dist;
@@ -26,15 +39,9 @@ rval CalculateTemplate()
 
     float dist = (xdif*xdif) + (ydif*ydif) + (zdif*zdif);
     float template_phase = 2*pi*sqrt(dist)/wavelength;
-
-    // Mat ref_wave      = Mat::zeros(n_pixels, n_pixels, CV_32F);
-    // Mat template_wave = Mat::zeros(n_pixels, n_pixels, CV_32F); // single precision real valued
     
-    Mat temp      = Mat::zeros(n_pixels, n_pixels, CV_32F);
-    Mat ref_wave, template_wave;
-
-    temp.convertTo(ref_wave, CV_32FC2);
-    temp.convertTo(template_wave, CV_32FC2); // single precision complex valued
+    Mat ref_wave       = Mat::zeros(n_pixels, n_pixels, CV_32FC2);
+    Mat template_wave  = Mat::zeros(n_pixels, n_pixels, CV_32FC2);
 
     for(int ix = 0; ix < n_pixels; ix++)
     {
@@ -69,8 +76,8 @@ rval CalculateTemplate()
 
         /////////////////////////////// template wave calculation: /////////////////////////////
 
-        float tempx = x - template_pos_x;
-        Mat tempy = pixel_y - template_pos_y;
+        tempx = x - template_pos_x;
+        tempy = pixel_y - template_pos_y;
         multiply(tempy, tempy, tempy);
         Mat template_dist = (tempx*tempx) + (tempy) + (template_pos_z*template_pos_z);
 
@@ -100,6 +107,12 @@ rval CalculateTemplate()
     rval ret;
     ret.ref_wave = ref_wave;
     ret.template_wave = template_wave;
+
+    
+    if(verbose) cout << "Calculated reference and template waves:" << endl;
+    if(verbose) cout << "    reference: " << ret.ref_wave.rows << " x " << ret.ref_wave.cols << " x " << ret.ref_wave.channels() << endl;
+    if(verbose) cout << "    template:  " << template_wave.rows << " x " << ret.template_wave.cols << " x " << ret.template_wave.channels() << endl;
+    if(verbose) cout << "-----------------------------------------------------" << endl;
 
     return ret;
 

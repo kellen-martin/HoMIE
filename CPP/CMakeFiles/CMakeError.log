@@ -1,0 +1,19 @@
+Checking whether the C compiler is IAR using "" did not match "IAR .+ Compiler":
+Checking whether the C compiler is IAR using "" did not match "IAR .+ Compiler":
+Checking whether the CXX compiler is IAR using "" did not match "IAR .+ Compiler":
+Checking whether the CXX compiler is IAR using "" did not match "IAR .+ Compiler":
+Detecting C compiler ABI info failed to compile with the following output:
+Change Dir: //wsl$/Ubuntu/home/rjones2598/HoMIE/CPP/CMakeFiles/CMakeScratch/TryCompile-wu3589
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_0239a/fast && The name of the file cannot be resolved by the system
+Generator: execution of make failed. Make command was: /usr/bin/gmake -f Makefile cmTC_0239a/fast && 
+
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: //wsl$/Ubuntu/home/rjones2598/HoMIE/CPP/CMakeFiles/CMakeScratch/TryCompile-56ttlr
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_b807d/fast && The name of the file cannot be resolved by the system
+Generator: execution of make failed. Make command was: /usr/bin/gmake -f Makefile cmTC_b807d/fast && 
+
+
