@@ -26,35 +26,36 @@ ROI_x = [-0.5,0.5]*1e-3; %mm
 ROI_y = [-0.5,0.5]*1e-3;
 ROI_x_pix = round(inputs.n_pixels/2 + ROI_x/inputs.pixel_p);
 ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
-
 tic
 
 % Generate Data:
-folder = 'ImagesLess';
+% folder = 'holograms/generatedData3b';
+folder = 'holograms/ImagesLess';
 [~,images] = ImportImages(folder,inputs);
 
 %% Average
-avgImg = AverageImage(images);
-PlotFrame(avgImg,'Avg Image')
+% avgImg = AverageImage(images);
+% PlotFrame(avgImg,'Avg Image')
 
 %% Single Frame Reconstruction
-% recon = Reconstructor(images{1}-avgImg,CalculateTemplate(inputs),inputs);
+recon = Reconstructor(images{1},CalculateTemplate(inputs),inputs);
+PlotFrame(recon,'Single Frame',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 
 %% Difference Stack Reconstruction - Original
-diffStack = (DifferenceStack(images));
-PlotFrame(diffStack,'Raw diffStack');
-Writer(diffStack,'stackraw')
+stack = (DifferenceStack(images));
+PlotFrame(stack,'Raw diffStack');
+% Writer(stack,'stackraw')
+reStack = Reconstructor(stack,CalculateTemplate(inputs),inputs);
+PlotFrame(reStack,'Recon stack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% Writer(reStack(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'stackrecon')
 
-diffFrame = DifferenceFrame(images{1},images{2},avgImg);
-Writer(diffFrame,'diffraw')
+% diff = DifferenceFrame(images{1},images{2},avgImg);
+% PlotFrame(diff,'Raw diffFrame');
+% Writer(diffFrame,'diffraw')
+% reDiff = Reconstructor(diff,CalculateTemplate(inputs),inputs);
+% PlotFrame(reDiff,'Recon diff',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% Writer(recon(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'diffrecon')
 
-recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
-PlotFrame(recon,'Recon stack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-Writer(recon(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'stackrecon')
-
-reconDiff = Reconstructor(diffFrame,CalculateTemplate(inputs),inputs);
-PlotFrame(reconDiff,'Recon diff',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-Writer(recon(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'diffrecon')
 
 %%  Difference Stack Reconstruction - Kanka Method 1
 % reconKanka = ReconstructorKanka1(diffStack,CalculateTemplate(inputs),inputs,2);
