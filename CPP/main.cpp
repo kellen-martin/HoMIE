@@ -56,6 +56,16 @@ int main()
     // if using first and last arguments to select a range, make indexes zero based
     
     if(verbose) cout << endl << "Returned to Main" << endl << endl;
+    if(verbose) cout << "Average Image:" << endl;
+    if(verbose) cout << "    " << avgImg.rows << " x " << avgImg.cols << " x " << avgImg.channels() << endl;
+    if(verbose)
+    {
+        double max, min;
+        Point minLoc, maxLoc;
+        minMaxLoc(avgImg, &min, &max, &minLoc, &maxLoc);
+        if(verbose) cout << "    max pixel value: " << max << endl;
+        if(verbose) cout << "    min pixel value: " << min << endl << endl;
+    }
 
     // PlotFrame(avgImg, "Average Image", "avgImg-test.png", false);
 
@@ -67,6 +77,16 @@ int main()
     // plot "Raw Difference Stack"
 
     if(verbose) cout << endl << "Returned to Main" << endl << endl;
+    if(verbose) cout << "Difference Stack:" << endl;
+    if(verbose) cout << "    " << diffStack.rows << " x " << diffStack.cols << " x " << diffStack.channels() << endl;
+    if(verbose)
+    {
+        double max, min;
+        Point minLoc, maxLoc;
+        minMaxLoc(diffStack, &min, &max, &minLoc, &maxLoc);
+        if(verbose) cout << "    max pixel value: " << max << endl;
+        if(verbose) cout << "    min pixel value: " << min << endl << endl;
+    }
 
     Mat recon = Reconstructor(diffStack, 1);
     // call plotFrame here
@@ -74,8 +94,18 @@ int main()
     
     if(verbose) cout << endl << "Returned to Main" << endl << endl;
 
+    if(verbose)
+    {
+        double max, min;
+        Point minLoc, maxLoc;
+        minMaxLoc(recon, &min, &max);
+        if(verbose) cout << "    max pixel value: " << max << endl;
+        if(verbose) cout << "    min pixel value: " << min << endl << endl;
+    }
+
+
     if(verbose) cout << "Plotting frame: --------------" << endl;
-    PlotFrame(recon, "Reconstructed 4-frame difference stack", "test-diff.png", true);
+    PlotFrame(recon, "Reconstructed 4-frame difference stack", "test-diff.png", true, true);
     if(verbose) cout << "------------------------------" << endl;
 
 

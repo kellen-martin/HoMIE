@@ -6,7 +6,7 @@ using namespace cv;
 
 void linspace(float start, float end, int n, Mat* dest)
 {
-    if(verbose) cout << "- linspace  -   -   -   -   -   -   -   -   -   -   -" << endl;
+    if(verbose) cout << "  linspace....";
     float div = (end - start)/(n - 1);
     *dest = Mat::zeros(1, n, CV_32F);
 
@@ -15,7 +15,7 @@ void linspace(float start, float end, int n, Mat* dest)
         dest->at<float>(0,i) = start + i*div;
     }
     
-    if(verbose) cout << "-   -   -   -   -   -   -   -   -   -   -   -   -   -" << endl;
+    if(verbose) cout << "        ... done" << endl;
 
     return;
 

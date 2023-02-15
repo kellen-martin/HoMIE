@@ -10,6 +10,16 @@ Mat Reconstructor(Mat& input_image, int zslice)
 
     temp_dist = ref_dist + z_resolution*(zslice - 1);
 
+    if(verbose) cout << "Image in: " << input_image.rows << " x " << input_image.cols << " x " << input_image.channels() << endl;
+    if(verbose)
+    {
+        double max, min;
+        Point minLoc, maxLoc;
+        minMaxLoc(input_image, &min, &max);
+        cout << "    max pixel value: " << max << endl;
+        cout << "    min pixel value: " << min << endl << endl;
+    }
+
     
     if(verbose) cout << "Calculating template and reference waves:" << endl;
     if(verbose) cout << "-  -  -  -  -  -  -  -  -   -  -  -  -  -  -  -  -  - " << endl;
@@ -17,9 +27,36 @@ Mat Reconstructor(Mat& input_image, int zslice)
     if(verbose) cout << "-  -  -  -  -  -  -  -  -   -  -  -  -  -  -  -  -  - " << endl;
     if(verbose) cout << "Returned to Reconstructor" << endl;
 
+    if(verbose)
+    {
+        double max, min;
+        Point minLoc, maxLoc;
+        minMaxLoc(waves.template_wave, &min, &max);
+        if(verbose) cout << "  Template: ----------------" << endl;
+        if(verbose) cout << "    max pixel value: " << max << endl;
+        if(verbose) cout << "    min pixel value: " << min << endl << endl;
+    }
+    if(verbose)
+    {
+        double max, min;
+        Point minLoc, maxLoc;
+        minMaxLoc(waves.ref_wave, &min, &max);
+        if(verbose) cout << "  Reference: ---------------" << endl;
+        if(verbose) cout << "    max pixel value: " << max << endl;
+        if(verbose) cout << "    min pixel value: " << min << endl << endl;
+    }
+
     Mat image = input_image(Range(0, Sn_pixels), Range(0, Sn_pixels)).clone();
     resize(image, image, Size(0,0), OVS, OVS, INTER_CUBIC); 
     if(verbose) cout << "Resize image: " << image.rows << " x " << image.cols << " x " << image.channels() << endl;
+    if(verbose)
+    {
+        double max, min;
+        Point minLoc, maxLoc;
+        minMaxLoc(image, &min, &max);
+        cout << "    max pixel value: " << max << endl;
+        cout << "    min pixel value: " << min << endl << endl;
+    }
     // resize done using bicubic interpolation (this is what MATLAB does by default)
 
     float down_sz = n_pixels/OVS;
@@ -45,6 +82,14 @@ Mat Reconstructor(Mat& input_image, int zslice)
     resize((*I2_down), (*I2_down), Size(down_sz, down_sz), 0, 0, INTER_NEAREST);
     // image downsized using same interpolation as MATLAB 'box' option
     if(verbose) cout << "Resized: " << (*I2_down).rows << " x " << (*I2_down).cols << " x " << (*I2_down).channels() << endl;
+    if(verbose)
+    {
+        double max, min;
+        Point minLoc, maxLoc;
+        minMaxLoc((*I2_down), &min, &max);
+        cout << "    max pixel value: " << max << endl;
+        cout << "    min pixel value: " << min << endl << endl;
+    }
 
     Mat* I2_down_fft = new Mat;
     dft((*I2_down), (*I2_down_fft), DFT_COMPLEX_OUTPUT);
@@ -88,6 +133,14 @@ Mat Reconstructor(Mat& input_image, int zslice)
 
     if(verbose) cout << "Multiplied with the reference to get 'despread':" << endl;
     if(verbose) cout << "    " << despread.rows << " x " << despread.cols << " x " << despread.channels() << endl;
+    if(verbose)
+    {
+        double max, min;
+        Point minLoc, maxLoc;
+        minMaxLoc(despread, &min, &max);
+        cout << "    max pixel value: " << max << endl;
+        cout << "    min pixel value: " << min << endl << endl;
+    }
 
     // can clear variables here if needed, will have to use 'new' keyword and pointers to allocate/deallocate 
     delete I2_up;
@@ -176,7 +229,7 @@ Mat Reconstructor(Mat& input_image, int zslice)
 
     if(verbose) cout << "Convolution done in frequency domain" << endl;
 
-    idft(despread_fft, correlated, DFT_SCALE | DFT_REAL_OUTPUT);
+    idft(despread_fft, correlated, DFT_SCALE | DFT_COMPLEX_OUTPUT);
 
     //// fftshift:
 

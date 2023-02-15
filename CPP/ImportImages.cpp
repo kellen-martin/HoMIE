@@ -50,11 +50,13 @@ void ImportImages(vector<Mat>& images, string folder)
 
                     if((Sn_pixels < rows) || (Sn_pixels < col))
                     {
+                        image.convertTo(image, CV_32F);
                         images.push_back(image.rowRange(0, Sn_pixels).colRange(0, Sn_pixels).clone());
                         if(verbose) cout << "Resizing image (" << rows << " x " << col << " x " << chan << ")" << endl;
                     }
                     else
                     {
+                        image.convertTo(image, CV_32F);
                         images.push_back(image.clone());
                         if(verbose) cout << "'loaded' image" << endl;
                     }

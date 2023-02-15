@@ -1,1 +1,5 @@
 # List of untracked files to ignore
+
+CPP/opencv/
+CPP/opencv2/
+
