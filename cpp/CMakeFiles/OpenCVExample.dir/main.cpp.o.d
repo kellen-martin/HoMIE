@@ -359,4 +359,5 @@ CMakeFiles/OpenCVExample.dir/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include/sys/dirent.h \
   /Users/nickaichholz/MATLAB/projects/HoMIE/cpp/average_image.cpp \
   /Users/nickaichholz/MATLAB/projects/HoMIE/cpp/difference_stack.cpp \
-  /Users/nickaichholz/MATLAB/projects/HoMIE/cpp/plot_frame.cpp
+  /Users/nickaichholz/MATLAB/projects/HoMIE/cpp/plot_frame.cpp \
+  /Users/nickaichholz/MATLAB/projects/HoMIE/cpp/Writer.cpp

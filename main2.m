@@ -30,12 +30,13 @@ tic
 
 % Generate Data:
 % folder = 'holograms/generatedData3b';
-folder = 'holograms/ImagesLess';
+folder = 'holograms/generatedData3b';
 [~,images] = ImportImages(folder,inputs);
 
 %% Average
-% avgImg = AverageImage(images);
-% PlotFrame(avgImg,'Avg Image')
+avgImg = AverageImage(images);
+PlotFrame(avgImg,'Avg Image')
+Writer(avgImg,'avgIMG')
 
 %% Single Frame Reconstruction
 recon = Reconstructor(images{1},CalculateTemplate(inputs),inputs);
@@ -44,7 +45,7 @@ PlotFrame(recon,'Single Frame',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 %% Difference Stack Reconstruction - Original
 stack = (DifferenceStack(images));
 PlotFrame(stack,'Raw diffStack');
-% Writer(stack,'stackraw')
+Writer(stack,'stackraw')
 reStack = Reconstructor(stack,CalculateTemplate(inputs),inputs);
 PlotFrame(reStack,'Recon stack',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
 % Writer(reStack(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'stackrecon')

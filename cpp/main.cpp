@@ -8,8 +8,10 @@
 #include "average_image.cpp"
 #include "difference_stack.cpp"
 #include "plot_frame.cpp"
+#include "Writer.cpp"
 
-
+using namespace cv;
+using namespace std;
 
 int main()
 {
@@ -52,10 +54,12 @@ int main()
     cv::Mat avg = averageImage(images);
     cv::imshow("Average Image", avg);
     cv::waitKey(0);
+    Writer(avg, "averageImg");
     
     cv::Mat diffStack = differenceStack(images);
     cv::imshow("Difference Stack", diffStack);
     cv::waitKey(0);
+    Writer(diffStack, "diff2Img");
     
     plotFrame(avg,"average image");
 }

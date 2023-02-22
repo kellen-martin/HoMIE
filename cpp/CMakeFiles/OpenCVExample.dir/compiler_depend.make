@@ -358,8 +358,14 @@ CMakeFiles/OpenCVExample.dir/main.cpp.o: main.cpp \
   /usr/local/Cellar/opencv/4.7.0/include/opencv4/opencv2/video/background_segm.hpp \
   import_images.cpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include/dirent.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include/sys/dirent.h
+  /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include/sys/dirent.h \
+  average_image.cpp \
+  difference_stack.cpp \
+  plot_frame.cpp \
+  Writer.cpp
 
+
+difference_stack.cpp:
 
 import_images.cpp:
 
@@ -499,6 +505,8 @@ import_images.cpp:
 
 /Library/Developer/CommandLineTools/usr/lib/clang/11.0.0/include/emmintrin.h:
 
+Writer.cpp:
+
 /usr/local/Cellar/opencv/4.7.0/include/opencv4/opencv2/core/saturate.hpp:
 
 /usr/local/Cellar/opencv/4.7.0/include/opencv4/opencv2/core/cv_cpu_dispatch.h:
@@ -512,6 +520,8 @@ import_images.cpp:
 /usr/local/Cellar/opencv/4.7.0/include/opencv4/opencv2/core/neon_utils.hpp:
 
 /usr/local/Cellar/opencv/4.7.0/include/opencv4/opencv2/core.hpp:
+
+average_image.cpp:
 
 /Library/Developer/CommandLineTools/usr/include/c++/v1/__bit_reference:
 
@@ -878,6 +888,8 @@ import_images.cpp:
 /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include/sys/_types/_ssize_t.h:
 
 /Library/Developer/CommandLineTools/usr/include/c++/v1/string:
+
+plot_frame.cpp:
 
 /Library/Developer/CommandLineTools/usr/include/c++/v1/__cxx_version:
 
