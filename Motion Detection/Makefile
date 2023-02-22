@@ -124,6 +124,19 @@ SingleFrameDetect/fast:
 .PHONY : SingleFrameDetect/fast
 
 #=============================================================================
+# Target rules for targets named EuclidianDistance
+
+# Build rule for target.
+EuclidianDistance: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 EuclidianDistance
+.PHONY : EuclidianDistance
+
+# fast build rule for target.
+EuclidianDistance/fast:
+	$(MAKE) -f CMakeFiles/EuclidianDistance.dir/build.make CMakeFiles/EuclidianDistance.dir/build
+.PHONY : EuclidianDistance/fast
+
+#=============================================================================
 # Target rules for targets named openCV_test
 
 # Build rule for target.
@@ -135,6 +148,33 @@ openCV_test: cmake_check_build_system
 openCV_test/fast:
 	$(MAKE) -f CMakeFiles/openCV_test.dir/build.make CMakeFiles/openCV_test.dir/build
 .PHONY : openCV_test/fast
+
+EuclidianDistance.o: EuclidianDistance.cpp.o
+
+.PHONY : EuclidianDistance.o
+
+# target to build an object file
+EuclidianDistance.cpp.o:
+	$(MAKE) -f CMakeFiles/EuclidianDistance.dir/build.make CMakeFiles/EuclidianDistance.dir/EuclidianDistance.cpp.o
+.PHONY : EuclidianDistance.cpp.o
+
+EuclidianDistance.i: EuclidianDistance.cpp.i
+
+.PHONY : EuclidianDistance.i
+
+# target to preprocess a source file
+EuclidianDistance.cpp.i:
+	$(MAKE) -f CMakeFiles/EuclidianDistance.dir/build.make CMakeFiles/EuclidianDistance.dir/EuclidianDistance.cpp.i
+.PHONY : EuclidianDistance.cpp.i
+
+EuclidianDistance.s: EuclidianDistance.cpp.s
+
+.PHONY : EuclidianDistance.s
+
+# target to generate assembly for a file
+EuclidianDistance.cpp.s:
+	$(MAKE) -f CMakeFiles/EuclidianDistance.dir/build.make CMakeFiles/EuclidianDistance.dir/EuclidianDistance.cpp.s
+.PHONY : EuclidianDistance.cpp.s
 
 SingleFrameDetect.o: SingleFrameDetect.cpp.o
 
@@ -199,7 +239,11 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... SingleFrameDetect"
+	@echo "... EuclidianDistance"
 	@echo "... openCV_test"
+	@echo "... EuclidianDistance.o"
+	@echo "... EuclidianDistance.i"
+	@echo "... EuclidianDistance.s"
 	@echo "... SingleFrameDetect.o"
 	@echo "... SingleFrameDetect.i"
 	@echo "... SingleFrameDetect.s"
