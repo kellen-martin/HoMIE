@@ -1,0 +1,43 @@
+% Eric Dean
+% hello
+clc;clear all; close all;
+
+image = imread('space.png');
+%%
+% Nonessential image processing
+%whos image
+
+%figure
+%imhist(image) % intensity distribution in the image
+
+%image2 = histeq(image);
+%figure
+%imshow(image2)
+
+%%
+% Image Decon
+PSF = fspecial('gaussian',7,10); % rot sym gaussian low pass filter - size = 7 - std = 10
+
+% Creating a weight array to specify the pixels to be processed
+INITPSF = ones(size(PSF));
+%V = .0001;
+WT = zeros(size(image));
+WT(5:end-4,5:end-4) = 1;
+
+[J,psfr] = deconvblind(image,INITPSF,20,[],WT);%,20,10*sqrt(V),WT) ; 
+subplot(1,2,1);imshow(J);
+title('Deconvoluted Image');
+subplot(1,2,2);imshow(image)
+title('Original Image');
+
+%%
+% Pixel Intensities
+B = rgb2gray(image); 
+B2 = rgb2gray(J);
+intensity = B(30,30) 
+intensity2 = B2(30,30)
+figure
+imshow(B2);
+figure
+imhist(B2);
+
