@@ -1,1 +1,7 @@
 # List of untracked files to ignore
+*.asv
+Holograms/
+opencv/
+.make
+.cmake
+build/

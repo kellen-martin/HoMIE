@@ -40,4 +40,21 @@ figure
 imshow(B2);
 figure
 imhist(B2);
+h_rect = imrect(B2);
+
+%% 
+% Plotting the pixel intensities as a function of pixel location
+figure
+B3 = im2double(B2); % pixel intensity
+
+
+for i=1:715
+
+    for j = 1:1366
+        scatter(i,j,10,B3(i,j),'filled')
+        
+    end
+    
+end
+
 
