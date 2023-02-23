@@ -5,6 +5,8 @@ image = imread('reconimage.png');
 imshow(image);
 [cx,cy,c] = improfile(); % allows the user to draw a line in the image; 
 % outputs are the x,y pixel coords, and their respective light intensities
+% 2 left clicks (one to start, and one to end the line segment), then one
+% right click to end the segment
 
 [max_value, max_index] = max(c) ; 
 threshold = max_value/2 ; 
