@@ -8,7 +8,7 @@ Mat Reconstructor(Mat& input_image, int zslice)
 {
     if(verbose) cout << "-------------------- Reconstructor ------------------" << endl;
 
-    temp_dist = ref_dist + z_resolution*(zslice - 1);
+    temp_dist = samp_dist + z_resolution*(zslice - 1);
 
     if(verbose) cout << "Image in: " << input_image.rows << " x " << input_image.cols << " x " << input_image.channels() << endl;
     if(verbose)
@@ -26,6 +26,8 @@ Mat Reconstructor(Mat& input_image, int zslice)
     rval waves = CalculateTemplate();
     if(verbose) cout << "-  -  -  -  -  -  -  -  -   -  -  -  -  -  -  -  -  - " << endl;
     if(verbose) cout << "Returned to Reconstructor" << endl;
+
+    // saveComplexMat(waves.template_wave, "../Output-Images/template_wave.txt", 6000, 6000);
 
     if(verbose)
     {
@@ -61,25 +63,24 @@ Mat Reconstructor(Mat& input_image, int zslice)
 
     float down_sz = n_pixels/OVS;
     Mat* I2_down = new Mat;
-    // absdiff(waves.ref_wave, Scalar::all(0), I2_down);
+    *I2_down = Mat::zeros(n_pixels, n_pixels, CV_32F);
 
-    vector<Mat> channels;
-    split(waves.ref_wave, channels);
-    magnitude(channels[0], channels[1], (*I2_down));
+    for(int i = 0; i < waves.ref_wave.rows; i++){
+        for(int j = 0; j < waves.ref_wave.cols; j++){
 
-    // if(verbose) cout << I2_down.rows << " x " << I2_down.cols << " x " << I2_down.channels() << endl;
-    // if(verbose) cout << image.rows << " x " << image.cols << " x " << image.channels() << endl;
+            (*I2_down).at<float>(i,j) = (float)((real(waves.ref_wave.at<complex<float>>(i,j))*real(waves.ref_wave.at<complex<float>>(i,j))) + (imag(waves.ref_wave.at<complex<float>>(i,j))*imag(waves.ref_wave.at<complex<float>>(i,j))));
 
-    multiply((*I2_down), (*I2_down), (*I2_down));
-
-    // if(verbose) cout << I2_down.rows << " x " << I2_down.cols << " x " << I2_down.channels() << endl;
-    // if(verbose) cout << image.rows << " x " << image.cols << " x " << image.channels() << endl;
-
+        }
+    }
     (*I2_down) = image - (*I2_down);
 
     if(verbose) cout << "Calculated abs difference between ref and image" << endl;
 
     resize((*I2_down), (*I2_down), Size(down_sz, down_sz), 0, 0, INTER_NEAREST);
+
+    // saveRealMat(*I2_down, "../Output-Images/Mat.txt", 3000, 3000); 
+
+
     // image downsized using same interpolation as MATLAB 'box' option
     if(verbose) cout << "Resized: " << (*I2_down).rows << " x " << (*I2_down).cols << " x " << (*I2_down).channels() << endl;
     if(verbose)
@@ -97,27 +98,38 @@ Mat Reconstructor(Mat& input_image, int zslice)
     if(verbose) cout << "Calculated dft of I2_down (I2_down_fft):" << endl;
     if(verbose) cout << "    "  << (*I2_down_fft).rows << " x " << (*I2_down_fft).cols << " x " << (*I2_down_fft).channels() << endl;
     
+    // saveComplexMat(*I2_down_fft, "../Output-Images/Mat.txt", 3000, 3000); 
+
     Mat* I2_up_fft = new Mat;
     (*I2_up_fft) = Mat::zeros(n_pixels, n_pixels, CV_32FC2);
 
-    (*I2_up_fft)(Range(                          0, down_sz/2), Range(                         0, down_sz/2)) 
-        = (*I2_down_fft)(Range(                  0, down_sz/2), Range(                         0, down_sz/2)).clone();
-    (*I2_up_fft)(Range( (n_pixels - 1) - down_sz/2, n_pixels) , Range(                         0, down_sz/2)) 
-        = (*I2_down_fft)(Range(          down_sz/2, down_sz)  , Range(                         0, down_sz/2)).clone();
-    (*I2_up_fft)(Range(                          0, down_sz/2), Range((n_pixels - 1) - down_sz/2, n_pixels))  
-        = (*I2_down_fft)(Range(                  0, down_sz/2), Range(                 down_sz/2, down_sz)).clone();
-    (*I2_up_fft)(Range( (n_pixels - 1) - down_sz/2, n_pixels) , Range((n_pixels - 1) - down_sz/2, n_pixels))  
-        = (*I2_down_fft)(Range(          down_sz/2, down_sz)  , Range(                 down_sz/2, down_sz)).clone();
+    Rect up_r1(                         0,                          0, down_sz/2, down_sz/2);
+    Rect dn_r1(                         0,                          0, down_sz/2, down_sz/2);
+    Rect up_r2((n_pixels - 1) - down_sz/2,                          0, down_sz/2, down_sz/2);
+    Rect dn_r2(                 down_sz/2,                          0, down_sz/2, down_sz/2);
+    Rect up_r3(                         0, (n_pixels - 1) - down_sz/2, down_sz/2, down_sz/2);
+    Rect dn_r3(                         0,                  down_sz/2, down_sz/2, down_sz/2);
+    Rect up_r4((n_pixels - 1) - down_sz/2, (n_pixels - 1) - down_sz/2, down_sz/2, down_sz/2);
+    Rect dn_r4(                 down_sz/2,                  down_sz/2, down_sz/2, down_sz/2);
+
+    (*I2_down_fft)(dn_r1).copyTo((*I2_up_fft)(up_r1));
+    (*I2_down_fft)(dn_r2).copyTo((*I2_up_fft)(up_r2));
+    (*I2_down_fft)(dn_r3).copyTo((*I2_up_fft)(up_r3));
+    (*I2_down_fft)(dn_r4).copyTo((*I2_up_fft)(up_r4));
 
     
     if(verbose) cout << "Upsampled fft (I2_up_fft):" << endl;
     if(verbose) cout << "    "  << (*I2_up_fft).rows << " x " << (*I2_up_fft).cols << " x " << (*I2_up_fft).channels() << endl;
+    
+    // saveComplexMat(*I2_up_fft, "../Output-Images/Mat.txt", 6000, 6000); 
 
     Mat* I2_up = new Mat;
-    idft((*I2_up_fft), (*I2_up), DFT_SCALE | DFT_REAL_OUTPUT);
+    idft((*I2_up_fft), (*I2_up), DFT_SCALE | DFT_COMPLEX_OUTPUT);
 
     if(verbose) cout << "Inverse dft into spatial domain (I2_up):" << endl;
     if(verbose) cout << "    "  << (*I2_up).rows << " x " << (*I2_up).cols << " x " << (*I2_up).channels() << endl;
+
+    // saveComplexMat(*I2_up, "../Output-Images/Mat.txt", 6000, 6000); 
 
     Mat despread = Mat::zeros(n_pixels, n_pixels, CV_32FC2);
 
@@ -125,7 +137,7 @@ Mat Reconstructor(Mat& input_image, int zslice)
     {
         for(int j = 0; j < n_pixels; j++)
         {
-            despread.at<complex<float>>(i,j) = (*I2_up).at<float>(i,j)*waves.ref_wave.at<complex<float>>(i,j);
+            despread.at<complex<float>>(i,j) = (*I2_up).at<complex<float>>(i,j)*waves.ref_wave.at<complex<float>>(i,j);
         }
     }
 
@@ -226,10 +238,26 @@ Mat Reconstructor(Mat& input_image, int zslice)
     Mat correlated;
 
     mulSpectrums(despread_fft, template_fft, despread_fft, DFT_COMPLEX_OUTPUT, true);
+    
+    // despread_fft = despread_fft*(template_fft.conj());
+
+    // Mat conj_mat(template_fft.size(), template_fft.type());
+    // for (int i = 0; i < template_fft.rows; i++) {
+    //     for (int j = 0; j < template_fft.cols; j++) {
+    //         conj_mat.at<complex<float>>(i, j) = conj(template_fft.at<std::complex<float>>(i, j));
+    //     }
+    // }
+
+    // despread_fft = despread_fft*conj_mat;
+
+    // saveComplexMat(despread_fft, "../Output-Images/Mat.txt", 6000, 6000); 
 
     if(verbose) cout << "Convolution done in frequency domain" << endl;
 
     idft(despread_fft, correlated, DFT_SCALE | DFT_COMPLEX_OUTPUT);
+    // idft(despread_fft, correlated, DFT_COMPLEX_OUTPUT);
+    
+    // saveComplexMat(correlated, "../Output-Images/Mat.txt", 6000, 6000); 
 
     //// fftshift:
 

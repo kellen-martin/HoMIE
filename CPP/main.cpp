@@ -4,6 +4,7 @@
 
 #ifndef FUNCTION_HEADERS
 #define FUNCTION_HEADERS
+#include "saveFunctions.cpp"
 #include "CalculateTemplate.cpp"
 #include "AverageImage.cpp"
 #include "DifferenceStack.cpp"
@@ -16,6 +17,7 @@
 
 using namespace std;
 using namespace cv;
+
 
 // Region of interest values:
 // float ROI_x[2];
@@ -38,7 +40,7 @@ int main()
     vector<Mat> images;
     
     // can just use MATLAB to generate data if we need, then use the images here
-    string input_folder = "../generatedData3b"; // path to folder from program location
+    string input_folder = "../img-sample"; // path to folder from program location
 
     if(verbose) cout << endl;
 
@@ -53,6 +55,8 @@ int main()
 
     // Average images
     Mat avgImg = AverageImage(images);
+    // saveRealMat(avgImg, "../Output-Images/avgImg.txt", 3000, 3000);
+
     // if using first and last arguments to select a range, make indexes zero based
     
     if(verbose) cout << endl << "Returned to Main" << endl << endl;
@@ -75,6 +79,8 @@ int main()
     Mat diffStack = DifferenceStack(images);
     // another call to plotFrame
     // plot "Raw Difference Stack"
+    // PlotFrame(diffStack, "Average Image", "dStack-test.png", false);
+    // saveRealMat(diffStack, "../Output-Images/diffStack.txt", 3000, 3000);
 
     if(verbose) cout << endl << "Returned to Main" << endl << endl;
     if(verbose) cout << "Difference Stack:" << endl;
@@ -95,18 +101,23 @@ int main()
     if(verbose) cout << endl << "Returned to Main" << endl << endl;
 
     if(verbose)
-    {
+    {   
+
         double max, min;
         Point minLoc, maxLoc;
         minMaxLoc(recon, &min, &max);
-        if(verbose) cout << "    max pixel value: " << max << endl;
-        if(verbose) cout << "    min pixel value: " << min << endl << endl;
+
+        cout << "  Reconstructed image: " << recon.rows << " x " << recon.cols << " x " << recon.channels() << endl;  
+        cout << "    max pixel value: " << max << endl;
+        cout << "    min pixel value: " << min << endl << endl;
     }
+    
+    saveComplexMat(recon, "../Output-Images/Mat.txt", 6000, 6000); 
 
 
-    if(verbose) cout << "Plotting frame: --------------" << endl;
-    PlotFrame(recon, "Reconstructed 4-frame difference stack", "test-diff.png", true, true);
-    if(verbose) cout << "------------------------------" << endl;
+    // if(verbose) cout << "Plotting frame: --------------" << endl;
+    // PlotFrame(recon, "Reconstructed 4-frame difference stack", "test-diff.png", true, true);
+    // if(verbose) cout << "------------------------------" << endl;
 
 
 

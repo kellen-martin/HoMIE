@@ -94,15 +94,16 @@ void PlotFrame(Mat& image, string title, string filename, bool ROI)
     {   
 
         Mat new_image = image.clone();
-        // applyColorMap(image, new_image, COLORMAP_BONE);
-        new_image = 255 - new_image; // apply reverse grayscale colormap
-        double max, min;
-        Point minLoc, maxLoc;
-        minMaxLoc(new_image, &min, &max, &minLoc, &maxLoc);
-        if(verbose) cout << "   max: " << max << endl;
-        if(verbose) cout << "   min: " << min << endl;
-        double scale = 255/max;
-        new_image.convertTo(new_image, CV_8UC1, scale);
+        new_image.convertTo(new_image, CV_8UC1);
+        applyColorMap(new_image, new_image, COLORMAP_BONE);
+        // new_image = 255 - new_image; // apply reverse grayscale colormap
+        // double max, min;
+        // Point minLoc, maxLoc;
+        // minMaxLoc(new_image, &min, &max, &minLoc, &maxLoc);
+        // if(verbose) cout << "   max: " << max << endl;
+        // if(verbose) cout << "   min: " << min << endl;
+        // double scale = 255/max;
+        // new_image.convertTo(new_image, CV_8UC1, scale);
 
         imshow(title, new_image);
         waitKey(0);

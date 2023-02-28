@@ -2,4 +2,17 @@
 
 CPP/opencv/
 CPP/opencv2/
+generatedData1/
+generatedData2/
+generatedData3/
+generatedData3b/
+generatedData4/
+Output-Images/
+images/
+img-sample/
+CMakeFiles/
+CMakeLists.txt
+CMakeCache.txt
+CMake_install.cmake
+
 

@@ -58,5 +58,7 @@ void PlotFrame(Mat& image, string title, bool ROI);
 void PlotFrame(Mat& image, string title, string filename);
 void PlotFrame(Mat& image, string title, string filename, bool ROI);
 void PlotFrame(Mat& image, string title, string filename, bool ROI, bool SAVE_ONLY);
+void saveRealMat(const cv::Mat_<float>& mat, const std::string& filename, const int rows, const int cols);
+void saveComplexMat(const cv::Mat_<std::complex<float>>& complexMat, const std::string& filename, const int rows, const int cols);
 
 #endif

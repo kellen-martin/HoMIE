@@ -39,6 +39,8 @@ rval CalculateTemplate()
 
     float dist = (xdif*xdif) + (ydif*ydif) + (zdif*zdif);
     float template_phase = 2*pi*sqrt(dist)/wavelength;
+
+    if(verbose) cout << "  template_phase: " << template_phase << endl;
     
     Mat ref_wave       = Mat::zeros(n_pixels, n_pixels, CV_32FC2);
     Mat template_wave  = Mat::zeros(n_pixels, n_pixels, CV_32FC2);
@@ -72,13 +74,17 @@ rval CalculateTemplate()
 
         // cant raise e to the power of a matrix times a complex number inline so need loop:
 
-        for(int i = 0; i < ref_n_waves.rows; i++)
+        for(int i = 0; i < ref_n_waves.cols; i++)
         {
-            ref_wave.at<complex<float>>(ix, i) = (((complex<float>)(ref_amp))*exp(I*((complex<float>)(2.0*pi*ref_n_waves.at<float>(1, i)))));
+            // float y = ((float)(2*pi))*ref_n_waves.at<float>(1, i);
+            // ref_wave.at<complex<float>>(ix, i) = ((complex<float>)ref_amp)*(((complex<float>)cos(y)) + I*((complex<float>)sin(y)));
+            ref_wave.at<complex<float>>(ix, i) = (((complex<float>)(ref_amp))*exp(I*((complex<float>)(((float)(2.0*pi))*ref_n_waves.at<float>(0, i)))));
 
         } // calculated reference wave (line 30 MATLAB CalculateTemplate.m) ////////////////////
 
         /////////////////////////////// template wave calculation: /////////////////////////////
+
+
 
         tempx = x - template_pos_x;
         tempy = pixel_y - template_pos_y;
@@ -99,9 +105,9 @@ rval CalculateTemplate()
 
         // cant raise e to the power of a matrix times a complex number inline so need loop:
 
-        for(int i = 0; i < template_n_waves.rows; i++)
+        for(int i = 0; i < template_n_waves.cols; i++)
         {
-            template_wave.at<complex<float>>(ix, i) = (obj_amp*exp(I*(complex<float>(2.0*pi*(template_n_waves.at<float>(1, i) + template_phase)))));
+            template_wave.at<complex<float>>(ix, i) = ((complex<float>)obj_amp)*exp(I*(complex<float>(((float)(2.0*pi))*(template_n_waves.at<float>(0, i) + template_phase))));
 
         } // calculated template wave (line 34 MATLAB CalculateTemplate.m) ///////////////////////
 
@@ -111,6 +117,10 @@ rval CalculateTemplate()
     rval ret;
     ret.ref_wave = ref_wave;
     ret.template_wave = template_wave;
+
+    // saveRealMat(ref_n_waves, "../Output-Images/ref_n_waves.txt", 1, 6000);
+    // saveComplexMat(ref_wave, "../Output-Images/ref.txt", 6000, 6000);
+    saveComplexMat(template_wave, "../Output-Images/temp.txt", 6000, 6000);
 
     if(verbose) cout << "  pixel_p: " << pixel_p << endl;
     if(verbose)
