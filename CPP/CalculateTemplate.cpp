@@ -120,7 +120,7 @@ rval CalculateTemplate()
 
     // saveRealMat(ref_n_waves, "../Output-Images/ref_n_waves.txt", 1, 6000);
     // saveComplexMat(ref_wave, "../Output-Images/ref.txt", 6000, 6000);
-    saveComplexMat(template_wave, "../Output-Images/temp.txt", 6000, 6000);
+    // saveComplexMat(template_wave, "../Output-Images/temp.txt", 6000, 6000);
 
     if(verbose) cout << "  pixel_p: " << pixel_p << endl;
     if(verbose)
