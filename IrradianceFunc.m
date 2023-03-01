@@ -10,7 +10,7 @@ T_f = x(8); % Focus Lens Transmission
 % Focus lens
 EFL_Focus = x(4); % Focus Lens Effective Focal Length [mm]
 T_c = x(9); % Collimator Transmission
-n = x(11);
+n = x(11); % Refractive Index
 
 % Sample Housing
 z_s = x(5); % Focus Point to Sample Housing Distance [mm]
