@@ -28,24 +28,31 @@ z = 21; % Axial Distance from Focus Point to Detector [mm]
 
 r = 0:0.01:12;
 Irr_D = zeros(length(r),1);
+P = zeros(length(r),1);
 
 for i = 1:length(r)
     x = [P0,lambda,RC,EFL_Focus,z_s,z,r(i),T_c,T_f,T_s,n];
-    Irr_D(i) = IrradianceFunc(x);
+    [Irr_D(i),P(i)] = IrradianceFunc(x);
 end
 
 figure
 hold on
 plot(r,Irr_D,'b','LineWidth',2)
 plot(-r,Irr_D,'b','LineWidth',2)
-xline(11.264/2,'--r','LineWidth',2)
-xline(-11.264/2,'--r','LineWidth',2)
+xline(7.965,'--r','LineWidth',2)
+xline(-7.965,'--r','LineWidth',2)
 xlabel('Radial Distance [mm]')
 ylabel('Irradiance [mW/mm^2]')
 title('Irradiance at Detector')
 
+figure
+plot(r,P,'LineWidth',2)
+xlabel('Radial Distance [mm]')
+ylabel('Power Input [mW]')
+title('Total Power Through Circle')
+
 [~,i_max] = max(Irr_D);
-[~,i_min] = min(abs(r-11.264/2));
+[~,i_min] = min(abs(r-7.965));
 
 fprintf('The maximum Irradiance is %0.4f mW/mm^2 \n',Irr_D(i_max))
 fprintf('The minimum Irradiance is %0.4f mW/mm^2 \n',Irr_D(i_min))
