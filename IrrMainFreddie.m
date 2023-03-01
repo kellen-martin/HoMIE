@@ -16,6 +16,7 @@ T_f = 0.95; % Focus Lens Transmission
 
 % Focus lens
 EFL_Focus = 2; % Focus Lens Effective Focal Length [mm]
+n = 1.5168; % Refractive Index
 T_c = 0.98; % Collimator Transmission
 
 % Sample Housing
@@ -29,7 +30,7 @@ r = 0:0.01:12;
 Irr_D = zeros(length(r),1);
 
 for i = 1:length(r)
-    x = [P0,lambda,RC,EFL_Focus,z_s,z,r(i),T_c,T_f,T_s];
+    x = [P0,lambda,RC,EFL_Focus,z_s,z,r(i),T_c,T_f,T_s,n];
     Irr_D(i) = IrradianceFunc(x);
 end
 
