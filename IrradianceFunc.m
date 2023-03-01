@@ -1,25 +1,29 @@
 function Irr_D = IrradianceFunc(x)
 % Laser
 P0 = x(1); % Inital Laser Output Power [mW]
-lambda = x(2); % Wavelength [nm]
-NA_Laser = x(3); % Laser Numerical Aperture
+lambda = x(2)*1e-6; % Wavelength [mm]
 
 % Collimator
-EFL_Coll = x(4); % Collimator Effective Focal Length [mm]
-RC = x(5); % Collimation Radius [mm]
-T_f = x(10); % Focus Lens Transmission
+RC = x(3); % Collimation Radius [mm]
+T_f = x(8); % Focus Lens Transmission
 
 % Focus lens
-EFL_Focus = x(6); % Focus Lens Effective Focal Length [mm]
-T_c = x(11); % Collimator Transmission
+EFL_Focus = x(4); % Focus Lens Effective Focal Length [mm]
+T_c = x(9); % Collimator Transmission
 
 % Sample Housing
-z_s = x(7); % Focus Point to Sample Housing Distance [mm]
-T_s = x(12); % Sample Housing Transmission
+z_s = x(5); % Focus Point to Sample Housing Distance [mm]
+T_s = x(10); % Sample Housing Transmission
 
 % Detector
-z = x(8); % Axial Distance from Focus Point to Detector [mm]
+z = x(6); % Axial Distance from Focus Point to Detector [mm]
 
-r = x(9); % Radial Distance from the beam center [mm]
+r = x(7); % Radial Distance from the beam center [mm]
 
+w0 = lambda*EFL_Focus/(pi*RC); % Initial Waist [mm]
+I0 = 2*P0*T_c*T_f*T_s/(pi*w0^2); % Initial Irradiance [mW/mm^2]
+zR = pi*w0^2/lambda; % Rayleigh Range [mm]
+wz = w0*sqrt(1+(z/zR)^2); % Waist at the Detector [mm]
+
+Irr_D = I0*(w0/wz)^2*exp(-2*r^2/wz^2); % Irradiance at the detector [mW/mm^2]
 end
