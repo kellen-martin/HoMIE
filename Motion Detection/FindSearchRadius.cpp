@@ -20,11 +20,13 @@
 # include <opencv2/opencv.hpp>
 # include <cmath>
 # include "EuclidianDistance.cpp"
+# include <stdlib.h>
+# include <time.h>
 
 using namespace std;
 using namespace cv;
 
-double FindSearchRadius(Point3d position, vector<Point3d> particles) {
+double FindSearchRadius(Point3d position, vector<Point3d> particles, int particle_number) {
 
     // pre-deffine a minimum radius
     double search_radius = 10000000; 
@@ -34,7 +36,7 @@ double FindSearchRadius(Point3d position, vector<Point3d> particles) {
         double dx = position.x - particles[i].x;
         double dy = position.y - particles[i].y;
         double dz = position.z - particles[i].z;
-        if (dx < search_radius && dy < search_radius && dz < search_radius) {
+        if (i != particle_number && dx < search_radius && dy < search_radius && dz < search_radius) {
             double distance = EuclidianDistance(dx, dy, dz);
             if(distance < search_radius){
                 search_radius = distance;
@@ -44,19 +46,19 @@ double FindSearchRadius(Point3d position, vector<Point3d> particles) {
     return search_radius;
 }
 
+/* Test for FindSearchRadius
 int main(){
-    vector<Point3d> particles(10);
-    vector<double> xs(10);
-    vector<double> ys(10);
-    vector<double> zs(10);
+   vector<Point3d> particles(3);
     
 
-    for(int i; i<10; i++){
-        particles[i].x = xs[i];
-        particles[i].y = ys[i];
-        particles[i].z = zs[i];
+    for(int i = 0; i<3; i++){
+        particles[i].x = rand() % 20;
+        particles[i].y = rand() % 20;
+        particles[i].z = rand() % 20;
+        cout << particles[i].x << " " << particles[i].y << " "<< particles[i].z << endl;
     }
 
-    double sr = FindSearchRadius(particles[1], particles);
+    double sr = FindSearchRadius(particles[1], particles, 1);
 
-}
+    cout << "The search radius is " << sr << endl;
+} */
