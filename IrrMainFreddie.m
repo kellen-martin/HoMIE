@@ -20,7 +20,7 @@ n = 1.5168; % Refractive Index
 T_c = 0.98; % Collimator Transmission
 
 % Sample Housing
-z_s = 2.5; % Focus Point to Sample Housing Distance [mm]
+z_s = 1.5; % Focus Point to Sample Housing Distance [mm]
 T_s = 0.9225; % Sample Housing Transmission
 
 % Detector
@@ -39,20 +39,16 @@ figure
 hold on
 plot(r,Irr_D,'b','LineWidth',2)
 plot(-r,Irr_D,'b','LineWidth',2)
-xline(7.965,'--r','LineWidth',2)
-xline(-7.965,'--r','LineWidth',2)
+xline(11.264/2,'--r','LineWidth',2)
+xline(-11.264/2,'--r','LineWidth',2)
+hold off
 xlabel('Radial Distance [mm]')
 ylabel('Irradiance [mW/mm^2]')
 title('Irradiance at Detector')
 
-figure
-plot(r,P,'LineWidth',2)
-xlabel('Radial Distance [mm]')
-ylabel('Power Input [mW]')
-title('Total Power Through Circle')
 
 [~,i_max] = max(Irr_D);
-[~,i_min] = min(abs(r-7.965));
+[~,i_min] = min(abs(r-11.264/2));
 
 fprintf('The maximum Irradiance is %0.4f mW/mm^2 \n',Irr_D(i_max))
 fprintf('The minimum Irradiance is %0.4f mW/mm^2 \n',Irr_D(i_min))
