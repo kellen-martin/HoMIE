@@ -25,8 +25,8 @@ Gain = 1 # linear units
 """
 Intensity Bins -> Electron Signal
 """
-for i in range(0,2048): 
-    for j in range(0,2048):
+for i in range(2048): 
+    for j in range(2048):
            #int_light.append(img[i][j])
            #int_dark.append(img_dark[i][j])
            temp = (img[i][j]-2)*Gain
@@ -46,8 +46,10 @@ wl = 405*10**-9 # [nm] -> [m]
 f = c/wl 
 E = np.multiply(h*f,photon_count) # Energy of a photon [J]
 deltat = 5*10**-3 # [ms] - > [s]
-Power = np.divide(E,deltat)
-print(Power)
+Power = np.divide(E,deltat) # W/m^2
+Irradiance = np.divide(Power,1000)
+print(Irradiance)
+print(Irradiance[1048576])
 
 
 
