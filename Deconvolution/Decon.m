@@ -2,7 +2,7 @@
 % hello
 clc;clear all; close all;
 
-image = imread('space.png');
+image = imread('simulated_hologram.png');
 %%
 % Nonessential image processing
 %whos image
@@ -15,6 +15,18 @@ image = imread('space.png');
 %imshow(image2)
 
 %%
+% Selecting a cross section of the hologram
+figure(1)
+imshow(image);
+[cx,cy,c] = improfile(); % allows the user to draw a line in the image;
+
+figure(2)
+plot(cx,c)
+
+
+
+%%
+%{
 % Image Decon
 PSF = fspecial('gaussian',7,10); % rot sym gaussian low pass filter - size = 7 - std = 10
 
@@ -29,9 +41,14 @@ subplot(1,2,1);imshow(J);
 title('Deconvoluted Image');
 subplot(1,2,2);imshow(image)
 title('Original Image');
+%}
+
+
+
 
 %%
 % Pixel Intensities
+%{
 B = rgb2gray(image); 
 B2 = rgb2gray(J);
 intensity = B(30,30) 
@@ -41,9 +58,10 @@ imshow(B2);
 figure
 imhist(B2);
 h_rect = imrect(B2);
-
+%}
 %% 
 % Plotting the pixel intensities as a function of pixel location
+%{
 figure
 B3 = im2double(B2); % pixel intensity
 
@@ -56,5 +74,6 @@ for i=1:715
     end
     
 end
+%}
 
 
