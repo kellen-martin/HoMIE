@@ -26,7 +26,8 @@ const int frame_rate  = 100;
 
 class object{
     public:
-    vector<Point3d> positions(frame_rate); // List of an object's postions 
+    vector<Point3d> positions();           // List of an object's postions 
+    double size;                           // Size of the object
     double linearity;                      // How linear is the objects movements 
     bool flag;                             // Does the object meet linearity threshold
 };

@@ -47,7 +47,7 @@ findContours(canny, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
 
 // draw contours
 Mat img_cont = img.clone();
-drawContours(img_cont, contours, -1, Scalar(0,255,0), 1);
+drawContours(img_cont, contours, -1, Scalar(0,0,225), 1);
 
 // Count objects
 cout << "Number of Particles: " << contours.size() << endl;
