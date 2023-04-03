@@ -6,7 +6,7 @@
 // Author(s):
 //      Kellen Martin
 // 
-// Last Edited: 3/22/23
+// Last Edited: 4/3/23
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 
@@ -20,5 +20,21 @@ using namespace cv;
 
 void Main(){
     
-    
+    cout << "Starting" << endl;
+
+    // Turn on laser
+    cout << "Laser on" << endl;
+
+    // Take pictures
+    cout << "Capturing Holograms" << endl;
+
+    // Turn off laser
+    cout << "Laser off" << endl;
+
+    // Reconstruct and time
+    cout << "Reconstructing" << endl;
+
+    cout << "Reconstruction Complete" << endl;
+    // Save to USB
+    cout << "Saving Reconstructed Hologram" << endl;
 }
