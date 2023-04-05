@@ -22,7 +22,7 @@
 using namespace std;
 using namespace cv;
 
-void ContourDetect(string img_path) {
+void ContourDetect(string img_path, vector<Point2d> &locations, vector<double> &areas) {
 // read image
 Mat img = imread(img_path);
 
@@ -42,13 +42,13 @@ vector<Vec4i> hierarchy;
 findContours(canny, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
 
 // Output object locations
-vector<Point2d> mass_centers(contours.size());
-vector<double> areas(contours.size());
+locations.resize(contours.size());
+areas.resize(contours.size());
 
 for(int i = 0; i < contours.size(); i++){
     const Moments mu = moments(contours[i], false);
-    areas = contourArea(contours[i]);
-    mass_centers[i] = Point2d(mu.m10 / mu.m00, mu.m01 / mu.m00);
+    areas[i] = contourArea(contours[i]);
+    locations[i] = Point2d(mu.m10 / mu.m00, mu.m01 / mu.m00);
 }
 
 
@@ -57,6 +57,11 @@ for(int i = 0; i < contours.size(); i++){
 ///////////// test of SingleFrameDetect ////////////////////////////////////////////////////////////
 int main(){
 string img_path = "unnamed.png";
-ContourDetect(img_path);
+vector<Point2d> locations;
+vector<double> areas;
+
+ContourDetect(img_path, locations, areas);
+
+cout << locations[2].x << " " << areas[2];
 return 0;
 }
