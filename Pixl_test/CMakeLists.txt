@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 2.8)
+project(Pixl_test)
+find_package(PxLAPI REQUIRED)
+include_directories(${PIXELINK_SDK_INC})
+# include_directories(${PIXELINK_SDK_ROOT}\include)
+# link_directories(${PIXELINK_SDK_ROOT}\lib)
+add_executable(cmake_test cmake_test.cpp)
+target_link_libraries(cmake_test ${PIXELINK_SDK_LIB})
