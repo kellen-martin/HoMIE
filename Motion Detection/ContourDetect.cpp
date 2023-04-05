@@ -57,6 +57,6 @@ for(int i = 0; i < contours.size(); i++){
 ///////////// test of SingleFrameDetect ////////////////////////////////////////////////////////////
 int main(){
 string img_path = "unnamed.png";
-SingleFrameDetect(img_path);
+ContourDetect(img_path);
 return 0;
 }
