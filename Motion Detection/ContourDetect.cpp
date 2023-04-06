@@ -55,7 +55,7 @@ for(int i = 0; i < contours.size(); i++){
 }
 
 ///////////// test of SingleFrameDetect ////////////////////////////////////////////////////////////
-int main(){
+/*int main(){
 string img_path = "unnamed.png";
 vector<Point2d> locations;
 vector<double> areas;
@@ -64,4 +64,4 @@ ContourDetect(img_path, locations, areas);
 
 cout << locations[2].x << " " << areas[2];
 return 0;
-}
+}*/
