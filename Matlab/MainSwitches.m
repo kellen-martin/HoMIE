@@ -59,11 +59,11 @@ switch g
 end
 stop = 1;
 while stop>0
-    done = input('Done (y/n): ','s');
-    if done == 'y'
-        fprintf('done\n')
-        stop = 0;
-    else
+%     done = 'n';
+%     if done == 'y'
+%         fprintf('done\n')
+%         stop = 0;
+%     else
         n = input('Option: ');
         switch n
             case 1%raw frame f(frame number)
@@ -113,5 +113,11 @@ while stop>0
             case 12
                 fprintf("case12\n")
         end
+    done = input('Done (y/n): ','s');
+    if done == 'y'
+        fprintf('done\n')
+        stop = 0;
+    else
+        stop = 1;
     end
 end
