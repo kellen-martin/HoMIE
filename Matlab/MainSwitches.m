@@ -57,62 +57,58 @@ switch g
         fprintf("new\n")
 
 end
+
 stop = 1;
 while stop>0
-%     done = 'n';
-%     if done == 'y'
-%         fprintf('done\n')
-%         stop = 0;
-%     else
-        n = input('Option: ');
-        switch n
-            case 1%raw frame f(frame number)
-                fprintf("Raw Frame\n")
-                frameNum = input("Frame Number:\n");
-                PlotFrame(images{frameNum},'Raw Frame');
-            case 2%average frame
-                fprintf("Average Frame\n")
-                avgFrame = AverageImage(images);
-                PlotFrame(avgFrame,'Average Frame');
-            case 3
-                fprintf("Clean Frames\n")
-                avgFrame = AverageImage(images);
-                cleanFrame = CleanImages(images,avgFrame);
-                for i=1:length(images)
-                    PlotFrame(cleanFrame{i},strcat('Clean Frame',num2str(i)));
-                end
-            case 4%
-                fprintf("Difference Frame\n")
-                clean = input('Cleaner: (Y=1) ');
-                frameA = input('Frame A: ');
-                frameB = input('Frame B: ');
-                if clean == 1
-                    cleaner = AverageImage(images);
-                    diffFrame = DifferenceFrame(frameA,frameB,cleaner);
-                else
-                    diffFrame = DifferenceFrame(frameA,frameB);
-                end
-                PlotFrame(diffFrame,strcat('Difference Frame (',num2str(frameA),',',num2str(frameB),')'));
-            case 5
-                fprintf("Difference Stack\n")
-                diffStack = (DifferenceStack(images));
-                recon = ReconstructorKanka1(diffStack,CalculateTemplate(inputs),inputs,1);
-                PlotFrame(recon,'Recon Kanka1',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-            case 6
-                fprintf("case6\n")
-            case 7
-                fprintf("case7\n")
-            case 8
-                fprintf("case8\n")
-            case 9
-                fprintf("case9\n")
-            case 10
-                fprintf("case10\n")
-            case 11
-                fprintf("case11\n")
-            case 12
-                fprintf("case12\n")
-        end
+    n = input('Option: ');
+    switch n
+        case 1%raw frame f(frame number)
+            fprintf("Raw Frame\n")
+            frameNum = input("Frame Number:\n");
+            PlotFrame(images{frameNum},'Raw Frame');
+        case 2%average frame
+            fprintf("Average Frame\n")
+            avgFrame = AverageImage(images);
+            PlotFrame(avgFrame,'Average Frame');
+        case 3
+            fprintf("Clean Frames\n")
+            avgFrame = AverageImage(images);
+            cleanFrame = CleanImages(images,avgFrame);
+            for i=1:length(images)
+                PlotFrame(cleanFrame{i},strcat('Clean Frame',num2str(i)));
+            end
+        case 4%
+            fprintf("Difference Frame\n")
+            clean = input('Cleaner: (Y=1) ');
+            frameA = input('Frame A: ');
+            frameB = input('Frame B: ');
+            if clean == 1
+                cleaner = AverageImage(images);
+                diffFrame = DifferenceFrame(frameA,frameB,cleaner);
+            else
+                diffFrame = DifferenceFrame(frameA,frameB);
+            end
+            PlotFrame(diffFrame,strcat('Difference Frame (',num2str(frameA),',',num2str(frameB),')'));
+        case 5
+            fprintf("Difference Stack\n")
+            diffStack = (DifferenceStack(images));
+            recon = ReconstructorKanka1(diffStack,CalculateTemplate(inputs),inputs,1);
+            PlotFrame(recon,'Recon Kanka1',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+        case 6
+            fprintf("case6\n")
+        case 7
+            fprintf("case7\n")
+        case 8
+            fprintf("case8\n")
+        case 9
+            fprintf("case9\n")
+        case 10
+            fprintf("case10\n")
+        case 11
+            fprintf("case11\n")
+        case 12
+            fprintf("case12\n")
+    end
     done = input('Done (y/n): ','s');
     if done == 'y'
         fprintf('done\n')
