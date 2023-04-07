@@ -7,7 +7,7 @@
 clc;clear; close all;
 
 % Reading in the slanted edge target image
-image = imread('Real Edge from CMOS.jpg');
+image = imread('slanted edge 2.jpg');
 
 % Viewing image
 figure
@@ -24,3 +24,6 @@ pos(4) = min(ceil( ROI(2) + ROI(4) ));
 newimage = image(pos(2) : pos(4) , pos(1) : pos(3) , :);
 figure
 imshow(newimage)
+
+
+% NEED SOBEL EDGE DETECTION
