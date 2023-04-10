@@ -26,4 +26,4 @@ for k=1:sizeOf
 end
 
 time = toc;
-fprintf('\nTime spent cleaning images: %.2f\n', time)
+%fprintf('\nTime spent cleaning images: %.2f\n', time)

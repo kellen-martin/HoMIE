@@ -38,4 +38,4 @@ if nargin == 3
 end
 
 time = toc;
-fprintf('\nDifferenceFrame %.2f\n', time)
+% fprintf('\nDifferenceFrame %.2f\n', time)

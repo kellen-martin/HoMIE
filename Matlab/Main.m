@@ -30,24 +30,28 @@ ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 tic
 
 % Generate Data:
-folder = 'generatedData3';
+folder = 'DataSets/RealHolograms';
 [~,images] = ImportImages(folder,inputs);
 
 %% Average
-avgImg = AverageImage(images);
-PlotFrame(avgImg,'Avg Image')
+% avgImg = AverageImage(images);
+% PlotFrame(avgImg,'Avg Image')
 
 %% Single Frame Reconstruction
 % recon = Reconstructor(images{1}-avgImg,CalculateTemplate(inputs),inputs);
 
 %% Difference Stack Reconstruction - Original
 diffStack = (DifferenceStack(images));
-PlotFrame(diffStack,'Raw diffStack');
-% Writer(diffStack,'raw')
+% PlotFrame(diffStack,'Raw diffStack');
+% Writer(diffStack,'DiffReal')
 
 % recon = Reconstructor(diffStack,CalculateTemplate(inputs),inputs);
+% % PlotFrame(recon,'Recon OG',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+% Writer(recon(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'ReconReal')
+
+recon = ReconstructorKanka1(diffStack,CalculateTemplate(inputs),inputs,2);
 % PlotFrame(recon,'Recon OG',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
-% Writer(recon(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'recon')
+Writer(recon(ROI_y_pix(1):ROI_y_pix(2),ROI_x_pix(1):ROI_x_pix(2)),'ReconRealK1')
 
 %%  Difference Stack Reconstruction - Kanka Method 1
 % reconKanka = ReconstructorKanka1(diffStack,CalculateTemplate(inputs),inputs,2);

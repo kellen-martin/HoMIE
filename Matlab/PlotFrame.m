@@ -17,4 +17,4 @@ if nargin == 6
     title(name);
 end
 time = toc;
-fprintf('\nPlotFrame %.2f\n', time)
+% fprintf('\nPlotFrame %.2f\n', time)

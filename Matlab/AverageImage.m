@@ -46,6 +46,6 @@ if nargin == 3
 end
 
 time = toc;
-fprintf('\nAverageImage %.2f\n', time)
+% fprintf('\nAverageImage %.2f\n', time)
 
 
