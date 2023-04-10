@@ -32,17 +32,26 @@ fudgeFactor = 0.5;
 BWs = edge(newimage,'sobel',threshold * fudgeFactor);
 figure; imshow(BWs);
 
-[edge_row edge_col] = find(BWs); % returning the pixel coords where 
+[edge_row, edge_col] = find(BWs); % returning the pixel coords where 
 
-P = polyfit(edge_col,flipud(edge_row),1);
-y = polyval(P,edge_row);
+P = polyfit((edge_col),flipud(edge_row),1);
+y = polyval(P,edge_col);
 
-figure() 
-plot(edge_row,y)
+
+figure() ;
+hold on;
+plot(edge_col,y)
 Angle_deg = atan(P(1))*180/pi; % slope of the line
 
 % Need to plot perpendicular line to the least square regression
-midpt_x = edge_col/2 ;
-midpt_y = y/2 ;
-perp_slope = -1/P(1);
+
+midpt_x = edge_col(length(edge_col)/2) ;
+midpt_y = y(length(y)/2) ;
+perp_slope = -1/(P(1));
+b = midpt_y - perp_slope*midpt_x ; 
+y_perp = perp_slope.*edge_col + b ; 
+
+plot(edge_col,y_perp);
+axis equal;% yay 
+angle_interest = atand(perp_slope);
 
