@@ -12,7 +12,7 @@
 // Author(s):
 //      Kellen Martin
 // 
-// Last Edited: 2/13/23
+// Last Edited: 5/10/23
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 
@@ -21,6 +21,7 @@
 # include <cmath>
 # include "EuclidianDistance.cpp"
 # include "FindSearchRadius.cpp"
+# include "ContourDetect.cpp"
 
 const int frame_rate  = 100;
 
@@ -98,4 +99,26 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
         } 
         o += 1;
     }
+}
+
+// test of GroupParticles
+void main(){
+    // contour detection
+    vector<Point2d> locations;
+    vector<double> areas;
+    string img_path = "unnamed.png";
+    
+    ContourDetect(img_path, locations, areas); 
+
+    vector<Point3d> positions;
+
+    for(int i = 0; i<locations.size(); i++){
+        positions[i].x = locations[i].x;
+        positions[i].y = locations[i].y;
+        positions[i].z = 0;
+    }
+
+    vector<object> Objects;
+
+    GroupParticles(positions, areas, Objects);
 }
