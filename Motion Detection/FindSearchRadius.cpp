@@ -26,23 +26,33 @@
 using namespace std;
 using namespace cv;
 
-double FindSearchRadius(Point3d position, vector<Point3d> particles, int particle_number) {
+double FindSearchRadius(Point3d position, double area, vector<double> areas, vector<Point3d> particles, int particle_number) {
 
     // pre-deffine a minimum radius
     double search_radius = 10000000; 
 
-    // 
+    // define upper and lower area bounds
+    double area_margin = 1;
+    double area_min = area/area_margin;
+    double area_max = area*area_margin;
+
+    double dx; double dy; double dz;
+
+    // find the closest particle of similar area
     for(int i = 0; i < particles.size(); i++){
-        double dx = position.x - particles[i].x;
-        double dy = position.y - particles[i].y;
-        double dz = position.z - particles[i].z;
-        if (i != particle_number && dx < search_radius && dy < search_radius && dz < search_radius) {
-            double distance = EuclidianDistance(dx, dy, dz);
-            if(distance < search_radius){
-                search_radius = distance;
-            }
-            }
+        if(areas[i] < area_max &&  areas[i] > area_min){
+            dx = position.x - particles[i].x;
+            dy = position.y - particles[i].y;
+            dz = position.z - particles[i].z;
+            if (i != particle_number && dx < search_radius && dy < search_radius && dz < search_radius) {
+                double distance = EuclidianDistance(dx, dy, dz);
+                if(distance < search_radius){
+                    search_radius = distance;
+                }
+                }
+        }
     }
+
     return search_radius;
 }
 
