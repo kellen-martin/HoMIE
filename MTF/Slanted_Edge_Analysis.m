@@ -25,5 +25,24 @@ newimage = image(pos(2) : pos(4) , pos(1) : pos(3) , :);
 figure
 imshow(newimage)
 
+newimage = rgb2gray(newimage);
 
-% NEED SOBEL EDGE DETECTION
+[~,threshold] = edge(newimage,'sobel');
+fudgeFactor = 0.5;
+BWs = edge(newimage,'sobel',threshold * fudgeFactor);
+figure; imshow(BWs);
+
+[edge_row edge_col] = find(BWs); % returning the pixel coords where 
+
+P = polyfit(edge_col,flipud(edge_row),1);
+y = polyval(P,edge_row);
+
+figure() 
+plot(edge_row,y)
+Angle_deg = atan(P(1))*180/pi; % slope of the line
+
+% Need to plot perpendicular line to the least square regression
+midpt_x = edge_col/2 ;
+midpt_y = y/2 ;
+perp_slope = -1/P(1);
+
