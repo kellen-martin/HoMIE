@@ -34,22 +34,21 @@ class object{
 
 void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<object> &Objects){
     // Variable definitions and initialization
-        double sr_margin = 1;      // Expands search radius by this amount
-        int o = 0;                 // object iterator
-    
         // area filter variables
         double area_margin = 1;    // sets bound for exceptable particle areas
         double area_min;           // minimum allowable area = area/margin
         double area_max;           // maximum allowable area = area*margin
 
-        // define variables
-        double search_radius;      // search radius based on object's neareats neighbor
+        // iterators and bool variables
+        int o = 0;                 // object iterator
         bool complete;             // marks the completion of an object(is true when all of an object's positions have been checked)
         int checked;               // the number of positions that have been checked
         int n;                     // object position iterator
         int j;                     // size of position vector
 
-        // distance variablese
+        // distance variables
+        double search_radius;       // search radius based on object's neareats neighbor
+        double sr_margin = 1;      // Expands search radius by this amount
         double distance;           // distance between two positions
         double dx;                 // difference between x positions
         double dy;                 // difference between y positions
@@ -60,13 +59,13 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
         Objects[o].positions[0] = positions[0];
         Objects[o].size = areas[0];
 
-        // remove position from list
-        positions.erase(positions.begin());
-        areas.erase(areas.begin());
-
         // Find the search radius 
         search_radius = FindSearchRadius(areas, positions, 0, area_margin);
-        search_radius *= sr_margin;         
+        search_radius *= sr_margin;     
+
+        // remove position from lists
+        positions.erase(positions.begin());
+        areas.erase(areas.begin());    
 
         // define upper and lower area bounds
         area_min = Objects[o].size/area_margin;
