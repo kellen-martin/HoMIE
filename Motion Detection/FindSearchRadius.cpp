@@ -26,30 +26,29 @@
 using namespace std;
 using namespace cv;
 
-double FindSearchRadius(Point3d position, double area, vector<double> areas, vector<Point3d> particles, int particle_number) {
+double FindSearchRadius(vector<double> areas, vector<Point3d> particles, int particle_number, double area_margin) {
 
     // pre-deffine a minimum radius
     double search_radius = 10000000; 
 
     // define upper and lower area bounds
-    double area_margin = 1;
-    double area_min = area/area_margin;
-    double area_max = area*area_margin;
+    double area_min = areas[particle_number]/area_margin;
+    double area_max = areas[particle_number]*area_margin;
 
-    double dx; double dy; double dz;
+    double dx; double dy; double dz; double distance;
 
     // find the closest particle of similar area
     for(int i = 0; i < particles.size(); i++){
-        if(areas[i] < area_max &&  areas[i] > area_min){
-            dx = position.x - particles[i].x;
-            dy = position.y - particles[i].y;
-            dz = position.z - particles[i].z;
-            if (i != particle_number && dx < search_radius && dy < search_radius && dz < search_radius) {
-                double distance = EuclidianDistance(dx, dy, dz);
+        if(areas[i] < area_max &&  areas[i] > area_min && i != particle_number){
+            dx = particles[particle_number].x - particles[i].x;
+            dy = particles[particle_number].y - particles[i].y;
+            dz = particles[particle_number].z - particles[i].z;
+            if (dx < search_radius && dy < search_radius && dz < search_radius) {
+                distance = EuclidianDistance(dx, dy, dz);
                 if(distance < search_radius){
                     search_radius = distance;
                 }
-                }
+            }
         }
     }
 

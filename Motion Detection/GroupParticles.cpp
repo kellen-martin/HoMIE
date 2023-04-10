@@ -33,15 +33,27 @@ class object{
 };
 
 void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<object> &Objects){
-    double sr_margin = 1;      // Expands search radius by this amount
-    int o = 0;                 // object iterator
+    // Variable definitions and initialization
+        double sr_margin = 1;      // Expands search radius by this amount
+        int o = 0;                 // object iterator
     
-    // define variables
-    double search_radius; // search radius based on object's neareats neighbor
-    bool complete; 
-    int checked;
-    int n;
-    int j; 
+        // area filter variables
+        double area_margin = 1;    // sets bound for exceptable particle areas
+        double area_min;           // minimum allowable area = area/margin
+        double area_max;           // maximum allowable area = area*margin
+
+        // define variables
+        double search_radius;      // search radius based on object's neareats neighbor
+        bool complete;             // marks the completion of an object(is true when all of an object's positions have been checked)
+        int checked;               // the number of positions that have been checked
+        int n;                     // object position iterator
+        int j;                     // size of position vector
+
+        // distance variablese
+        double distance;           // distance between two positions
+        double dx;                 // difference between x positions
+        double dy;                 // difference between y positions
+        double dz;                 // difference between z positions
 
     while(positions.empty() == false){
         // define the first position and area of the object
@@ -53,26 +65,22 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
         areas.erase(areas.begin());
 
         // Find the search radius 
-        search_radius = FindSearchRadius(Objects[o].positions[0], areas[0], areas, positions, 0);
-        search_radius *= sr_margin; 
-
-        // Definition of variables within loop
-        bool complete = false;  // marks the completion of an object (true when each position has been checked)
-        int checked = 0;        // the number of positions that have been checked
-        int n = 1;              // object's position iterator
-        int j;                  // length of overall position vector
+        search_radius = FindSearchRadius(areas, positions, 0, area_margin);
+        search_radius *= sr_margin;         
 
         // define upper and lower area bounds
-        double area_margin = 1;
-        double area_min = Objects[o].size/area_margin;
-        double area_max = Objects[o].size*area_margin;
+        area_min = Objects[o].size/area_margin;
+        area_max = Objects[o].size*area_margin;
 
+        // initialize loop variables
+        complete = false; 
+        checked = 0;
+        n = 1;
 
+        // 'Connect the dots' 
         while(complete == false){
             // Check for positions within search radius
             j = positions.size();
-
-            double dx; double dy; double dz;
         
             for(int i = 0; i<j; i++){
                 if(areas[i] < area_max &&  areas[i] > area_min){
@@ -80,7 +88,7 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
                     dy = Objects[o].positions[n-1].y - positions[i].y;
                     dz = Objects[o].positions[n-1].z - positions[i].z;
                     if (dx < search_radius && dy < search_radius && dz < search_radius) {
-                        double distance = EuclidianDistance(dx, dy, dz);
+                        distance = EuclidianDistance(dx, dy, dz);
                         if(distance <= search_radius) {Objects[o].positions[n] = positions[i]; n += 1; positions.erase(positions.begin()+i);}
                     }
                 }
