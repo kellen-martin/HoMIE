@@ -7,6 +7,7 @@ using namespace cv;
 Mat Reconstructor(Mat& input_image, int zslice)
 {
     if(verbose) cout << "-------------------- Reconstructor ------------------" << endl;
+    if(!verbose) cout << "Reconstructing Image" << endl;
 
     temp_dist = samp_dist + z_resolution*(zslice - 1);
 
@@ -141,8 +142,6 @@ Mat Reconstructor(Mat& input_image, int zslice)
         }
     }
 
-    // multiply(I2_up, waves.ref_wave, despread);
-
     if(verbose) cout << "Multiplied with the reference to get 'despread':" << endl;
     if(verbose) cout << "    " << despread.rows << " x " << despread.cols << " x " << despread.channels() << endl;
     if(verbose)
@@ -159,7 +158,6 @@ Mat Reconstructor(Mat& input_image, int zslice)
     delete I2_up_fft;
     delete I2_down;
     delete I2_down_fft;
-    // I2_up, I2_up_fft, I2_down, I2_down_fft
     if(verbose) cout << "Cleared I2 variables" << endl;
 
     Mat* X = new Mat;
@@ -196,7 +194,7 @@ Mat Reconstructor(Mat& input_image, int zslice)
                 apodizer.at<float>(i,j) = 1;
             }
         }
-    }    // compare((*sum), 1, apodizer, CMP_LT);
+    } 
 
     // can clear X, Y, sum if needed
     delete X;
@@ -211,7 +209,7 @@ Mat Reconstructor(Mat& input_image, int zslice)
         {
             despread.at<complex<float>>(i,j) = apodizer.at<float>(i,j)*despread.at<complex<float>>(i,j);
         }
-    }    // multiply(despread, apodizer, despread);
+    }  
 
     
     if(verbose) cout << "Multiplied 'despread' and 'apodizer'" << endl;
@@ -223,7 +221,8 @@ Mat Reconstructor(Mat& input_image, int zslice)
         {
             apodizer_temp.at<complex<float>>(i,j) = apodizer.at<float>(i,j)*waves.template_wave.at<complex<float>>(i,j);
         }
-    }    // multiply(apodizer, waves.template_wave, apodizer);
+    }  
+
     if(verbose) cout << "Multiplied 'apodizer' and template wave" << endl;
 
     if(verbose) cout << "Ready to dft to correlate" << endl;
@@ -238,24 +237,12 @@ Mat Reconstructor(Mat& input_image, int zslice)
     Mat correlated;
 
     mulSpectrums(despread_fft, template_fft, despread_fft, DFT_COMPLEX_OUTPUT, true);
-    
-    // despread_fft = despread_fft*(template_fft.conj());
-
-    // Mat conj_mat(template_fft.size(), template_fft.type());
-    // for (int i = 0; i < template_fft.rows; i++) {
-    //     for (int j = 0; j < template_fft.cols; j++) {
-    //         conj_mat.at<complex<float>>(i, j) = conj(template_fft.at<std::complex<float>>(i, j));
-    //     }
-    // }
-
-    // despread_fft = despread_fft*conj_mat;
 
     // saveComplexMat(despread_fft, "../Output-Images/Mat.txt", 6000, 6000); 
 
     if(verbose) cout << "Convolution done in frequency domain" << endl;
 
     idft(despread_fft, correlated, DFT_SCALE | DFT_COMPLEX_OUTPUT);
-    // idft(despread_fft, correlated, DFT_COMPLEX_OUTPUT);
     
     // saveComplexMat(correlated, "../Output-Images/Mat.txt", 6000, 6000); 
 
@@ -277,6 +264,7 @@ Mat Reconstructor(Mat& input_image, int zslice)
     if(verbose) cout << "Inverse dft and fftshift complete" << endl;
 
     if(verbose) cout << "-----------------------------------------------------" << endl;
+    if(!verbose) cout << "Reconstruction DONE" << endl << endl;
 
     return correlated; 
 
@@ -286,7 +274,7 @@ Mat Reconstructor(Mat& input_image, int zslice)
 
 
 
-Mat Reconstructor(Mat& image, int zslice, Mat& cleaner)
-{
-    return Reconstructor(image, zslice); // havent actually ipmlemented the cleaner argument yet
-}
+// Mat Reconstructor(Mat& image, int zslice, Mat& cleaner)
+// {
+//     return Reconstructor(image, zslice); // havent actually ipmlemented the cleaner argument yet
+// }

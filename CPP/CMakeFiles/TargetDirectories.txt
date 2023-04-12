@@ -1,3 +1,5 @@
 /home/rjones2598/HoMIE/CPP/CMakeFiles/Recon.dir
+/home/rjones2598/HoMIE/CPP/CMakeFiles/start_commands.dir
+/home/rjones2598/HoMIE/CPP/CMakeFiles/take_commands.dir
 /home/rjones2598/HoMIE/CPP/CMakeFiles/edit_cache.dir
 /home/rjones2598/HoMIE/CPP/CMakeFiles/rebuild_cache.dir

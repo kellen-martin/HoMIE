@@ -362,6 +362,7 @@ CMakeFiles/Recon.dir/main.cpp.o: /home/rjones2598/HoMIE/CPP/main.cpp \
  /usr/local/include/opencv4/opencv2/video.hpp \
  /usr/local/include/opencv4/opencv2/video/tracking.hpp \
  /usr/local/include/opencv4/opencv2/video/background_segm.hpp \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/omp.h \
  /home/rjones2598/HoMIE/CPP/dtypes.cpp \
  /home/rjones2598/HoMIE/CPP/saveFunctions.cpp \
  /home/rjones2598/HoMIE/CPP/CalculateTemplate.cpp \
@@ -370,4 +371,5 @@ CMakeFiles/Recon.dir/main.cpp.o: /home/rjones2598/HoMIE/CPP/main.cpp \
  /home/rjones2598/HoMIE/CPP/ImportImages.cpp \
  /home/rjones2598/HoMIE/CPP/linspace.cpp \
  /home/rjones2598/HoMIE/CPP/PlotFrame.cpp \
- /home/rjones2598/HoMIE/CPP/Reconstructor.cpp
+ /home/rjones2598/HoMIE/CPP/Reconstructor.cpp \
+ /home/rjones2598/HoMIE/CPP/Reconstructor_Kanka1.cpp

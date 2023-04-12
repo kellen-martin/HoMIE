@@ -46,6 +46,10 @@ PlotFrame(diffStack,'Raw diffStack');
 
 recon = ReconstructorMod(diffStack,CalculateTemplate(inputs),inputs);
 PlotFrame(recon,'Recon',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+
+recon = ReconstructorKanka1(diffStack,CalculateTemplate(inputs),inputs);
+PlotFrame(recon,'Recon',ROI_x,ROI_y,ROI_x_pix,ROI_y_pix);
+
 % 
 % for i = 1:1
 %     recDiffStack{i} = ReconstructorMod(diffStack,CalculateTemplate(inputs),inputs);

@@ -34,7 +34,6 @@ void ImportImages(vector<Mat>& images, string folder)
                 string filePath = folder + "/" + filename;
                 Mat input_image = imread(filePath);
                 Mat image;
-                // input_image.convertTo(image, CV_8UC1);
                 cvtColor(input_image, image, COLOR_BGR2GRAY);
 
                 if(!image.empty())
@@ -42,11 +41,6 @@ void ImportImages(vector<Mat>& images, string folder)
                     int rows = image.rows;
                     int col = image.cols;
                     int chan = image.channels();
-
-                    // if(verbose){
-                    //     imshow("TEST", image);
-                    //     waitKey(0);
-                    // }
 
                     if((Sn_pixels < rows) || (Sn_pixels < col))
                     {

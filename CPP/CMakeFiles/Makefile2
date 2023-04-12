@@ -64,6 +64,8 @@ CMAKE_BINARY_DIR = /home/rjones2598/HoMIE/CPP
 
 # The main recursive "all" target.
 all: CMakeFiles/Recon.dir/all
+all: CMakeFiles/start_commands.dir/all
+all: CMakeFiles/take_commands.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,6 +74,8 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/Recon.dir/clean
+clean: CMakeFiles/start_commands.dir/clean
+clean: CMakeFiles/take_commands.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -99,6 +103,58 @@ Recon: CMakeFiles/Recon.dir/rule
 CMakeFiles/Recon.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Recon.dir/build.make CMakeFiles/Recon.dir/clean
 .PHONY : CMakeFiles/Recon.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/start_commands.dir
+
+# All Build rule for target.
+CMakeFiles/start_commands.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/start_commands.dir/build.make CMakeFiles/start_commands.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/start_commands.dir/build.make CMakeFiles/start_commands.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rjones2598/HoMIE/CPP/CMakeFiles --progress-num=3,4 "Built target start_commands"
+.PHONY : CMakeFiles/start_commands.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/start_commands.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rjones2598/HoMIE/CPP/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/start_commands.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rjones2598/HoMIE/CPP/CMakeFiles 0
+.PHONY : CMakeFiles/start_commands.dir/rule
+
+# Convenience name for target.
+start_commands: CMakeFiles/start_commands.dir/rule
+.PHONY : start_commands
+
+# clean rule for target.
+CMakeFiles/start_commands.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/start_commands.dir/build.make CMakeFiles/start_commands.dir/clean
+.PHONY : CMakeFiles/start_commands.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/take_commands.dir
+
+# All Build rule for target.
+CMakeFiles/take_commands.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/take_commands.dir/build.make CMakeFiles/take_commands.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/take_commands.dir/build.make CMakeFiles/take_commands.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rjones2598/HoMIE/CPP/CMakeFiles --progress-num=5,6 "Built target take_commands"
+.PHONY : CMakeFiles/take_commands.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/take_commands.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rjones2598/HoMIE/CPP/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/take_commands.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rjones2598/HoMIE/CPP/CMakeFiles 0
+.PHONY : CMakeFiles/take_commands.dir/rule
+
+# Convenience name for target.
+take_commands: CMakeFiles/take_commands.dir/rule
+.PHONY : take_commands
+
+# clean rule for target.
+CMakeFiles/take_commands.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/take_commands.dir/build.make CMakeFiles/take_commands.dir/clean
+.PHONY : CMakeFiles/take_commands.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
