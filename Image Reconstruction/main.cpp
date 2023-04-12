@@ -40,7 +40,7 @@ int main()
     vector<Mat> images;
     
     // can just use MATLAB to generate data if we need, then use the images here
-    string input_folder = "../img-sample"; // path to folder from program location
+    string input_folder = "../../DataSets/GenData1"; // path to folder from program location
 
     if(verbose) cout << endl;
 
