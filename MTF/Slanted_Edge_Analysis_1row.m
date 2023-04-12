@@ -4,7 +4,7 @@
 % HoMIE
 
 % Cleaning
-clc;clear; close all;
+clc;clear;close all;
 
 % Reading in the slanted edge target image
 image = imread('slanted edge 2.jpg');
@@ -45,13 +45,34 @@ Angle_deg = atan(P(1))*180/pi; % slope of the line
 
 % Need to plot perpendicular line to the least square regression
 
-midpt_x = edge_col(length(edge_col)/2) ;
-midpt_y = y(length(y)/2) ;
+midpt_x = edge_col(floor(length(edge_col)/2)) ;
+midpt_y = y(floor(length(y)/2)) ;
 perp_slope = -1/(P(1));
 b = midpt_y - perp_slope*midpt_x ; 
 y_perp = perp_slope.*edge_col + b ; 
 
 plot(edge_col,y_perp);
 axis equal;% yay 
-angle_interest = atand(perp_slope);
+yline(midpt_y,'g'); 
+angle_interest = atand(perp_slope); % EDGE ANGLE
+title('Edge with Perpendicular Line and Y-Line');xlabel('Pixel X Coords');ylabel('Pixel Y Coords');
+legend('Edge','Perp','Y-Line')
+
+% Project Points from Y-Line onto the Perp Line
+
+St_index = floor(length(edge_col)/2);
+End_index =  floor(length(edge_col)/2) + 32 ; 
+
+perp_spread = edge_col(St_index:End_index) ; 
+
+Proj_Point_dists = tand(angle_interest).*perp_spread;   % Want to do this for every row :)
+
+% Plotting the ESF for one row
+figure();
+plot(perp_spread,Proj_Point_dists);
+
+
+
+
+
 
