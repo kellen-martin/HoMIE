@@ -36,7 +36,8 @@ class object{
 void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<object> &Objects){
     // Variable definitions and initialization
         // area filter variables
-        double area_margin = 1;    // sets bound for exceptable particle areas
+        cout << "test ";
+        double area_margin = 1.2;    // sets bound for exceptable particle areas
         double area_min;           // minimum allowable area = area/margin
         double area_max;           // maximum allowable area = area*margin
 
@@ -46,21 +47,25 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
         int checked;               // the number of positions that have been checked
         int n;                     // object position iterator
         int j;                     // size of position vector
+        vector<int> remove;        // vector of indicies to be removed
 
         // distance variables
         double search_radius;       // search radius based on object's neareats neighbor
-        double sr_margin = 1;      // Expands search radius by this amount
+        double sr_margin = 1.3;      // Expands search radius by this amount
         double distance;           // distance between two positions
         double dx;                 // difference between x positions
         double dy;                 // difference between y positions
         double dz;                 // difference between z positions
 
+        Objects.resize(100);
+
     while(positions.empty() == false){
         // define the first position and area of the object
-        Objects[o].positions[0] = positions[0];
+        Objects[o].positions.push_back(positions[0]);
         Objects[o].size = areas[0];
 
         // Find the search radius 
+        cout << "test ";
         search_radius = FindSearchRadius(areas, positions, 0, area_margin);
         search_radius *= sr_margin;     
 
@@ -77,11 +82,12 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
         checked = 0;
         n = 1;
 
-        // 'Connect the dots' 
+        // 'Connect the dots'
+        int N = 1; 
         while(complete == false){
             // Check for positions within search radius
             j = positions.size();
-        
+
             for(int i = 0; i<j; i++){
                 if(areas[i] < area_max &&  areas[i] > area_min){
                     dx = Objects[o].positions[n-1].x - positions[i].x;
@@ -89,28 +95,31 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
                     dz = Objects[o].positions[n-1].z - positions[i].z;
                     if (dx < search_radius && dy < search_radius && dz < search_radius) {
                         distance = EuclidianDistance(dx, dy, dz);
-                        if(distance <= search_radius) {Objects[o].positions[n] = positions[i]; n += 1; positions.erase(positions.begin()+i);}
+                        if(distance <= search_radius) {Objects[o].positions.push_back(positions[i]); n += 1; remove.push_back(i);}
                     }
                 }
             }
-
+            N+=1;
             checked += 1;
-            if(checked == n){complete = true;}
+            if(checked == n || N > 16){complete = true;}
         } 
+        positions.erase(positions.begin() + N);
         o += 1;
     }
 }
 
 // test of GroupParticles
-void main(){
+int main(){
     // contour detection
     vector<Point2d> locations;
     vector<double> areas;
     string img_path = "unnamed.png";
     
+    
     ContourDetect(img_path, locations, areas); 
-
-    vector<Point3d> positions;
+    cout << locations.size() << endl;
+    
+    vector<Point3d> positions(locations.size());
 
     for(int i = 0; i<locations.size(); i++){
         positions[i].x = locations[i].x;
@@ -121,4 +130,14 @@ void main(){
     vector<object> Objects;
 
     GroupParticles(positions, areas, Objects);
+
+    for(int i = 0; i < 16; i++){
+        cout << Objects[i].positions.size() << endl;
+    }
+    
+
+    for(int i = 0; i<Objects[2].positions.size(); i++){
+        cout << "Position " << i << " x: " << Objects[2].positions[i].x << " y: " << Objects[2].positions[i].y << " z: " << Objects[2].positions[i].z << endl;
+    }
+    return 0;
 }

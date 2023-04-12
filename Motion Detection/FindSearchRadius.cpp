@@ -19,7 +19,6 @@
 # include <iostream>
 # include <opencv2/opencv.hpp>
 # include <cmath>
-# include "EuclidianDistance.cpp"
 # include <stdlib.h>
 # include <time.h>
 
