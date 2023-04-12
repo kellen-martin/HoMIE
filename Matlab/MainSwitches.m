@@ -40,10 +40,10 @@ ROI_y_pix = round(inputs.n_pixels/2 + ROI_y/inputs.pixel_p);
 % 7 detected difference frame region
 % 8 detected difference stack region
 % 
-% flags
-% 9 summary statistics
-% 10 compression
-% 11 compression estimation
+% 9 flags
+% 10 summary statistics
+% 11 compression
+% 12 compression estimation
 %%
 
 g = input('Old or New (o/n): ','s');
