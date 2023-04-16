@@ -19,9 +19,12 @@
 # include <iostream>
 # include <opencv2/opencv.hpp>
 # include <cmath>
+# include <vector> 
+# include <iterator>
 # include "EuclidianDistance.cpp"
 # include "FindSearchRadius.cpp"
 # include "ContourDetect.cpp"
+# include "RemoveElements.cpp"
 
 const int frame_rate  = 100;
 
@@ -36,8 +39,7 @@ class object{
 void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<object> &Objects){
     // Variable definitions and initialization
         // area filter variables
-        cout << "test ";
-        double area_margin = 1.2;    // sets bound for exceptable particle areas
+        double area_margin = 1.2;  // sets bound for exceptable particle areas
         double area_min;           // minimum allowable area = area/margin
         double area_max;           // maximum allowable area = area*margin
 
@@ -50,22 +52,19 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
         vector<int> remove;        // vector of indicies to be removed
 
         // distance variables
-        double search_radius;       // search radius based on object's neareats neighbor
-        double sr_margin = 1.3;      // Expands search radius by this amount
+        double search_radius;      // search radius based on object's neareats neighbor
+        double sr_margin = 1.3;    // Expands search radius by this amount
         double distance;           // distance between two positions
         double dx;                 // difference between x positions
         double dy;                 // difference between y positions
         double dz;                 // difference between z positions
 
-        Objects.resize(100);
-
     while(positions.empty() == false){
         // define the first position and area of the object
         Objects[o].positions.push_back(positions[0]);
         Objects[o].size = areas[0];
-
+        
         // Find the search radius 
-        cout << "test ";
         search_radius = FindSearchRadius(areas, positions, 0, area_margin);
         search_radius *= sr_margin;     
 
@@ -83,27 +82,47 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
         n = 1;
 
         // 'Connect the dots'
-        int N = 1; 
         while(complete == false){
-            // Check for positions within search radius
+            // update position vector size
             j = positions.size();
 
+            // check for positions within search radius of similar size
             for(int i = 0; i<j; i++){
+                // check for size
                 if(areas[i] < area_max &&  areas[i] > area_min){
-                    dx = Objects[o].positions[n-1].x - positions[i].x;
-                    dy = Objects[o].positions[n-1].y - positions[i].y;
-                    dz = Objects[o].positions[n-1].z - positions[i].z;
+                    // calculate distances
+                    dx = Objects[o].positions[checked].x - positions[i].x;
+                    dy = Objects[o].positions[checked].y - positions[i].y;
+                    dz = Objects[o].positions[checked].z - positions[i].z;
+
+                    // check if distance in one direction is greater that search radius
                     if (dx < search_radius && dy < search_radius && dz < search_radius) {
+                        // calculate distance
                         distance = EuclidianDistance(dx, dy, dz);
-                        if(distance <= search_radius) {Objects[o].positions.push_back(positions[i]); n += 1; remove.push_back(i);}
+
+                        // add position to object  and remove from list if within searh radius
+                        if(distance <= search_radius) {
+                            Objects[o].positions.push_back(positions[i]); 
+                            n += 1; 
+                            // add index to positions to be removed
+                            remove.push_back(i);
+                        }
                     }
                 }
             }
-            N+=1;
+
+            // remove positions and areas
+            RemoveElements(remove, positions, areas);
+
+            // erase all elements of remove vector
+            remove.clear();
+            
+            // increment number of object positons checked 
             checked += 1;
-            if(checked == n || N > 16){complete = true;}
+
+            // if every object position has been checked end loop
+            if(checked == n){complete = true;}
         } 
-        positions.erase(positions.begin() + N);
         o += 1;
     }
 }
