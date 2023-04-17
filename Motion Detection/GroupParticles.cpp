@@ -135,26 +135,7 @@ int main(){
     
     
     ContourDetect(img_path, locations, areas); 
-    /*
-    locations[0].x = 1;
-    locations[0].y = 1;
-    locations[1].x = 2;
-    locations[1].y = 2;
-    locations[2].x = 3;
-    locations[2].y = 3;
-    locations[3].x = 4;
-    locations[3].y = 4;
-    locations[4].y = 5;
-    locations[4].x = 5;
-    locations[5].x = 6;
-    locations[5].y = 6;
-    areas[0] = 4;
-    areas[1] = 4;
-    areas[2] = 3;
-    areas[3] = 4;
-    areas[4] = 4;
-    areas[5] = 4;
-    */
+    
 
     //cout << locations.size() << endl;
     //cout << "test";
