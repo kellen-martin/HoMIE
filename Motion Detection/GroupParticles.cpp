@@ -30,16 +30,16 @@ const int frame_rate  = 100;
 
 class object{
     public:
-    vector<Point3d> positions;             // List of an object's postions 
     double size;                           // Size of the object
     double linearity;                      // How linear is the objects movements 
     bool flag;                             // Does the object meet linearity threshold
+    vector<Point3d> positions;             // List of an object's postions 
 };
 
 void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<object> &Objects){
     // Variable definitions and initialization
         // area filter variables
-        double area_margin = 1.2;  // sets bound for exceptable particle areas
+        double area_margin = 1.3;  // sets bound for exceptable particle areas
         double area_min;           // minimum allowable area = area/margin
         double area_max;           // maximum allowable area = area*margin
 
@@ -48,7 +48,6 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
         bool complete;             // marks the completion of an object(is true when all of an object's positions have been checked)
         int checked;               // the number of positions that have been checked
         int n;                     // object position iterator
-        int j;                     // size of position vector
         vector<int> remove;        // vector of indicies to be removed
 
         // distance variables
@@ -61,8 +60,8 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
 
     while(positions.empty() == false){
         // define the first position and area of the object
-        Objects[o].positions.push_back(positions[0]);
         Objects[o].size = areas[0];
+        Objects[o].positions.push_back(positions[0]);
         
         // Find the search radius 
         search_radius = FindSearchRadius(areas, positions, 0, area_margin);
@@ -83,13 +82,10 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
 
         // 'Connect the dots'
         while(complete == false){
-            // update position vector size
-            j = positions.size();
-
             // check for positions within search radius of similar size
-            for(int i = 0; i<j; i++){
+            for(int i = 0; i<positions.size(); i++){
                 // check for size
-                if(areas[i] < area_max &&  areas[i] > area_min){
+                if(areas[i] < area_max && areas[i] > area_min){
                     // calculate distances
                     dx = Objects[o].positions[checked].x - positions[i].x;
                     dy = Objects[o].positions[checked].y - positions[i].y;
@@ -121,7 +117,9 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
             checked += 1;
 
             // if every object position has been checked end loop
-            if(checked == n){complete = true;}
+            if(checked == n){
+                complete = true;
+                }
         } 
         o += 1;
     }
@@ -129,6 +127,7 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
 
 // test of GroupParticles
 int main(){
+    
     // contour detection
     vector<Point2d> locations;
     vector<double> areas;
@@ -136,21 +135,45 @@ int main(){
     
     
     ContourDetect(img_path, locations, areas); 
-    cout << locations.size() << endl;
-    
+    /*
+    locations[0].x = 1;
+    locations[0].y = 1;
+    locations[1].x = 2;
+    locations[1].y = 2;
+    locations[2].x = 3;
+    locations[2].y = 3;
+    locations[3].x = 4;
+    locations[3].y = 4;
+    locations[4].y = 5;
+    locations[4].x = 5;
+    locations[5].x = 6;
+    locations[5].y = 6;
+    areas[0] = 4;
+    areas[1] = 4;
+    areas[2] = 3;
+    areas[3] = 4;
+    areas[4] = 4;
+    areas[5] = 4;
+    */
+
+    //cout << locations.size() << endl;
+    //cout << "test";
     vector<Point3d> positions(locations.size());
 
     for(int i = 0; i<locations.size(); i++){
         positions[i].x = locations[i].x;
         positions[i].y = locations[i].y;
         positions[i].z = 0;
+        //cout << positions[i].x << " " << positions[i].y << " "<< positions[i].z << endl;
+        //cout << areas[i] << endl;
     }
 
-    vector<object> Objects;
+    vector<object> Objects(16);
 
     GroupParticles(positions, areas, Objects);
 
-    for(int i = 0; i < 16; i++){
+
+    for(int i = 0; i < Objects.size(); i++){
         cout << Objects[i].positions.size() << endl;
     }
     
@@ -158,5 +181,7 @@ int main(){
     for(int i = 0; i<Objects[2].positions.size(); i++){
         cout << "Position " << i << " x: " << Objects[2].positions[i].x << " y: " << Objects[2].positions[i].y << " z: " << Objects[2].positions[i].z << endl;
     }
+
     return 0;
+    
 }
