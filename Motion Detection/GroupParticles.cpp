@@ -125,7 +125,8 @@ void GroupParticles( vector<Point3d> positions, vector<double> areas, vector<obj
     }
 }
 
-// test of GroupParticles
+// test of GroupParticles //
+/*
 int main(){
     
     // contour detection
@@ -165,4 +166,4 @@ int main(){
 
     return 0;
     
-}
+}*/
