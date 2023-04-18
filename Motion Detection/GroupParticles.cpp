@@ -32,6 +32,7 @@ class object{
     public:
     double size;                           // Size of the object
     double linearity;                      // How linear is the objects movements 
+    double threshold = .9;                 // How linear the positions must be to flag
     bool flag;                             // Does the object meet linearity threshold
     vector<Point3d> positions;             // List of an object's postions 
 };
