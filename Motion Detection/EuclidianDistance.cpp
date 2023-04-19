@@ -27,9 +27,9 @@ using namespace cv;
 
 double EuclidianDistance(double dx, double dy, double dz) {
 // distance equation
-double distance;
-distance = sqrt(pow(dx, 2) + pow(dy, 2) + pow(dz, 2));
+    double distance;
+    distance = sqrt(pow(dx, 2) + pow(dy, 2) + pow(dz, 2));
 
-return distance;
+    return distance;
 }
 
