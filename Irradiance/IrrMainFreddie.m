@@ -41,11 +41,12 @@ plot(r,Irr_D,'b','LineWidth',2)
 plot(-r,Irr_D,'b','LineWidth',2)
 xline(11.264/2,'--r','LineWidth',2)
 xline(-11.264/2,'--r','LineWidth',2)
+grid on;
 hold off
-xlabel('Radial Distance [mm]')
-ylabel('Irradiance [mW/mm^2]')
-title('Irradiance at Detector')
-
+xlabel('Radial Distance [mm]','FontName','Times New Roman','FontSize',20)
+ylabel('Irradiance [mW/mm^2]','FontName','Times New Roman','FontSize',20)
+title('Irradiance at Detector','FontName','Times New Roman','FontSize',25)
+legend('Beam Irradiance Variation','','Beam Waist Cutoff Distance','FontName','Times New Roman','FontSize',15)
 
 [~,i_max] = max(Irr_D);
 [~,i_min] = min(abs(r-11.264/2));

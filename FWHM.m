@@ -1,6 +1,6 @@
 % Eric Dean
 clc;clear all; close all;
-image = imread('reconimage.png');
+image = imread('AgathaE0.028_zslice_0_single.png');
 figure(1)
 imshow(image);
 [cx,cy,c] = improfile(); % allows the user to draw a line in the image; 
@@ -11,7 +11,7 @@ imshow(image);
 [max_value, max_index] = max(c) ; 
 threshold = max_value/2 ; 
 lower_index = find(c(1:max_index) < threshold,1,'last'); %
-upper_index = find(c(max_index:end) < threshold,1) + max_index -1 ; 
+upper_index = find(c(max_index:end) < threshold,1) + max_index  ; 
 x_unit = cx(2) - cx(1) ; 
 fwhm = (cx(upper_index) - cx(lower_index))*x_unit ; 
 figure(2); hold on;

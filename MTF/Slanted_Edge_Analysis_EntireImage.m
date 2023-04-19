@@ -28,7 +28,7 @@ imshow(newimage)
 newimage = im2gray(newimage);
 
 [~,threshold] = edge(newimage,'sobel');
-fudgeFactor = 0.5;
+fudgeFactor = 0.7;
 BWs = edge(newimage,'sobel',threshold * fudgeFactor);
 figure; imshow(BWs);
 

@@ -2,7 +2,9 @@
 % hello
 clc;clear all; close all;
 
-image = imread('simulated_hologram.png');
+image = imread('AgathaE0.028_zslice_0_single.png');
+
+
 %%
 % Nonessential image processing
 %whos image
