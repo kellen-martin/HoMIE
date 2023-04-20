@@ -26,9 +26,10 @@ Mat Reconstructor_Kanka(Mat& input_image, int zslice)
     resize((*I2_down), (*I2_down), Size(down_sz, down_sz), 0, 0, INTER_CUBIC);
 
     int tile_dimension = down_sz/num_tiles;
+    int tile_dimension_up = n_pixels/num_tiles;
 
     Mat* total = new Mat;
-    *total = Mat::zeros(down_sz, down_sz, CV_32FC2);
+    *total = Mat::zeros(n_pixels, n_pixels, CV_32FC2);
 
     // #pragma omp parallel for collapse(2)
 
@@ -87,6 +88,14 @@ Mat Reconstructor_Kanka(Mat& input_image, int zslice)
                 cout << "    I2_down_fft_tile size: " << I2_down_fft_tile->cols << endl;
                 cout << "    I2_up_fft_tile size:   " << I2_up_fft_tile->cols << endl;
                 ////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////
+                cout << "ranges:" << endl;
+                cout << "    up_r1:            " << "start: 0,0" << " size: " << tile_dimension/2 << " x " << tile_dimension/2 <<  endl;
+                cout << "    dn_r1:            " << "start: " << 0 << "," << 0 << endl;
+                cout << "    up_r2:            " << "start: " << (n_pixels/num_tiles - 1) - tile_dimension/2 << "," << 0 << endl;
+                cout << "    dn_r2:            " << "start: " << tile_dimension/2 << "," << 0 << endl;
+                cout << "    up_r3:            " << "start: " << 0 << "," << (n_pixels/num_tiles - 1) - tile_dimension/2 << endl;
+                ////////////////////////////////////////////////////
 
                 (*I2_down_fft_tile)(dn_r1).copyTo((*I2_up_fft_tile)(up_r1));
                 (*I2_down_fft_tile)(dn_r2).copyTo((*I2_up_fft_tile)(up_r2));
@@ -121,17 +130,29 @@ Mat Reconstructor_Kanka(Mat& input_image, int zslice)
                 ////////////////////////////////////////////////////
                 
                 Mat* despread_tile = new Mat;
-                *despread_tile = Mat::zeros(n_pixels/num_tiles, n_pixels/num_tiles, CV_32FC2);
+                *despread_tile = Mat::zeros((int)(n_pixels/num_tiles), (int)(n_pixels/num_tiles), CV_32FC2);
 
-                for(int i2 = 0; i2 < n_pixels/num_tiles; i2++)
+                for(int i2 = 0; i2 < (int)(n_pixels/num_tiles); i2++)
                 {
-                    for(int j2 = 0; j2 < n_pixels/num_tiles; j2++)
+                    for(int j2 = 0; j2 < (int)(n_pixels/num_tiles); j2++)
                     {
                         despread_tile->at<complex<float>>(i2,j2) = (*I2_up_tile).at<complex<float>>(i2,j2)*ref_wave_tile.at<complex<float>>(i2,j2);
                     }
                 }
                 
-                despread_tile->copyTo((*total)(Range(nx1, nx2 + 1), Range(ny1, ny2 + 1)));
+                ////////////////////////////////////////////////////
+                cout << "despread Mat found" << endl;
+                ////////////////////////////////////////////////////
+
+                for(int i2 = 0; i2 < despread_tile->rows; i2++)
+                {
+                    for(int j2 = 0; j2 < despread_tile->cols; j2++)
+                    {
+                        (*total).at<complex<float>>(nx1 + i2, ny1 + j2) = despread_tile->at<complex<float>>(i2, j2);
+                    }
+                }
+
+                // despread_tile->copyTo((*total)(Range(nx1, nx2 + 1), Range(ny1, ny2 + 1)));
                 
                 ////////////////////////////////////////////////////
                 cout << "total updated" << endl;

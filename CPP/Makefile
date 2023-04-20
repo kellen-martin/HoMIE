@@ -155,6 +155,19 @@ take_commands/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/take_commands.dir/build.make CMakeFiles/take_commands.dir/build
 .PHONY : take_commands/fast
 
+#=============================================================================
+# Target rules for targets named loop_recon
+
+# Build rule for target.
+loop_recon: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 loop_recon
+.PHONY : loop_recon
+
+# fast build rule for target.
+loop_recon/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/loop_recon.dir/build.make CMakeFiles/loop_recon.dir/build
+.PHONY : loop_recon/fast
+
 loop_main.o: loop_main.cpp.o
 .PHONY : loop_main.o
 
@@ -178,6 +191,30 @@ loop_main.s: loop_main.cpp.s
 loop_main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/start_commands.dir/build.make CMakeFiles/start_commands.dir/loop_main.cpp.s
 .PHONY : loop_main.cpp.s
+
+loop_recon.o: loop_recon.cpp.o
+.PHONY : loop_recon.o
+
+# target to build an object file
+loop_recon.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/loop_recon.dir/build.make CMakeFiles/loop_recon.dir/loop_recon.cpp.o
+.PHONY : loop_recon.cpp.o
+
+loop_recon.i: loop_recon.cpp.i
+.PHONY : loop_recon.i
+
+# target to preprocess a source file
+loop_recon.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/loop_recon.dir/build.make CMakeFiles/loop_recon.dir/loop_recon.cpp.i
+.PHONY : loop_recon.cpp.i
+
+loop_recon.s: loop_recon.cpp.s
+.PHONY : loop_recon.s
+
+# target to generate assembly for a file
+loop_recon.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/loop_recon.dir/build.make CMakeFiles/loop_recon.dir/loop_recon.cpp.s
+.PHONY : loop_recon.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -236,11 +273,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Recon"
+	@echo "... loop_recon"
 	@echo "... start_commands"
 	@echo "... take_commands"
 	@echo "... loop_main.o"
 	@echo "... loop_main.i"
 	@echo "... loop_main.s"
+	@echo "... loop_recon.o"
+	@echo "... loop_recon.i"
+	@echo "... loop_recon.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

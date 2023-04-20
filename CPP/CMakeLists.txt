@@ -20,6 +20,12 @@ project( take_commands )
 set(SOURCES_take take_commands.cpp)
 add_executable(take_commands ${SOURCES_take})
 
+
+project( loop_recon )
+set(SOURCES_loop loop_recon.cpp)
+add_executable(loop_recon ${SOURCES_loop})
+target_link_libraries(loop_recon ${OpenCV_LIBS})
+
 # enabling openMP
 find_package(OpenMP)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")

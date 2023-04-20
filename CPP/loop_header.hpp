@@ -9,6 +9,8 @@
 #include <complex>
 #include <omp.h>
 #include <opencv2/opencv.hpp>
+#include <unistd.h>
+#include <sys/wait.h>
 #include "loop_dtypes.cpp"
 
 using namespace std;
@@ -32,6 +34,7 @@ extern const int SINGLE_FRAME;
 extern const int TYPE_RAW;
 extern const int TYPE_AVG;
 extern const int TYPE_CLEAN;
+extern const int TYPE_RECON;
 
 extern const int SAVE_FULL_ROI;
 extern const int SAVE_DETECTED;

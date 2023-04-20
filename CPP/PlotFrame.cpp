@@ -4,10 +4,13 @@
 using namespace std;
 using namespace cv;
 
+#ifndef ROI_val
+#define ROI_val
 float ROI_x[2] = {-0.5*1e-3, 0.5*1e-3};
 float ROI_y[2] = {-0.5*1e-3, 0.5*1e-3};
-int ROI_x_pix[2] = {(int)n_pixels/2 + (int)(ROI_x[0]/pixel_p), (int)n_pixels/2 + (int)(ROI_x[1]/pixel_p)};
-int ROI_y_pix[2] = {(int)n_pixels/2 + (int)(ROI_y[0]/pixel_p), (int)n_pixels/2 + (int)(ROI_y[1]/pixel_p)};
+int ROI_x_pix[2] = {(int)n_pixels/2 + (int)(ROI_x[0]/(pixel_p)), (int)n_pixels/2 + (int)(ROI_x[1]/(pixel_p))};
+int ROI_y_pix[2] = {(int)n_pixels/2 + (int)(ROI_y[0]/(pixel_p)), (int)n_pixels/2 + (int)(ROI_y[1]/(pixel_p))};
+#endif
 
 void PlotFrame(Mat& image, string title)
 {

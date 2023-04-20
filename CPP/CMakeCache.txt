@@ -145,7 +145,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=take_commands
+CMAKE_PROJECT_NAME:STATIC=loop_recon
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -253,6 +253,15 @@ Recon_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 Recon_SOURCE_DIR:STATIC=/home/rjones2598/HoMIE/CPP
+
+//Value Computed by CMake
+loop_recon_BINARY_DIR:STATIC=/home/rjones2598/HoMIE/CPP
+
+//Value Computed by CMake
+loop_recon_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+loop_recon_SOURCE_DIR:STATIC=/home/rjones2598/HoMIE/CPP
 
 //Value Computed by CMake
 start_commands_BINARY_DIR:STATIC=/home/rjones2598/HoMIE/CPP

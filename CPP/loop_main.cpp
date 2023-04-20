@@ -11,6 +11,32 @@ using namespace std;
 
 int main()
 {
+    bool verbose = true;
+
+    pid_t child;
+    char in = '!';
+    cout << "Enter a new set of commands?";
+    while(!(in == 'y') && !(in == 'n'))
+    {
+        cout << "(y/n): "; cin >> in;
+    }
+
+    if(in == 'y'){
+        child = fork();
+
+        if(child == 0){
+            // child process
+            vector<const char*> args = {"./take_commands", nullptr};
+            execvp(args[0], const_cast<char* const*>(args.data()));
+            return 1;
+        }else{
+            // parent process
+            int status;
+            pid_t terminated = waitpid(child, &status, 0);
+            cout << endl;
+        }
+    }
+
     // load commands here
     vector<command> commands = loadCommands();
 
@@ -34,49 +60,137 @@ int main()
             case CAPTURE:
                 // capture images
                 // fork and use sdk program to capture n frames
+                cout << "Capture " << commands[i].captureFrames << " frames for ID: " << commands[i].sampleID;
+                cout << ", reconstruct using method " << commands[i].detect << endl;
+
+                child = fork();
+
+                if(child == 0){
+                    // child process (uncomment and call capture program):
+
+                    // vector<const char*> args = {"./take_commands", nullptr};
+                    // execvp(args[0], const_cast<char* const*>(args.data()));
+                    // return 1;
+                    
+                    return 0;
+                }else{
+                    // parent process
+                    int status;
+                    pid_t terminated = waitpid(child, &status, 0);
+                    cout << endl;
+                }
+
                 break;
 
 
             case DETECT:
                 // do motion detection on a reconstruction
+                switch(commands[i].detect)
+                {
+                    case DIFF_FRAME:
+                        if(verbose) cout << "Reconstruct sample " << commands[i].sampleID << " and use frames " << commands[i].frame1 << " and " << commands[i].frame2 << " for diff frame motion detection" << endl;
+                        child = fork();
 
-                // switch(commands[i].frame)
-                // {
-                //     case NONE:
-                //         // undefined detection command
-                //         break;
+                        if(child == 0){
+                            // child process (uncomment and call capture program):
+                            vector<const char*> args = {"./loop_recon", commands[i].sampleID.c_str(), "DIFF_FRAME", to_string(commands[i].frame1).c_str(), to_string(commands[i].frame2).c_str(), "ALL", nullptr};
+                            execvp(args[0], const_cast<char* const*>(args.data()));
+                            return 1;
+                            
+                            return 0;
+                        }else{
+                            // parent process
+                            int status;
+                            pid_t terminated = waitpid(child, &status, 0);
+                            cout << endl;
+                        }
 
-                //     case TYPE_RAW:
-                //         // single frame reconstruction
-                //         break;
+                        break;
 
-                //     case TYPE_AVG:
-                //         // average frame reconstruction
-                //         break;
+                    case DIFF_STACK:
+                        if(verbose) cout << "Reconstruct sample " << commands[i].sampleID << " and use frames " << commands[i].frame1 << " to " << commands[i].frame2 << " for diff stack motion detection" << endl;
+                        child = fork();
 
-                //     case TYPE_CLEAN:
-                //         // cleaned frame reconstruction
-                //         break;
+                        if(child == 0){
+                            // child process (uncomment and call capture program):
+                            vector<const char*> args = {"./loop_recon", commands[i].sampleID.c_str(), "DIFF_STACK", to_string(commands[i].frame1).c_str(), to_string(commands[i].frame2).c_str(), "ALL", nullptr};
+                            execvp(args[0], const_cast<char* const*>(args.data()));
+                            return 1;
+                            
+                            return 0;
+                        }else{
+                            // parent process
+                            int status;
+                            pid_t terminated = waitpid(child, &status, 0);
+                            cout << endl;
+                        }
 
-                //     case DIFF_FRAME:
-                //         // difference frame reconstruction
-                //         break;
+                        break;
 
-                //     case DIFF_STACK:
-                //         // difference stack reconstruction
-                //         break;
+                    case SINGLE_FRAME:
+                        if(verbose) cout << "Reconstruct sample " << commands[i].sampleID << " and use frame " << commands[i].frame1 << " for single frame motion detection" << endl;
+                        child = fork();
 
-                //     default:
-                //         // unexpected detection command
-                //         break;
-                // }
+                        if(child == 0){
+                            // child process (uncomment and call capture program):
 
-                // check for saving reconstruction here
+                            vector<const char*> args = {"./loop_recon", commands[i].sampleID.c_str(), "SINGLE_FRAME", to_string(commands[i].frame1).c_str(), "ALL", nullptr};
+                            execvp(args[0], const_cast<char* const*>(args.data()));
+                            return 1;
+                            
+                            return 0;
+                        }else{
+                            // parent process
+                            int status;
+                            pid_t terminated = waitpid(child, &status, 0);
+                            cout << endl;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
 
                 break;
 
 
             case DATA:
+
+                switch(commands[i].returnType)
+                {   
+                    case TYPE_RECON:
+                        switch(commands[i].detect)
+                        {
+                            case DIFF_FRAME:
+                                cout << "Return diff frame from sample " << commands[i].sampleID << " using frames " << commands[i].frame1 << " and " << commands[i].frame2 << endl;
+
+                                break;
+
+                            case DIFF_STACK:
+                                cout << "Return diff stack from sample " << commands[i].sampleID << " using frames " << commands[i].frame1 << " to " << commands[i].frame2 << endl;
+                                
+                                break;
+
+                            case SINGLE_FRAME:
+                                cout << "Return single frame from sample " << commands[i].sampleID << ", frame: " << commands[i].frame1 << endl;
+                                
+                                break;
+
+                            default:
+                                break;
+                        }
+
+                        break;
+
+                    case TYPE_RAW:
+                        cout << "Return raw frame from sample: " << commands[i].sampleID << endl;
+                        break;
+
+                    default:
+                        break;
+                }
+
                 // send compression data
                 break;
 

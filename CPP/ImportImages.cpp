@@ -26,10 +26,10 @@ void ImportImages(vector<Mat>& images, string folder)
 
             string filename = file->d_name;
 
-            if(filename.substr(filename.find_last_of(".") + 1) == "png")
+            if(filename.substr(filename.find_last_of(".") + 1) == "jpg")
             {
                 
-                if(verbose) cout << "'.png' file found (" << images.size() + 1 << ")" << endl;
+                if(verbose) cout << "'.jpg' file found (" << images.size() + 1 << ")" << endl;
 
                 string filePath = folder + "/" + filename;
                 Mat input_image = imread(filePath);

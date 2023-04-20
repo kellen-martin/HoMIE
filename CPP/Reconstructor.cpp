@@ -24,17 +24,18 @@ Mat Reconstructor(Mat& input_image, int zslice)
     
     if(verbose) cout << "Calculating template and reference waves:" << endl;
     if(verbose) cout << "-  -  -  -  -  -  -  -  -   -  -  -  -  -  -  -  -  - " << endl;
-    rval waves = CalculateTemplate();
+    rval* waves = new rval;
+    (*waves) = CalculateTemplate();
     if(verbose) cout << "-  -  -  -  -  -  -  -  -   -  -  -  -  -  -  -  -  - " << endl;
     if(verbose) cout << "Returned to Reconstructor" << endl;
 
-    // saveComplexMat(waves.template_wave, "../Output-Images/template_wave.txt", 6000, 6000);
+    // saveComplexMat((*waves).template_wave, "../Output-Images/template_wave.txt", 6000, 6000);
 
     if(verbose)
     {
         double max, min;
         Point minLoc, maxLoc;
-        minMaxLoc(waves.template_wave, &min, &max);
+        minMaxLoc((*waves).template_wave, &min, &max);
         if(verbose) cout << "  Template: ----------------" << endl;
         if(verbose) cout << "    max pixel value: " << max << endl;
         if(verbose) cout << "    min pixel value: " << min << endl << endl;
@@ -43,7 +44,7 @@ Mat Reconstructor(Mat& input_image, int zslice)
     {
         double max, min;
         Point minLoc, maxLoc;
-        minMaxLoc(waves.ref_wave, &min, &max);
+        minMaxLoc((*waves).ref_wave, &min, &max);
         if(verbose) cout << "  Reference: ---------------" << endl;
         if(verbose) cout << "    max pixel value: " << max << endl;
         if(verbose) cout << "    min pixel value: " << min << endl << endl;
@@ -66,10 +67,10 @@ Mat Reconstructor(Mat& input_image, int zslice)
     Mat* I2_down = new Mat;
     *I2_down = Mat::zeros(n_pixels, n_pixels, CV_32F);
 
-    for(int i = 0; i < waves.ref_wave.rows; i++){
-        for(int j = 0; j < waves.ref_wave.cols; j++){
+    for(int i = 0; i < (*waves).ref_wave.rows; i++){
+        for(int j = 0; j < (*waves).ref_wave.cols; j++){
 
-            (*I2_down).at<float>(i,j) = (float)((real(waves.ref_wave.at<complex<float>>(i,j))*real(waves.ref_wave.at<complex<float>>(i,j))) + (imag(waves.ref_wave.at<complex<float>>(i,j))*imag(waves.ref_wave.at<complex<float>>(i,j))));
+            (*I2_down).at<float>(i,j) = (float)((real((*waves).ref_wave.at<complex<float>>(i,j))*real((*waves).ref_wave.at<complex<float>>(i,j))) + (imag((*waves).ref_wave.at<complex<float>>(i,j))*imag((*waves).ref_wave.at<complex<float>>(i,j))));
 
         }
     }
@@ -138,7 +139,7 @@ Mat Reconstructor(Mat& input_image, int zslice)
     {
         for(int j = 0; j < n_pixels; j++)
         {
-            despread.at<complex<float>>(i,j) = (*I2_up).at<complex<float>>(i,j)*waves.ref_wave.at<complex<float>>(i,j);
+            despread.at<complex<float>>(i,j) = (*I2_up).at<complex<float>>(i,j)*(*waves).ref_wave.at<complex<float>>(i,j);
         }
     }
 
@@ -219,7 +220,7 @@ Mat Reconstructor(Mat& input_image, int zslice)
     {
         for(int j = 0; j < n_pixels; j++)
         {
-            apodizer_temp.at<complex<float>>(i,j) = apodizer.at<float>(i,j)*waves.template_wave.at<complex<float>>(i,j);
+            apodizer_temp.at<complex<float>>(i,j) = apodizer.at<float>(i,j)*(*waves).template_wave.at<complex<float>>(i,j);
         }
     }  
 
@@ -233,7 +234,7 @@ Mat Reconstructor(Mat& input_image, int zslice)
     
     if(verbose) cout << "DFT done" << endl;
 
-
+    delete waves;
     Mat correlated;
 
     mulSpectrums(despread_fft, template_fft, despread_fft, DFT_COMPLEX_OUTPUT, true);

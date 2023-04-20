@@ -21,6 +21,7 @@ const int SINGLE_FRAME = 15;
 const int TYPE_RAW        = 5;
 const int TYPE_AVG        = 6;
 const int TYPE_CLEAN      = 7;
+const int TYPE_RECON      = 16;
 
 const int SAVE_FULL_ROI = 10;
 const int SAVE_DETECTED = 11;

@@ -66,6 +66,7 @@ CMAKE_BINARY_DIR = /home/rjones2598/HoMIE/CPP
 all: CMakeFiles/Recon.dir/all
 all: CMakeFiles/start_commands.dir/all
 all: CMakeFiles/take_commands.dir/all
+all: CMakeFiles/loop_recon.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -76,6 +77,7 @@ preinstall:
 clean: CMakeFiles/Recon.dir/clean
 clean: CMakeFiles/start_commands.dir/clean
 clean: CMakeFiles/take_commands.dir/clean
+clean: CMakeFiles/loop_recon.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -111,7 +113,7 @@ CMakeFiles/Recon.dir/clean:
 CMakeFiles/start_commands.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/start_commands.dir/build.make CMakeFiles/start_commands.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/start_commands.dir/build.make CMakeFiles/start_commands.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rjones2598/HoMIE/CPP/CMakeFiles --progress-num=3,4 "Built target start_commands"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rjones2598/HoMIE/CPP/CMakeFiles --progress-num=5,6 "Built target start_commands"
 .PHONY : CMakeFiles/start_commands.dir/all
 
 # Build rule for subdir invocation for target.
@@ -137,7 +139,7 @@ CMakeFiles/start_commands.dir/clean:
 CMakeFiles/take_commands.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/take_commands.dir/build.make CMakeFiles/take_commands.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/take_commands.dir/build.make CMakeFiles/take_commands.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rjones2598/HoMIE/CPP/CMakeFiles --progress-num=5,6 "Built target take_commands"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rjones2598/HoMIE/CPP/CMakeFiles --progress-num=7,8 "Built target take_commands"
 .PHONY : CMakeFiles/take_commands.dir/all
 
 # Build rule for subdir invocation for target.
@@ -155,6 +157,32 @@ take_commands: CMakeFiles/take_commands.dir/rule
 CMakeFiles/take_commands.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/take_commands.dir/build.make CMakeFiles/take_commands.dir/clean
 .PHONY : CMakeFiles/take_commands.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/loop_recon.dir
+
+# All Build rule for target.
+CMakeFiles/loop_recon.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/loop_recon.dir/build.make CMakeFiles/loop_recon.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/loop_recon.dir/build.make CMakeFiles/loop_recon.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rjones2598/HoMIE/CPP/CMakeFiles --progress-num=3,4 "Built target loop_recon"
+.PHONY : CMakeFiles/loop_recon.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/loop_recon.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rjones2598/HoMIE/CPP/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/loop_recon.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rjones2598/HoMIE/CPP/CMakeFiles 0
+.PHONY : CMakeFiles/loop_recon.dir/rule
+
+# Convenience name for target.
+loop_recon: CMakeFiles/loop_recon.dir/rule
+.PHONY : loop_recon
+
+# clean rule for target.
+CMakeFiles/loop_recon.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/loop_recon.dir/build.make CMakeFiles/loop_recon.dir/clean
+.PHONY : CMakeFiles/loop_recon.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

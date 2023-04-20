@@ -8,23 +8,27 @@ using namespace std;
 
 struct command
 {
+    string sampleID;
+
     int type;
     int detect;
     int frame1;
     int frame2;
-    string sampleID;
+    int returnType;
 
     int captureFrames;
 
     command()
     {
+        sampleID = "";
+
         type  = 0;
         detect = 0;
-
-        captureFrames = 0;
         frame1 = 0;
         frame2 = 0;
-        sampleID = "";
+        returnType = 0;
+        
+        captureFrames = 0;
     }
 
 };
