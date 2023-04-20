@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/homie/HoMIE/Image Reconstruction"
+CMAKE_SOURCE_DIR = /home/rjones2598/HoMIE/CPP
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/homie/HoMIE/Image Reconstruction"
+CMAKE_BINARY_DIR = /home/rjones2598/HoMIE/CPP
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/homie/HoMIE/Image Reconstruction/CMakeFiles" "/home/homie/HoMIE/Image Reconstruction//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rjones2598/HoMIE/CPP/CMakeFiles /home/rjones2598/HoMIE/CPP//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/homie/HoMIE/Image Reconstruction/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rjones2598/HoMIE/CPP/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,6 +129,93 @@ Recon/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Recon.dir/build.make CMakeFiles/Recon.dir/build
 .PHONY : Recon/fast
 
+#=============================================================================
+# Target rules for targets named start_commands
+
+# Build rule for target.
+start_commands: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 start_commands
+.PHONY : start_commands
+
+# fast build rule for target.
+start_commands/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/start_commands.dir/build.make CMakeFiles/start_commands.dir/build
+.PHONY : start_commands/fast
+
+#=============================================================================
+# Target rules for targets named take_commands
+
+# Build rule for target.
+take_commands: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 take_commands
+.PHONY : take_commands
+
+# fast build rule for target.
+take_commands/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/take_commands.dir/build.make CMakeFiles/take_commands.dir/build
+.PHONY : take_commands/fast
+
+#=============================================================================
+# Target rules for targets named loop_recon
+
+# Build rule for target.
+loop_recon: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 loop_recon
+.PHONY : loop_recon
+
+# fast build rule for target.
+loop_recon/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/loop_recon.dir/build.make CMakeFiles/loop_recon.dir/build
+.PHONY : loop_recon/fast
+
+loop_main.o: loop_main.cpp.o
+.PHONY : loop_main.o
+
+# target to build an object file
+loop_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/start_commands.dir/build.make CMakeFiles/start_commands.dir/loop_main.cpp.o
+.PHONY : loop_main.cpp.o
+
+loop_main.i: loop_main.cpp.i
+.PHONY : loop_main.i
+
+# target to preprocess a source file
+loop_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/start_commands.dir/build.make CMakeFiles/start_commands.dir/loop_main.cpp.i
+.PHONY : loop_main.cpp.i
+
+loop_main.s: loop_main.cpp.s
+.PHONY : loop_main.s
+
+# target to generate assembly for a file
+loop_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/start_commands.dir/build.make CMakeFiles/start_commands.dir/loop_main.cpp.s
+.PHONY : loop_main.cpp.s
+
+loop_recon.o: loop_recon.cpp.o
+.PHONY : loop_recon.o
+
+# target to build an object file
+loop_recon.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/loop_recon.dir/build.make CMakeFiles/loop_recon.dir/loop_recon.cpp.o
+.PHONY : loop_recon.cpp.o
+
+loop_recon.i: loop_recon.cpp.i
+.PHONY : loop_recon.i
+
+# target to preprocess a source file
+loop_recon.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/loop_recon.dir/build.make CMakeFiles/loop_recon.dir/loop_recon.cpp.i
+.PHONY : loop_recon.cpp.i
+
+loop_recon.s: loop_recon.cpp.s
+.PHONY : loop_recon.s
+
+# target to generate assembly for a file
+loop_recon.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/loop_recon.dir/build.make CMakeFiles/loop_recon.dir/loop_recon.cpp.s
+.PHONY : loop_recon.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -153,6 +240,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Recon.dir/build.make CMakeFiles/Recon.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+take_commands.o: take_commands.cpp.o
+.PHONY : take_commands.o
+
+# target to build an object file
+take_commands.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/take_commands.dir/build.make CMakeFiles/take_commands.dir/take_commands.cpp.o
+.PHONY : take_commands.cpp.o
+
+take_commands.i: take_commands.cpp.i
+.PHONY : take_commands.i
+
+# target to preprocess a source file
+take_commands.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/take_commands.dir/build.make CMakeFiles/take_commands.dir/take_commands.cpp.i
+.PHONY : take_commands.cpp.i
+
+take_commands.s: take_commands.cpp.s
+.PHONY : take_commands.s
+
+# target to generate assembly for a file
+take_commands.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/take_commands.dir/build.make CMakeFiles/take_commands.dir/take_commands.cpp.s
+.PHONY : take_commands.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +273,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Recon"
+	@echo "... loop_recon"
+	@echo "... start_commands"
+	@echo "... take_commands"
+	@echo "... loop_main.o"
+	@echo "... loop_main.i"
+	@echo "... loop_main.s"
+	@echo "... loop_recon.o"
+	@echo "... loop_recon.i"
+	@echo "... loop_recon.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... take_commands.o"
+	@echo "... take_commands.i"
+	@echo "... take_commands.s"
 .PHONY : help
 
 

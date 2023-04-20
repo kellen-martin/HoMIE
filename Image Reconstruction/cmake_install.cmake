@@ -1,4 +1,4 @@
-# Install script for directory: /home/homie/HoMIE/Image Reconstruction
+# Install script for directory: /home/rjones2598/HoMIE/CPP
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/homie/HoMIE/Image Reconstruction/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/rjones2598/HoMIE/CPP/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

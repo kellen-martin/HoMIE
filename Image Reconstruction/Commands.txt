@@ -1,0 +1,1 @@
+DETECT Agatha SINGLE_FRAME 1
