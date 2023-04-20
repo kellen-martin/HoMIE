@@ -1,0 +1,1 @@
+/usr/bin/c++  -fopenmp CMakeFiles/take_commands.dir/take_commands.cpp.o -o take_commands 

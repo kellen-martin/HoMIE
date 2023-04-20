@@ -1,3 +1,6 @@
 /home/homie/HoMIE/Image Reconstruction/CMakeFiles/Recon.dir
+/home/homie/HoMIE/Image Reconstruction/CMakeFiles/start_commands.dir
+/home/homie/HoMIE/Image Reconstruction/CMakeFiles/take_commands.dir
+/home/homie/HoMIE/Image Reconstruction/CMakeFiles/loop_recon.dir
 /home/homie/HoMIE/Image Reconstruction/CMakeFiles/edit_cache.dir
 /home/homie/HoMIE/Image Reconstruction/CMakeFiles/rebuild_cache.dir

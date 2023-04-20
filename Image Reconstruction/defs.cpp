@@ -13,7 +13,7 @@ using namespace cv;
 float Zheight       = 2e-3;
 float z_resolution  = 2e-6;
 int Sn_pixels       = 2048;
-int OVS             = 5;
+int OVS             = 2;
 float wavelength    = 405e-9;
 float pixel_p       = 5.5e-6/OVS;
 // float pixel_p       = 1.85e-6/OVS;

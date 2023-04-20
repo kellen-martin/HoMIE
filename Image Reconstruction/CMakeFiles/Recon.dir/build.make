@@ -92,9 +92,12 @@ Recon_EXTERNAL_OBJECTS =
 
 Recon: CMakeFiles/Recon.dir/main.cpp.o
 Recon: CMakeFiles/Recon.dir/build.make
+Recon: /usr/local/lib/libopencv_core.so.4.7.0
 Recon: /usr/local/lib/libopencv_features2d.so.4.7.0
 Recon: /usr/local/lib/libopencv_flann.so.4.7.0
 Recon: /usr/local/lib/libopencv_highgui.so.4.7.0
+Recon: /usr/local/lib/libopencv_imgcodecs.so.4.7.0
+Recon: /usr/local/lib/libopencv_imgproc.so.4.7.0
 Recon: /usr/local/lib/libopencv_photo.so.4.7.0
 Recon: /usr/local/lib/libopencv_video.so.4.7.0
 Recon: /usr/local/lib/libopencv_videoio.so.4.7.0

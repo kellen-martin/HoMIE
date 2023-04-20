@@ -196,7 +196,7 @@ int main(int argc, char *argv[])
 
     if(z_slices[0] == -1){
         // reconstruct all 1000 z-slices
-        for(int slice = -500; slice <= 500; slice+=100){
+        for(int slice = -500; slice <= 500; slice+=20){
 
             if(verbose) cout << "Reconstructing z-slice " << slice + 501 << ": " << endl << endl;
 

@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/rjones2598/HoMIE/CPP
+CMAKE_SOURCE_DIR = "/home/homie/HoMIE/Image Reconstruction"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/rjones2598/HoMIE/CPP
+CMAKE_BINARY_DIR = "/home/homie/HoMIE/Image Reconstruction"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rjones2598/HoMIE/CPP/CMakeFiles /home/rjones2598/HoMIE/CPP//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/homie/HoMIE/Image Reconstruction/CMakeFiles" "/home/homie/HoMIE/Image Reconstruction//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rjones2598/HoMIE/CPP/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/homie/HoMIE/Image Reconstruction/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target

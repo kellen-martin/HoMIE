@@ -380,6 +380,7 @@ CMakeFiles/Recon.dir/main.cpp.o
  /usr/local/include/opencv4/opencv2/video.hpp
  /usr/local/include/opencv4/opencv2/video/tracking.hpp
  /usr/local/include/opencv4/opencv2/video/background_segm.hpp
+ /usr/lib/gcc/aarch64-linux-gnu/11/include/omp.h
  /home/homie/HoMIE/Image Reconstruction/dtypes.cpp
  /home/homie/HoMIE/Image Reconstruction/saveFunctions.cpp
  /home/homie/HoMIE/Image Reconstruction/CalculateTemplate.cpp
@@ -389,4 +390,5 @@ CMakeFiles/Recon.dir/main.cpp.o
  /home/homie/HoMIE/Image Reconstruction/linspace.cpp
  /home/homie/HoMIE/Image Reconstruction/PlotFrame.cpp
  /home/homie/HoMIE/Image Reconstruction/Reconstructor.cpp
+ /home/homie/HoMIE/Image Reconstruction/Reconstructor_Kanka1.cpp
 

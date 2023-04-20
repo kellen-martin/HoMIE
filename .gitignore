@@ -1,4 +1,5 @@
 # List of untracked files to ignore
+*.yml
 *.asv
 Holograms/
 opencv/

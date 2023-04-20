@@ -379,6 +379,7 @@ CMakeFiles/Recon.dir/main.cpp.o: main.cpp \
   /usr/local/include/opencv4/opencv2/video.hpp \
   /usr/local/include/opencv4/opencv2/video/tracking.hpp \
   /usr/local/include/opencv4/opencv2/video/background_segm.hpp \
+  /usr/lib/gcc/aarch64-linux-gnu/11/include/omp.h \
   dtypes.cpp \
   saveFunctions.cpp \
   CalculateTemplate.cpp \
@@ -387,7 +388,8 @@ CMakeFiles/Recon.dir/main.cpp.o: main.cpp \
   ImportImages.cpp \
   linspace.cpp \
   PlotFrame.cpp \
-  Reconstructor.cpp
+  Reconstructor.cpp \
+  Reconstructor_Kanka1.cpp
 
 
 Reconstructor.cpp:
@@ -401,6 +403,8 @@ ImportImages.cpp:
 DifferenceStack.cpp:
 
 saveFunctions.cpp:
+
+/usr/lib/gcc/aarch64-linux-gnu/11/include/omp.h:
 
 /usr/local/include/opencv4/opencv2/photo.hpp:
 
@@ -657,6 +661,8 @@ main.cpp:
 /usr/include/c++/11/cstdio:
 
 /usr/include/aarch64-linux-gnu/bits/time.h:
+
+Reconstructor_Kanka1.cpp:
 
 /usr/include/c++/11/bits/functexcept.h:
 
