@@ -19,8 +19,6 @@ Mat DifferenceStack(vector<Mat>& images)
     for(int i = 0; i < images.size() - 1; i += 2)
     {
         temp += (images[i + 1] - images[i]);
-        // subtract(images[i + 1], images[i], temp1);
-        // add(temp2, temp1, temp2);
     }
     
     if(verbose) cout << "Calculated difference stack (size: " << temp2.rows << " x " << temp2.cols << " x " << temp2.channels() << ")" << endl;

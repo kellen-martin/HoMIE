@@ -7,6 +7,8 @@ using namespace cv;
 void saveRealMat(const cv::Mat_<float>& mat, const std::string& filename, const int rows, const int cols) 
 {
     if(verbose) cout << "saving image ...   ";
+    if(!verbose) cout << "Saving...  ";
+
     std::ofstream file(filename);
     if (file.is_open()) {
         for (int i = 0; i < rows; i++) {
@@ -18,11 +20,14 @@ void saveRealMat(const cv::Mat_<float>& mat, const std::string& filename, const 
         file.close();
     }
     if(verbose) cout << " done." << endl;
+    if(!verbose) cout << "DONE" << endl;
 }
 
 void saveComplexMat(const cv::Mat_<std::complex<float>>& complexMat, const std::string& filename, const int rows, const int cols) 
 {
     if(verbose) cout << "saving image ...   ";
+    if(!verbose) cout << "Saving...  ";
+
     std::ofstream file(filename);
     if (file.is_open()) {
         for (int i = 0; i < rows; i++) {
@@ -33,5 +38,7 @@ void saveComplexMat(const cv::Mat_<std::complex<float>>& complexMat, const std::
         }
         file.close();
     }
+
     if(verbose) cout << " done." << endl;
+    if(!verbose) cout << "DONE" << endl;
 }

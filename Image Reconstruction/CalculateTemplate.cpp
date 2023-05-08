@@ -16,6 +16,8 @@ using namespace cv;
 rval CalculateTemplate()
 {
     if(verbose) cout << "----------------- Calculate Template ----------------" << endl;
+    
+    if(!verbose) cout << "Calculating Templates" << endl;
 
     float template_pos_x = 0;
     float template_pos_y = 0;
@@ -76,10 +78,7 @@ rval CalculateTemplate()
 
         for(int i = 0; i < ref_n_waves.cols; i++)
         {
-            // float y = ((float)(2*pi))*ref_n_waves.at<float>(1, i);
-            // ref_wave.at<complex<float>>(ix, i) = ((complex<float>)ref_amp)*(((complex<float>)cos(y)) + I*((complex<float>)sin(y)));
             ref_wave.at<complex<float>>(ix, i) = (((complex<float>)(ref_amp))*exp(I*((complex<float>)(((float)(2.0*pi))*ref_n_waves.at<float>(0, i)))));
-
         } // calculated reference wave (line 30 MATLAB CalculateTemplate.m) ////////////////////
 
         /////////////////////////////// template wave calculation: /////////////////////////////
@@ -120,7 +119,7 @@ rval CalculateTemplate()
 
     // saveRealMat(ref_n_waves, "../Output-Images/ref_n_waves.txt", 1, 6000);
     // saveComplexMat(ref_wave, "../Output-Images/ref.txt", 6000, 6000);
-    saveComplexMat(template_wave, "../Output-Images/temp.txt", 6000, 6000);
+    // saveComplexMat(template_wave, "../Output-Images/temp.txt", n_pixels, n_pixels);
 
     if(verbose) cout << "  pixel_p: " << pixel_p << endl;
     if(verbose)
@@ -187,7 +186,8 @@ rval CalculateTemplate()
     if(verbose) cout << "    reference: " << ret.ref_wave.rows << " x " << ret.ref_wave.cols << " x " << ret.ref_wave.channels() << endl;
     if(verbose) cout << "    template:  " << template_wave.rows << " x " << ret.template_wave.cols << " x " << ret.template_wave.channels() << endl;
     if(verbose) cout << "-----------------------------------------------------" << endl;
-
+    if(!verbose) cout << "Templates DONE" << endl << endl;
+    
     return ret;
 
 }
